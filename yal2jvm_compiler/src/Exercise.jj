@@ -4,8 +4,8 @@
  */options{  static = true;}PARSER_BEGIN(parserGrammar)
 public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants/*@egen*/{/*@bgen(jjtree)*/
   protected static JJTparserGrammarState jjtree = new JJTparserGrammarState();
-
-/*@egen*/  public static void main(String args []) throws ParseException  {    parserGrammar parser = new parserGrammar(System.in);  }}PARSER_END(parserGrammar)
+/*@egen*/  public static void main(String args []) throws ParseException  {
+    /*init*/    parserGrammar parser = new parserGrammar(System.in);  }}PARSER_END(parserGrammar)
 <DEFAULT> SKIP : {
 " "
 | "\t"
