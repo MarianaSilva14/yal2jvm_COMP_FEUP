@@ -5,7 +5,7 @@
 public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants/*@egen*/{/*@bgen(jjtree)*/
   protected static JJTparserGrammarState jjtree = new JJTparserGrammarState();
 
-/*@egen*/  public static void main(String args []) throws ParseException  {    parserGrammar parser = new parserGrammar(System.in);    while (true)    {      System.out.println("Reading from standard input...");      System.out.print("Enter an expression like \"1+(2+3)*4;\" :");      try      {        switch (parserGrammar.one_line())        {          case 0 :           System.out.println("OK.");          break;          case 1 :           System.out.println("Goodbye.");          break;          default :           break;        }      }      catch (Exception e)      {        System.out.println("NOK.");        System.out.println(e.getMessage());        parserGrammar.ReInit(System.in);      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(parserGrammar)
+/*@egen*/  public static void main(String args []) throws ParseException  {    parserGrammar parser = new parserGrammar(System.in);  }}PARSER_END(parserGrammar)
 <DEFAULT> SKIP : {
 " "
 | "\t"
