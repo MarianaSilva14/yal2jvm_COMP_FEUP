@@ -67,21 +67,21 @@ void Module():{}
 
 void Declaration():{}
 {
-( ArrayElement() | ScalarElement() ) ( <ASSIGN> ( ( "[" ArraySize() "]" ) | (<ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
+( LOOKAHEAD(2) ArrayElement() | ScalarElement() ) ( <ASSIGN> ( ( "[" ArraySize() "]" ) | (<ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
   
 }
 
 
 void Function():{}
 {
-  ( ( <FUNCTION> ( ArrayElement() | ScalarElement() ) <ASSIGN> <ID> <LPAR> (
+  ( LOOKAHEAD(3) ( <FUNCTION> ( LOOKAHEAD(3) ArrayElement() | ScalarElement() ) <ASSIGN> <ID> <LPAR> (
 Varlist() )? <RPAR> ) | ( <FUNCTION> <ID> <LPAR> ( Varlist() )? <RPAR> ) )
 <LCHAVETA> Stmtlst() <RCHAVETA>
 }
 
 void Varlist():{}
 {
-( ArrayElement() | ScalarElement() ) ( <VIRG> ( ArrayElement() | ScalarElement() ))*
+( LOOKAHEAD(2) ArrayElement() | ScalarElement() ) ( <VIRG> ( LOOKAHEAD(2) ArrayElement() | ScalarElement() ))*
 }
 
 void ArrayElement():{}
@@ -103,7 +103,7 @@ void Stmt():{}
 {
 While()
 | If()
-| Assign()
+| LOOKAHEAD(2) Assign()
 | Call() <PVIRG>
 }
 
@@ -131,7 +131,7 @@ ScalarAccess()
 
 void Term():{}
 {
-( <ADDSUB_OP> )? ( <INTEGER> | Call() | ArrayAccess() | ScalarAccess()
+( <ADDSUB_OP> )? ( <INTEGER> | LOOKAHEAD(3) Call() | LOOKAHEAD(2) ArrayAccess() | ScalarAccess()
 )
 }
 
