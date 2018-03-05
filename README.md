@@ -1,4 +1,4 @@
-# COMP-feup
+# feup-COMP
 
 - Francisca Cerquinho, up201505791@fe.up.pt
 - Mariana Silva, up201506197@fe.up.pt
