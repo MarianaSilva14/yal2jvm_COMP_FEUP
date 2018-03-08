@@ -41,8 +41,16 @@ try {ParseException e = generateParseException();  // generate the exception obj
   System.out.println(e.toString());  // print the error message
   Token t;
   int token_kind;
+  boolean consume = false;
   do{
-    token_kind = jj_ntk();
+
+        if(consume)
+                t = getNextToken();
+
+        token_kind = jj_ntk();
+
+        consume = true;
+
   } while (token_kind != kind);/*@bgen(jjtree)*/
 } finally {
   if (jjtc000) {
@@ -1068,56 +1076,6 @@ try {ParseException e = generateParseException();  // generate the exception obj
     finally { jj_save(8, xla); }
   }
 
-  static private boolean jj_3_3() {
-    if (jj_scan_token(FUNCTION)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_2()) {
-    jj_scanpos = xsp;
-    if (jj_3R_7()) return true;
-    }
-    if (jj_scan_token(ASSIGN)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_9() {
-    if (jj_scan_token(ID)) return true;
-    if (jj_scan_token(31)) return true;
-    if (jj_3R_23()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_21() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(8)) jj_scanpos = xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(26)) {
-    jj_scanpos = xsp;
-    if (jj_3_8()) {
-    jj_scanpos = xsp;
-    if (jj_3_9()) {
-    jj_scanpos = xsp;
-    if (jj_3R_25()) return true;
-    }
-    }
-    }
-    return false;
-  }
-
-  static private boolean jj_3R_14() {
-    if (jj_scan_token(33)) return true;
-    if (jj_scan_token(ID)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_1() {
-    if (jj_scan_token(ID)) return true;
-    if (jj_scan_token(31)) return true;
-    if (jj_scan_token(32)) return true;
-    return false;
-  }
-
   static private boolean jj_3R_22() {
     Token xsp;
     xsp = jj_scanpos;
@@ -1178,13 +1136,13 @@ try {ParseException e = generateParseException();  // generate the exception obj
     return false;
   }
 
-  static private boolean jj_3R_16() {
-    if (jj_3R_20()) return true;
+  static private boolean jj_3_2() {
+    if (jj_3R_6()) return true;
     return false;
   }
 
-  static private boolean jj_3_2() {
-    if (jj_3R_6()) return true;
+  static private boolean jj_3R_16() {
+    if (jj_3R_20()) return true;
     return false;
   }
 
@@ -1272,6 +1230,56 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static private boolean jj_3_9() {
     if (jj_3R_9()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_3() {
+    if (jj_scan_token(FUNCTION)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_2()) {
+    jj_scanpos = xsp;
+    if (jj_3R_7()) return true;
+    }
+    if (jj_scan_token(ASSIGN)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_1() {
+    if (jj_scan_token(ID)) return true;
+    if (jj_scan_token(31)) return true;
+    if (jj_scan_token(32)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_9() {
+    if (jj_scan_token(ID)) return true;
+    if (jj_scan_token(31)) return true;
+    if (jj_3R_23()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_21() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(8)) jj_scanpos = xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(26)) {
+    jj_scanpos = xsp;
+    if (jj_3_8()) {
+    jj_scanpos = xsp;
+    if (jj_3_9()) {
+    jj_scanpos = xsp;
+    if (jj_3R_25()) return true;
+    }
+    }
+    }
+    return false;
+  }
+
+  static private boolean jj_3R_14() {
+    if (jj_scan_token(33)) return true;
+    if (jj_scan_token(ID)) return true;
     return false;
   }
 

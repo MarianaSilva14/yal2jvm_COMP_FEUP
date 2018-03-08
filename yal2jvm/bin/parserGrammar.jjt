@@ -46,8 +46,16 @@ void skipto_do_not_consume_last(int kind) {
   System.out.println(e.toString());  // print the error message
   Token t;
   int token_kind;
+  boolean consume = false;
   do{
-    token_kind = jj_ntk();
+
+	if(consume)
+		t = getNextToken();
+
+	token_kind = jj_ntk();
+	
+	consume = true;
+   	
   } while (token_kind != kind);
 
 }
@@ -129,8 +137,7 @@ void Function():{}
 	  	skipto(LPAR);
 	}
 
-	( Varlist() )? <RPAR> 
-		<LCHAVETA> Stmtlst() <RCHAVETA>
+	( Varlist() )? <RPAR> <LCHAVETA> Stmtlst() <RCHAVETA>
 }
 
 void Varlist():{}
