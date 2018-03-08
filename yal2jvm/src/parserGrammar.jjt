@@ -11,13 +11,14 @@ public class parserGrammar
 {
   public static void main(String args []) throws ParseException, FileNotFoundException
   {
-    //parserGrammar parser = new parserGrammar(System.in);
-    parserGrammar parser;
+	parserGrammar parser = new parserGrammar(System.in);
+	parser.Module();
+    /*parserGrammar parser;
     
     InputStream stream = new FileInputStream(args[0]);
     parser = new parserGrammar(stream);
       
-	parser.Module();
+	parser.Module();*/
   }
 }
 
@@ -37,6 +38,20 @@ void skipto(int kind) {
     // (in our case the token immediately before what should have been
     // "if"/"while".
 }
+
+
+JAVACODE
+void skipto_do_not_consume_last(int kind) {
+  ParseException e = generateParseException();  // generate the exception object.
+  System.out.println(e.toString());  // print the error message
+  Token t;
+  int token_kind;
+  do{
+    token_kind = jj_ntk();
+  } while (token_kind != kind);
+
+}
+
 
 <DEFAULT> SKIP : {
 " "
@@ -80,63 +95,56 @@ void skipto(int kind) {
 
 void Module():{}
 {
-  try { 
+  
   		<MODULE> <ID> <LCHAVETA>  ( Declaration() )* ( Function() )* <RCHAVETA>
- }
- catch(ParseException exception) {
-	System.out.println("CATCH MODULE");
-	Declaration();
-	Function();
-	skipto(PVIRG);
- }
 
 }
 
 void Declaration():{}
 {
    try { 
-( LOOKAHEAD(<ID>"[" "]") ArrayElement() | ScalarElement() ) ( <ASSIGN> ( ( "[" ArraySize() "]" ) | (<ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
-}
+		( LOOKAHEAD(<ID>"[" "]") ArrayElement() | ScalarElement() ) ( <ASSIGN> ( ( "[" ArraySize() "]" ) | (<ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
+	}
 
-catch(ParseException exception) {
-	skipto(PVIRG);
-}
+	catch(ParseException exception) {
+		System.out.println("CATCH DECLARATION");  
+		//skipto(PVIRG);
+	}
 }
 
 
 void Function():{}
 {
-  try {
-    
-  ( LOOKAHEAD(3) ( <FUNCTION> ( LOOKAHEAD(2) ArrayElement() | ScalarElement() ) <ASSIGN> <ID> <LPAR> (
-Varlist() )? <RPAR> ) | ( <FUNCTION> <ID> <LPAR> ( Varlist() )? <RPAR> ) )
-<LCHAVETA> Stmtlst() <RCHAVETA>
+  	try {
+		    
+  		( LOOKAHEAD(3) ( <FUNCTION> ( LOOKAHEAD(2) ArrayElement() | ScalarElement() ) <ASSIGN> <ID> ) |
+  		( <FUNCTION> <ID>  ))
+		<LPAR> 
 	}
+
 	catch(ParseException exception) {
 		System.out.println("CATCH FUNCTION");
 		 //System.out.println(exception.currentToken.image);
 		 //System.out.println(exception.getMessage());
-	  	skipto(LPAR);	  	Varlist();
-/*	  	skipto(RPAR);
-	  	skipto(LCHAVETA); */
-	  	Stmtlst();
-	  	skipto(RCHAVETA);
-	
+	  	skipto(LPAR);
 	}
+
+	( Varlist() )? <RPAR> 
+		<LCHAVETA> Stmtlst() <RCHAVETA>
 }
 
 void Varlist():{}
 {
-  try { 
-( LOOKAHEAD(2) ArrayElement() | ScalarElement() ) ( <VIRG> ( LOOKAHEAD(2) ArrayElement() | ScalarElement() ))*
+  	try {
+  	  
+		( LOOKAHEAD(2) ArrayElement() | ScalarElement() ) ( <VIRG> ( LOOKAHEAD(2) ArrayElement() | ScalarElement() ))*
 
-}
+	}
 
-catch(ParseException exception) {
+	catch(ParseException exception) {
 		System.out.println("CATCH VARLIST");
-	
-	skipto(LCHAVETA);
-}
+		skipto_do_not_consume_last(RPAR);
+	}
 }
 
 void ArrayElement():{}
@@ -151,123 +159,122 @@ void ScalarElement():{}
 
 void Stmtlst():{}
 {
-try { 
-( Stmt() )*
-}
+	try { 
+		( Stmt() )*
+	}
 
-catch(ParseException exception) {
-  System.out.println("CATCH STMLST");
-}
+	catch(ParseException exception) {
+  		System.out.println("CATCH STMLST");
+	}
 }
 
 void Stmt():{}
 {
-try {
-  While()
-| If()
-| LOOKAHEAD(3) Assign()
-| Call() <PVIRG>
-}
+	try {
+  		While()
+		| If()
+		| LOOKAHEAD(3) Assign()
+		| Call() <PVIRG>
+	}
 
-catch(ParseException exception) {
+	catch(ParseException exception) {
 		System.out.println("CATCH STMT");
 		skipto(PVIRG);
-}
+	}
 
 }
 
 void Assign():{}
 {
-Lhs() <ASSIGN> Rhs() <PVIRG>
+		Lhs() <ASSIGN> Rhs() <PVIRG>
 }
 
 void Lhs():{}
 {
- LOOKAHEAD(2) ArrayAccess()
-| ScalarAccess()
+ 		LOOKAHEAD(2) ArrayAccess()
+		| ScalarAccess()
 }
 
 void Rhs():{}
 {
-( Term() ( ( <ARITH_OP> | <BITWISE_OP> | <ADDSUB_OP> ) Term() )? )
-| "[" ArraySize() "]"
+		( Term() ( ( <ARITH_OP> | <BITWISE_OP> | <ADDSUB_OP> ) Term() )? )
+		| "[" ArraySize() "]"
 }
 
 void ArraySize():{}
 {
-ScalarAccess()
-| <INTEGER>
+		ScalarAccess()
+		| <INTEGER>
 }
 
 void Term():{}
 {
-( <ADDSUB_OP> )? ( <INTEGER> | LOOKAHEAD(3) Call() | LOOKAHEAD(2) ArrayAccess() | ScalarAccess()
-)
+		( <ADDSUB_OP> )? ( <INTEGER> | LOOKAHEAD(3) Call() | LOOKAHEAD(2) ArrayAccess() | ScalarAccess()
+		)
 }
 
 void Exprtest ():{}
 {
   try { 
- <LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
-}
+ 		<LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
+	}
 
-catch (ParseException exception) {
+	catch (ParseException exception) {
 		System.out.println("CATCH EXPRTEST");
-  skipto(RPAR);
-}
+  		skipto(RPAR);
+	}
 }
 
 void While():{}
 {
   
-try { 
+//try { 
 <WHILE> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
-}
+/*}
 
 catch(ParseException exception) {
-System.out.println("CATCH WHILE");
-	skipto(LCHAVETA);
-	Stmtlst();
-	skipto(RCHAVETA);
-	
-}
+	System.out.println("CATCH WHILE");
+
+}*/
 
 
 }
 
 void If():{}
 {
- <IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA> ( <ELSE> <LCHAVETA>
-Stmtlst() <RCHAVETA> )?
+ 		<IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA> ( <ELSE> <LCHAVETA>
+		Stmtlst() <RCHAVETA> )?
 }
 
 void Call():{}
 {
-<ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
+  	
+		<ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
+	
 }
 
 void ArgumentList():{}
 {
- Argument() ( <VIRG> Argument() )*
+ 	Argument() ( <VIRG> Argument() )*
 }
 
 void Argument():{}
 {
-  ( <ID> | <STRING> | <INTEGER> )
+  	( <ID> | <STRING> | <INTEGER> )
 }
 
 void ArrayAccess():{}
 {
-<ID> "[" Index() "]"
+	<ID> "[" Index() "]"
 }
 
 void ScalarAccess():{}
 {
-<ID> ( "." <SIZE> )?
+	<ID> ( "." <SIZE> )?
 }
 
 void Index():{}
 {
-<ID>
-| <INTEGER>
+		<ID>
+		| <INTEGER>
 }
