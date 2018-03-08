@@ -103,20 +103,33 @@ void skipto_do_not_consume_last(int kind) {
 
 void Module():{}
 {
-  
-  		<MODULE> <ID> <LCHAVETA>  ( Declaration() )* ( Function() )* <RCHAVETA>
+  	
+  	<MODULE> <ID> <LCHAVETA>  ( Declaration() )*
+
+	try { 
+
+  		( Function() )* <RCHAVETA>
+
+ 	}
+
+ 	catch(ParseException exception) {
+
+		skipto(RCHAVETA);
+
+ 	}
 
 }
 
 void Declaration():{}
 {
-   try { 
+	try { 
+
 		( LOOKAHEAD(<ID>"[" "]") ArrayElement() | ScalarElement() ) ( <ASSIGN> ( ( "[" ArraySize() "]" ) | (<ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
 	}
 
 	catch(ParseException exception) {
-		System.out.println("CATCH DECLARATION");  
-		//skipto(PVIRG);
+		System.out.println("CATCH DECLARATION");
+		skipto(PVIRG);
 	}
 }
 
@@ -137,7 +150,17 @@ void Function():{}
 	  	skipto(LPAR);
 	}
 
-	( Varlist() )? <RPAR> <LCHAVETA> Stmtlst() <RCHAVETA>
+	try {
+	  ( Varlist() )? <RPAR>
+
+	}
+
+	catch(ParseException exception) {
+		System.out.println("CATCH VARLIST RPAR");
+		skipto(RPAR);
+	}
+
+	<LCHAVETA> Stmtlst() <RCHAVETA>
 }
 
 void Varlist():{}
@@ -161,7 +184,13 @@ void ArrayElement():{}
 
 void ScalarElement():{}
 {
-<ID>
+  	//try { 
+		<ID>
+	/*}
+	catch(ParseException exception) {
+
+		System.out.println("CATCH SCALARELEMENT");
+	}*/
 }
 
 void Stmtlst():{}
@@ -235,16 +264,19 @@ void Exprtest ():{}
 void While():{}
 {
   
-//try { 
-<WHILE> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
-/*}
+	try { 
 
-catch(ParseException exception) {
-	System.out.println("CATCH WHILE");
+		<WHILE> Exprtest() <LCHAVETA>
+	}
 
-}*/
+	catch(ParseException exception) {
 
+		System.out.println("CATCH WHILE");
+		skipto(LCHAVETA);
 
+	}
+
+	Stmtlst() <RCHAVETA>
 }
 
 void If():{}
