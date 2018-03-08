@@ -1,6 +1,3 @@
-/**
- * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
- */
 options
 {
   LOOKAHEAD=1;
@@ -8,11 +5,18 @@ options
 
 PARSER_BEGIN(parserGrammar)
 
+import java.io.*;
+
 public class parserGrammar
 {
-  public static void main(String args []) throws ParseException
+  public static void main(String args []) throws ParseException, FileNotFoundException
   {
-    parserGrammar parser = new parserGrammar(System.in);
+    //parserGrammar parser = new parserGrammar(System.in);
+    parserGrammar parser;
+    
+    InputStream stream = new FileInputStream(args[0]);
+    parser = new parserGrammar(stream);
+      
 	parser.Module();
   }
 }
@@ -76,15 +80,27 @@ void skipto(int kind) {
 
 void Module():{}
 {
+  try { 
   		<MODULE> <ID> <LCHAVETA>  ( Declaration() )* ( Function() )* <RCHAVETA>
+ }
+ catch(ParseException exception) {
+	System.out.println("CATCH MODULE");
+	Declaration();
+	Function();
+	skipto(PVIRG);
+ }
 
 }
 
 void Declaration():{}
 {
-   
+   try { 
 ( LOOKAHEAD(<ID>"[" "]") ArrayElement() | ScalarElement() ) ( <ASSIGN> ( ( "[" ArraySize() "]" ) | (<ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
+}
 
+catch(ParseException exception) {
+	skipto(PVIRG);
+}
 }
 
 
@@ -97,13 +113,14 @@ Varlist() )? <RPAR> ) | ( <FUNCTION> <ID> <LPAR> ( Varlist() )? <RPAR> ) )
 <LCHAVETA> Stmtlst() <RCHAVETA>
 	}
 	catch(ParseException exception) {
-		System.out.println("Chegou aqui2");
+		System.out.println("CATCH FUNCTION");
 		 //System.out.println(exception.currentToken.image);
 		 //System.out.println(exception.getMessage());
 	  	skipto(LPAR);	  	Varlist();
-/*	  	skipto(LCHAVETA);
+/*	  	skipto(RPAR);
+	  	skipto(LCHAVETA); */
 	  	Stmtlst();
-	  	skipto(RCHAVETA);*/
+	  	skipto(RCHAVETA);
 	
 	}
 }
@@ -116,8 +133,9 @@ void Varlist():{}
 }
 
 catch(ParseException exception) {
-
-	skipto(RPAR);
+		System.out.println("CATCH VARLIST");
+	
+	skipto(LCHAVETA);
 }
 }
 
@@ -133,7 +151,13 @@ void ScalarElement():{}
 
 void Stmtlst():{}
 {
+try { 
 ( Stmt() )*
+}
+
+catch(ParseException exception) {
+  System.out.println("CATCH STMLST");
+}
 }
 
 void Stmt():{}
@@ -146,8 +170,8 @@ try {
 }
 
 catch(ParseException exception) {
-  System.out.println("Chegou stmt");
-  skipto(PVIRG);
+		System.out.println("CATCH STMT");
+		skipto(PVIRG);
 }
 
 }
@@ -188,18 +212,20 @@ void Exprtest ():{}
 }
 
 catch (ParseException exception) {
+		System.out.println("CATCH EXPRTEST");
   skipto(RPAR);
 }
 }
 
 void While():{}
 {
+  
 try { 
 <WHILE> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
 }
 
 catch(ParseException exception) {
-  System.out.println("Chegou ao while");
+System.out.println("CATCH WHILE");
 	skipto(LCHAVETA);
 	Stmtlst();
 	skipto(RCHAVETA);
