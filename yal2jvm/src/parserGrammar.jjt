@@ -11,14 +11,26 @@ public class parserGrammar
 {
   public static void main(String args []) throws ParseException, FileNotFoundException
   {
-	parserGrammar parser = new parserGrammar(System.in);
-	parser.Module();
-    /*parserGrammar parser;
-    
-    InputStream stream = new FileInputStream(args[0]);
+    /* Open File */
+	/*
+  	InputStream stream = new FileInputStream(args[0]);
     parser = new parserGrammar(stream);
       
-	parser.Module();*/
+	*/
+	
+
+	/* Parser creation */
+	parserGrammar parser = new parserGrammar(System.in);//em vez de System.in, passar o nome da variavel do ficheiro
+	SimpleNode root = parser.Module();
+
+	/* AST Print */
+	System.out.println("//////////////////////////////");
+	System.out.println("//// Abstract Syntax Tree ////");
+	System.out.println("//////////////////////////////");
+	System.out.println("");
+	root.dump("");
+	
+   
   }
 }
 
@@ -91,6 +103,9 @@ void skipto_do_not_consume_last(int kind) {
 | <FUNCTION: "function">
 | <MODULE: "module">
 | <SIZE: "size">
+| <LPAR_RECT: "[">
+| <RPAR_RECT: "]">
+| <DOT: ".">
 }
 
 <DEFAULT> TOKEN : {
@@ -101,33 +116,28 @@ void skipto_do_not_consume_last(int kind) {
 | <STRING: "\"" (["a"-"z","A"-"Z","0"-"9",":"," ","="])+ "\"">
 }
 
-void Module():{}
+SimpleNode Module():{}
 {
-  	
-  	<MODULE> <ID> <LCHAVETA>  ( Declaration() )*
+  	<MODULE> <ID> <LCHAVETA> ( Declaration() )*     
 
 	try { 
+  		( Function() )*
+  		<RCHAVETA>         
 
-  		( Function() )* <RCHAVETA>
-
- 	}
-
- 	catch(ParseException exception) {
-
+ 	}catch(ParseException exception) {
 		skipto(RCHAVETA);
-
  	}
-
+ 	
+ 	{return jjtThis;}
 }
 
 void Declaration():{}
 {
 	try { 
+		(LOOKAHEAD(<ID>	<LPAR_RECT> <RPAR_RECT>) ArrayElement() | ScalarElement() )
+		( <ASSIGN> ( ( <LPAR_RECT> ArraySize() <RPAR_RECT> ) | (<ADDSUB_OP>)? <INTEGER>) )?<PVIRG>                
 
-		( LOOKAHEAD(<ID>"[" "]") ArrayElement() | ScalarElement() ) ( <ASSIGN> ( ( "[" ArraySize() "]" ) | (<ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
-	}
-
-	catch(ParseException exception) {
+	}catch(ParseException exception) {
 		System.out.println("CATCH DECLARATION");
 		skipto(PVIRG);
 	}
@@ -137,13 +147,10 @@ void Declaration():{}
 void Function():{}
 {
   	try {
-		    
-  		( LOOKAHEAD(3) ( <FUNCTION> ( LOOKAHEAD(2) ArrayElement() | ScalarElement() ) <ASSIGN> <ID> ) |
-  		( <FUNCTION> <ID>  ))
-		<LPAR> 
-	}
-
-	catch(ParseException exception) {
+  		( LOOKAHEAD(3) ( <FUNCTION> ( LOOKAHEAD(2) ArrayElement() | ScalarElement() )
+  		 <ASSIGN> <ID> ) | ( <FUNCTION> <ID>  )) <LPAR>
+  		 
+	}catch(ParseException exception) {
 		System.out.println("CATCH FUNCTION");
 		 //System.out.println(exception.currentToken.image);
 		 //System.out.println(exception.getMessage());
@@ -153,9 +160,7 @@ void Function():{}
 	try {
 	  ( Varlist() )? <RPAR>
 
-	}
-
-	catch(ParseException exception) {
+	}catch(ParseException exception) {
 		System.out.println("CATCH VARLIST RPAR");
 		skipto(RPAR);
 	}
@@ -166,12 +171,10 @@ void Function():{}
 void Varlist():{}
 {
   	try {
-  	  
-		( LOOKAHEAD(2) ArrayElement() | ScalarElement() ) ( <VIRG> ( LOOKAHEAD(2) ArrayElement() | ScalarElement() ))*
+		( LOOKAHEAD(2) ArrayElement() | ScalarElement() )
+		( <VIRG> ( LOOKAHEAD(2) ArrayElement() | ScalarElement() ))*
 
-	}
-
-	catch(ParseException exception) {
+	}catch(ParseException exception) {
 		System.out.println("CATCH VARLIST");
 		skipto_do_not_consume_last(RPAR);
 	}
@@ -234,7 +237,7 @@ void Lhs():{}
 void Rhs():{}
 {
 		( Term() ( ( <ARITH_OP> | <BITWISE_OP> | <ADDSUB_OP> ) Term() )? )
-		| "[" ArraySize() "]"
+		| <LPAR_RECT> ArraySize() <RPAR_RECT>
 }
 
 void ArraySize():{}
@@ -245,7 +248,11 @@ void ArraySize():{}
 
 void Term():{}
 {
-		( <ADDSUB_OP> )? ( <INTEGER> | LOOKAHEAD(3) Call() | LOOKAHEAD(2) ArrayAccess() | ScalarAccess()
+		( <ADDSUB_OP> )?
+		( <INTEGER>
+		| LOOKAHEAD(3) Call()
+		| LOOKAHEAD(2) ArrayAccess()
+		| ScalarAccess()
 		)
 }
 
@@ -281,14 +288,13 @@ void While():{}
 
 void If():{}
 {
- 		<IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA> ( <ELSE> <LCHAVETA>
-		Stmtlst() <RCHAVETA> )?
+ 		<IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
+ 		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA> )?
 }
 
 void Call():{}
 {
-  	
-		<ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
+		<ID> ( <DOT> <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
 	
 }
 
@@ -304,16 +310,15 @@ void Argument():{}
 
 void ArrayAccess():{}
 {
-	<ID> "[" Index() "]"
+	<ID> <LPAR_RECT> Index() <RPAR_RECT>
 }
 
 void ScalarAccess():{}
 {
-	<ID> ( "." <SIZE> )?
+	<ID> ( <DOT> <SIZE> )?
 }
 
 void Index():{}
 {
-		<ID>
-		| <INTEGER>
+		<ID> | <INTEGER>
 }

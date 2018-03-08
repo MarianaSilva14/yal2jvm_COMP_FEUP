@@ -47,15 +47,21 @@ public interface parserGrammarConstants {
   /** RegularExpression Id. */
   int SIZE = 25;
   /** RegularExpression Id. */
-  int INTEGER = 26;
+  int LPAR_RECT = 26;
   /** RegularExpression Id. */
-  int ID = 27;
+  int RPAR_RECT = 27;
   /** RegularExpression Id. */
-  int LETTER = 28;
+  int DOT = 28;
   /** RegularExpression Id. */
-  int DIGIT = 29;
+  int INTEGER = 29;
   /** RegularExpression Id. */
-  int STRING = 30;
+  int ID = 30;
+  /** RegularExpression Id. */
+  int LETTER = 31;
+  /** RegularExpression Id. */
+  int DIGIT = 32;
+  /** RegularExpression Id. */
+  int STRING = 33;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -88,14 +94,14 @@ public interface parserGrammarConstants {
     "\"function\"",
     "\"module\"",
     "\"size\"",
+    "\"[\"",
+    "\"]\"",
+    "\".\"",
     "<INTEGER>",
     "<ID>",
     "<LETTER>",
     "<DIGIT>",
     "<STRING>",
-    "\"[\"",
-    "\"]\"",
-    "\".\"",
   };
 
 }
