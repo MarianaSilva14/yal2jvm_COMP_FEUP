@@ -1,6 +1,7 @@
 options
 {
   LOOKAHEAD=1;
+  MULTI=true;
 }
 
 PARSER_BEGIN(parserGrammar)
@@ -12,11 +13,11 @@ public class parserGrammar
   public static void main(String args []) throws ParseException, FileNotFoundException
   {
     /* Open File */
-	/*
-  	InputStream stream = new FileInputStream(args[0]);
-    parser = new parserGrammar(stream);
+	
+  	/*InputStream stream = new FileInputStream(args[0]);
+    parser = new parserGrammar(stream);*/
       
-	*/
+	
 	
 
 	/* Parser creation */

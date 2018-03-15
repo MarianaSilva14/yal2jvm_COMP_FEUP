@@ -5,11 +5,11 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
   protected static JJTparserGrammarState jjtree = new JJTparserGrammarState();public static void main(String args []) throws ParseException, FileNotFoundException
   {
     /* Open File */
-        /*
-  	InputStream stream = new FileInputStream(args[0]);
-    parser = new parserGrammar(stream);
-      
-	*/
+
+        /*InputStream stream = new FileInputStream(args[0]);
+    parser = new parserGrammar(stream);*/
+
+
 
 
         /* Parser creation */
@@ -28,7 +28,7 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
 
   static void skipto(int kind) throws ParseException {
                        /*@bgen(jjtree) skipto */
-SimpleNode jjtn000 = new SimpleNode(JJTSKIPTO);
+ASTskipto jjtn000 = new ASTskipto(JJTSKIPTO);
 boolean jjtc000 = true;
 jjtree.openNodeScope(jjtn000);
 try {ParseException e = generateParseException();  // generate the exception object.
@@ -46,7 +46,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static void skipto_do_not_consume_last(int kind) throws ParseException {
                                            /*@bgen(jjtree) skipto_do_not_consume_last */
-SimpleNode jjtn000 = new SimpleNode(JJTSKIPTO_DO_NOT_CONSUME_LAST);
+ASTskipto_do_not_consume_last jjtn000 = new ASTskipto_do_not_consume_last(JJTSKIPTO_DO_NOT_CONSUME_LAST);
 boolean jjtc000 = true;
 jjtree.openNodeScope(jjtn000);
 try {ParseException e = generateParseException();  // generate the exception object.
@@ -73,7 +73,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public SimpleNode Module() throws ParseException {
                      /*@bgen(jjtree) Module */
-  SimpleNode jjtn000 = new SimpleNode(JJTMODULE);
+  ASTModule jjtn000 = new ASTModule(JJTMODULE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -136,7 +136,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Declaration() throws ParseException {
                     /*@bgen(jjtree) Declaration */
-  SimpleNode jjtn000 = new SimpleNode(JJTDECLARATION);
+  ASTDeclaration jjtn000 = new ASTDeclaration(JJTDECLARATION);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -213,7 +213,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Function() throws ParseException {
                  /*@bgen(jjtree) Function */
-  SimpleNode jjtn000 = new SimpleNode(JJTFUNCTION);
+  ASTFunction jjtn000 = new ASTFunction(JJTFUNCTION);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -294,7 +294,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Varlist() throws ParseException {
                 /*@bgen(jjtree) Varlist */
-  SimpleNode jjtn000 = new SimpleNode(JJTVARLIST);
+  ASTVarlist jjtn000 = new ASTVarlist(JJTVARLIST);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -364,7 +364,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void ArrayElement() throws ParseException {
                      /*@bgen(jjtree) ArrayElement */
-  SimpleNode jjtn000 = new SimpleNode(JJTARRAYELEMENT);
+  ASTArrayElement jjtn000 = new ASTArrayElement(JJTARRAYELEMENT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -380,7 +380,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void ScalarElement() throws ParseException {
                       /*@bgen(jjtree) ScalarElement */
-  SimpleNode jjtn000 = new SimpleNode(JJTSCALARELEMENT);
+  ASTScalarElement jjtn000 = new ASTScalarElement(JJTSCALARELEMENT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -394,7 +394,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Stmtlst() throws ParseException {
                 /*@bgen(jjtree) Stmtlst */
-  SimpleNode jjtn000 = new SimpleNode(JJTSTMTLST);
+  ASTStmtlst jjtn000 = new ASTStmtlst(JJTSTMTLST);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -439,7 +439,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Stmt() throws ParseException {
              /*@bgen(jjtree) Stmt */
-  SimpleNode jjtn000 = new SimpleNode(JJTSTMT);
+  ASTStmt jjtn000 = new ASTStmt(JJTSTMT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -495,7 +495,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Assign() throws ParseException {
                /*@bgen(jjtree) Assign */
-  SimpleNode jjtn000 = new SimpleNode(JJTASSIGN);
+  ASTAssign jjtn000 = new ASTAssign(JJTASSIGN);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -526,7 +526,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Lhs() throws ParseException {
             /*@bgen(jjtree) Lhs */
-  SimpleNode jjtn000 = new SimpleNode(JJTLHS);
+  ASTLhs jjtn000 = new ASTLhs(JJTLHS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -566,7 +566,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Rhs() throws ParseException {
             /*@bgen(jjtree) Rhs */
-  SimpleNode jjtn000 = new SimpleNode(JJTRHS);
+  ASTRhs jjtn000 = new ASTRhs(JJTRHS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -634,7 +634,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void ArraySize() throws ParseException {
                   /*@bgen(jjtree) ArraySize */
-  SimpleNode jjtn000 = new SimpleNode(JJTARRAYSIZE);
+  ASTArraySize jjtn000 = new ASTArraySize(JJTARRAYSIZE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -673,7 +673,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Term() throws ParseException {
              /*@bgen(jjtree) Term */
-  SimpleNode jjtn000 = new SimpleNode(JJTTERM);
+  ASTTerm jjtn000 = new ASTTerm(JJTTERM);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -730,7 +730,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Exprtest() throws ParseException {
                   /*@bgen(jjtree) Exprtest */
-  SimpleNode jjtn000 = new SimpleNode(JJTEXPRTEST);
+  ASTExprtest jjtn000 = new ASTExprtest(JJTEXPRTEST);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -767,7 +767,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void While() throws ParseException {
               /*@bgen(jjtree) While */
-  SimpleNode jjtn000 = new SimpleNode(JJTWHILE);
+  ASTWhile jjtn000 = new ASTWhile(JJTWHILE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -804,7 +804,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void If() throws ParseException {
            /*@bgen(jjtree) If */
-  SimpleNode jjtn000 = new SimpleNode(JJTIF);
+  ASTIf jjtn000 = new ASTIf(JJTIF);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -847,7 +847,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Call() throws ParseException {
              /*@bgen(jjtree) Call */
-  SimpleNode jjtn000 = new SimpleNode(JJTCALL);
+  ASTCall jjtn000 = new ASTCall(JJTCALL);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -896,7 +896,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void ArgumentList() throws ParseException {
                      /*@bgen(jjtree) ArgumentList */
-  SimpleNode jjtn000 = new SimpleNode(JJTARGUMENTLIST);
+  ASTArgumentList jjtn000 = new ASTArgumentList(JJTARGUMENTLIST);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -937,7 +937,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Argument() throws ParseException {
                  /*@bgen(jjtree) Argument */
-  SimpleNode jjtn000 = new SimpleNode(JJTARGUMENT);
+  ASTArgument jjtn000 = new ASTArgument(JJTARGUMENT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -965,7 +965,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void ArrayAccess() throws ParseException {
                     /*@bgen(jjtree) ArrayAccess */
-  SimpleNode jjtn000 = new SimpleNode(JJTARRAYACCESS);
+  ASTArrayAccess jjtn000 = new ASTArrayAccess(JJTARRAYACCESS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -996,7 +996,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void ScalarAccess() throws ParseException {
                      /*@bgen(jjtree) ScalarAccess */
-  SimpleNode jjtn000 = new SimpleNode(JJTSCALARACCESS);
+  ASTScalarAccess jjtn000 = new ASTScalarAccess(JJTSCALARACCESS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -1019,7 +1019,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static final public void Index() throws ParseException {
               /*@bgen(jjtree) Index */
-  SimpleNode jjtn000 = new SimpleNode(JJTINDEX);
+  ASTIndex jjtn000 = new ASTIndex(JJTINDEX);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -1103,11 +1103,6 @@ try {ParseException e = generateParseException();  // generate the exception obj
     try { return !jj_3_9(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(8, xla); }
-  }
-
-  static private boolean jj_3_6() {
-    if (jj_3R_8()) return true;
-    return false;
   }
 
   static private boolean jj_3R_20() {
@@ -1309,6 +1304,11 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static private boolean jj_3_4() {
     if (jj_3R_6()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_6() {
+    if (jj_3R_8()) return true;
     return false;
   }
 
