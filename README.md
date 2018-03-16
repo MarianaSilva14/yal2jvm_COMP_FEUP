@@ -1,4 +1,4 @@
-# README #
+# feup-COMP #
 
 ### What is this repository for? ###
 
