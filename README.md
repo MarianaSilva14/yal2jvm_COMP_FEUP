@@ -1,29 +1,24 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+To apply the knowledge acquired in the course unit Compilers by building a compiler for programs in the yal language. 
+The compiler shall generate valid JVM (Java Virtual Machine) instructions to jasmin, a tool to generate Java bytecodes given assembly programs
+with JVM instructions.
 
-### How do I get set up? ###
+### How to run our compiler? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+Run in the command line:
 
-### Contribution guidelines ###
+* Located in the src folder of the project
+* jjtree parserGrammar.jjt
+* javacc parserGrammar.jj
+* javac *.java
+* java parserGrammar MyFirstYalExamples/< nameOfFile > or java parserGrammar MyFirstYalExamples_1/< nameOfFile >
 
-* Writing tests
-* Code review
-* Other guidelines
+### Members ###
 
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* Francisca Cerquinho, up201505791@fe.up.pt
+* Mariana Silva, up201506197@fe.up.pt
+* Veronica Fradique, up201506440@fe.up.pt
+* Joao Santos, up201504013@fe.up.pt
