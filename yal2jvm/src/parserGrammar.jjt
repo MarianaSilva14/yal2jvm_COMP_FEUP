@@ -2,6 +2,7 @@ options
 {
   LOOKAHEAD=1;
   MULTI=true;
+  static=false;
 }
 
 PARSER_BEGIN(parserGrammar)
@@ -10,19 +11,21 @@ import java.io.*;
 
 public class parserGrammar
 {
+  public static int NumberErrors=0;
+  
   public static void main(String args []) throws ParseException, FileNotFoundException
   {
     /* Open File */
 	
-  	/*InputStream stream = new FileInputStream(args[0]);
-    parser = new parserGrammar(stream);*/
-      
-	
-	
+  	InputStream stream = new FileInputStream(args[0]);
+
+    parserGrammarTokenManager tm= new parserGrammarTokenManager(new SimpleCharStream(stream));
+
+    parserGrammar parser = new parserGrammar(stream);
 
 	/* Parser creation */
-	parserGrammar parser = new parserGrammar(System.in);//em vez de System.in, passar o nome da variavel do ficheiro
-	SimpleNode root = parser.Module();
+	/*parserGrammar parser = new parserGrammar(System.in);//em vez de System.in, passar o nome da variavel do ficheiro*/
+	ASTModule root = parser.Module();
 
 	/* AST Print */
 	System.out.println("//////////////////////////////");
@@ -40,7 +43,8 @@ PARSER_END(parserGrammar)
 JAVACODE
 void skipto(int kind) {
   ParseException e = generateParseException();  // generate the exception object.
-  System.out.println(e.toString());  // print the error message
+  //System.out.println(e.toString());  // print the error message
+  printMessagesError(e);
   Token t;
   do {
     t = getNextToken();
@@ -50,13 +54,15 @@ void skipto(int kind) {
     // current token is the one immediately before the erroneous token
     // (in our case the token immediately before what should have been
     // "if"/"while".
+
 }
 
 
 JAVACODE
 void skipto_do_not_consume_last(int kind) {
   ParseException e = generateParseException();  // generate the exception object.
-  System.out.println(e.toString());  // print the error message
+  //System.out.println(e.toString());  // print the error message
+  printMessagesError(e);
   Token t;
   int token_kind;
   boolean consume = false;
@@ -65,12 +71,37 @@ void skipto_do_not_consume_last(int kind) {
 	if(consume)
 		t = getNextToken();
 
-	token_kind = jj_ntk();
+	token_kind = jj_ntk_f();
 	
 	consume = true;
    	
   } while (token_kind != kind);
 
+}
+
+JAVACODE
+void printMessagesError(ParseException exception) {
+	
+	if(NumberErrors == 0) {
+		System.out.println("ERROR CATCHED");
+	}
+
+	NumberErrors++;
+
+	//System.out.println("Number of errors: ",NumberErrors);
+
+	System.out.println(exception.currentToken.next.image + " Line " +
+	exception.currentToken.beginLine + " Column " +
+	exception.currentToken.beginColumn);
+
+	System.out.println("EXPECTED TOKENS");
+
+	for(int i = 0; i < exception.expectedTokenSequences.length; i++) {
+		for(int k = 0; k < exception.expectedTokenSequences[i].length; k++) {
+			System.out.println(tokenImage[exception.expectedTokenSequences[i][k]]);
+		}
+		
+	} 
 }
 
 
@@ -211,7 +242,7 @@ void Stmt() #void :{}
   		While()
 		| If()
 		| LOOKAHEAD(3) Assign()
-		| Call() <PVIRG>
+		| CallStmt()
 	}
 
 	catch(ParseException exception) {
@@ -290,12 +321,53 @@ void If() #void:{}
  		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA> )?
 }
 
-void Call():{Token t1, t2;}
+void CallStmt():{Token t1, t2;}
 {
-		t1=<ID> { jjtThis.setName(t1.image);} ( <DOT> t2=<ID> { jjtThis.setNameId2(t2.image);} )? <LPAR> ( ArgumentList() )? <RPAR>
-	
+  	t1=<ID> { jjtThis.setName(t1.image);}
+		( <DOT> t2=<ID> { jjtThis.setNameId2(t2.image);} )? <LPAR>
+
+		
+  	try { 
+	 ( ArgumentList() )? <RPAR>
+	}
+	catch(ParseException parse) {
+	  System.out.println("CATCH CALL");
+		skipto(RPAR);
+
+		Token t = getToken(1);
+		System.out.println("Next: " + t);
+		if(t.kind==LCHAVETA) {
+		  ErrorBlock();
+		  /*getNextToken();
+		  Stmtlst();*/
+		  
+		}
+
+		else if(t.kind==PVIRG) {
+		  getNextToken();
+		}
+
+		return;
+	}
+
+	 <PVIRG>
 }
 
+void Call():{Token t1, t2;}
+{
+  	t1=<ID> { jjtThis.setName(t1.image);}
+	( <DOT> t2=<ID> { jjtThis.setNameId2(t2.image);} )? <LPAR>
+
+	try {
+	  ( ArgumentList() )? <RPAR >
+	}
+
+	catch(ParseException parse) {
+		skipto(RPAR);
+	}
+	
+
+}
 void ArgumentList() #void:{}
 {
  	Argument() ( <VIRG> Argument() )*
@@ -319,4 +391,9 @@ void ScalarAccess():{Token t;}
 void Index():{Token t;}
 {
 		(t=<ID> | t=<INTEGER>) {jjtThis.setName(t.image); }
+}
+
+void ErrorBlock(): {}
+{
+	<LCHAVETA> Stmtlst() <RCHAVETA>
 }
