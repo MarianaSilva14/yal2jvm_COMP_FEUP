@@ -38,6 +38,11 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+FirstCheckPoint/yal2jvm/bin
+FirstCheckPoint/yal2jvm/.idea
+SecondCheckPoint/yal2jvm/bin
+SecondCheckPoint/yal2jvm/.idea
+.idea/
 
 # Windows Installer files
 *.cab
