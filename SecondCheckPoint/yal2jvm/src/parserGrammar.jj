@@ -583,10 +583,36 @@ void While()      :{}
 	Stmtlst() <RCHAVETA>
 }
 
-void If()      :{}
-{
+void If() :{/*@bgen(jjtree) If */
+  ASTIf jjtn000 = new ASTIf(JJTIF);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) If */
+                try {
+/*@egen*/
  		<IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
- 		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA> )?
+ 		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA> )?/*@bgen(jjtree)*/
+                } catch (Throwable jjte000) {
+                  if (jjtc000) {
+                    jjtree.clearNodeScope(jjtn000);
+                    jjtc000 = false;
+                  } else {
+                    jjtree.popNode();
+                  }
+                  if (jjte000 instanceof RuntimeException) {
+                    throw (RuntimeException)jjte000;
+                  }
+                  if (jjte000 instanceof ParseException) {
+                    throw (ParseException)jjte000;
+                  }
+                  throw (Error)jjte000;
+                } finally {
+                  if (jjtc000) {
+                    jjtree.closeNodeScope(jjtn000, true);
+                  }
+                }
+/*@egen*/
 }
 
 void CallStmt():{/*@bgen(jjtree) CallStmt */
@@ -688,9 +714,35 @@ void Call():{/*@bgen(jjtree) Call */
 	
 
 }
-void ArgumentList()      :{}
-{
- 	Argument() ( <VIRG> Argument() )*
+void ArgumentList() :{/*@bgen(jjtree) ArgumentList */
+  ASTArgumentList jjtn000 = new ASTArgumentList(JJTARGUMENTLIST);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) ArgumentList */
+        try {
+/*@egen*/
+ 	Argument() ( <VIRG> Argument() )*/*@bgen(jjtree)*/
+        } catch (Throwable jjte000) {
+          if (jjtc000) {
+            jjtree.clearNodeScope(jjtn000);
+            jjtc000 = false;
+          } else {
+            jjtree.popNode();
+          }
+          if (jjte000 instanceof RuntimeException) {
+            throw (RuntimeException)jjte000;
+          }
+          if (jjte000 instanceof ParseException) {
+            throw (ParseException)jjte000;
+          }
+          throw (Error)jjte000;
+        } finally {
+          if (jjtc000) {
+            jjtree.closeNodeScope(jjtn000, true);
+          }
+        }
+/*@egen*/
 }
 
 void Argument():{/*@bgen(jjtree) Argument */

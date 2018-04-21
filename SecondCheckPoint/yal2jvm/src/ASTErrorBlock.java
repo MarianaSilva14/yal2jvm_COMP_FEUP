@@ -10,5 +10,16 @@ class ASTErrorBlock extends SimpleNode {
     super(p, id);
   }
 
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
+
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(symbolsTable);
+    }
+
+    return true;
+  }
+
 }
 /* JavaCC - OriginalChecksum=028e30976a38d0ecf00d0d9ff7b0dcd9 (do not edit this line) */

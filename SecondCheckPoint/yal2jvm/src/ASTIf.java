@@ -10,5 +10,16 @@ class ASTIf extends SimpleNode {
     super(p, id);
   }
 
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
+
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(symbolsTable);
+    }
+
+    return true;
+  }
+
 }
 /* JavaCC - OriginalChecksum=ab70d4883b7b979f2b8e45b7e840ce51 (do not edit this line) */

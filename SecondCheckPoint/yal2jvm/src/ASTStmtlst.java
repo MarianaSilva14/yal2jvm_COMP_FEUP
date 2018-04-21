@@ -10,5 +10,15 @@ class ASTStmtlst extends SimpleNode {
     super(p, id);
   }
 
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
+
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(symbolsTable);
+    }
+
+    return true;
+  }
 }
 /* JavaCC - OriginalChecksum=80e69e194f6dd107c7286dfca7f2af56 (do not edit this line) */

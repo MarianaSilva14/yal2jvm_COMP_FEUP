@@ -42,5 +42,23 @@ class ASTTerm extends SimpleNode {
 	  return test;
   }
 
+  @Override
+  public boolean analyse(SymbolsTable currentTable){
+    currentTable.putOnHashMap(new Symbol("Term",name));
+    System.out.println("Term: ");
+    System.out.println(currentTable);
+    return true;
+  }
+  
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
+
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(symbolsTable);
+    }
+
+    return true;
+  }
 }
 /* JavaCC - OriginalChecksum=4fed4c4acdb17d83930148652e686f7c (do not edit this line) */

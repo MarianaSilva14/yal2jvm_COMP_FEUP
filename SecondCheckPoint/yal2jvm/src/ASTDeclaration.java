@@ -44,7 +44,19 @@ class ASTDeclaration extends SimpleNode {
 
   public boolean analyse(SymbolsTable currentTable){
     currentTable.putOnHashMap(new Symbol("Declaration",name));
+    System.out.println("Declaration");
     System.out.println(currentTable);
+    
+    analyseContent(currentTable);
+    return true;
+  }
+
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(currentTable);
+    }
 
     return true;
   }

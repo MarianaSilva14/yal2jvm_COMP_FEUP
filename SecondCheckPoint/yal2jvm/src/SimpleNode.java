@@ -79,11 +79,14 @@ class SimpleNode implements Node {
     return id;
   }
 
-  public  boolean analyse(SymbolsTable currentTable){
+  public boolean analyse(SymbolsTable currentTable){
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(currentTable);
+    }  
     return true;
   }
-  
-  public  boolean analyseContent(SymbolsTable currentTable){
+
+  public boolean analyseContent(SymbolsTable currentTable){
     return true;
   }
 }

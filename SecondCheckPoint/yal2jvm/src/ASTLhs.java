@@ -10,5 +10,16 @@ class ASTLhs extends SimpleNode {
     super(p, id);
   }
 
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
+
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(symbolsTable);
+    }
+
+    return true;
+  }
+
 }
 /* JavaCC - OriginalChecksum=d122d15cdad671fb1b2de6b397c596bb (do not edit this line) */

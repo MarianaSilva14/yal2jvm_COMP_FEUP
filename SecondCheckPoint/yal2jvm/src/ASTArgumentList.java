@@ -10,5 +10,15 @@ class ASTArgumentList extends SimpleNode {
     super(p, id);
   }
 
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
+
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(symbolsTable);
+    }
+
+    return true;
+  }
 }
 /* JavaCC - OriginalChecksum=b1932f953a5dbb39c270aae6e74b7c9b (do not edit this line) */

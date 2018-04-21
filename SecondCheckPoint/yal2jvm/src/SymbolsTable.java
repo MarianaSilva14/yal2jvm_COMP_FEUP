@@ -16,7 +16,10 @@ public class SymbolsTable {
     public boolean containsHashMap(String symbolName){
         if(symbolsTable.containsKey(symbolName))
             return true;
-        else
-            return false;
+        else if(parentTable != null){
+            return parentTable.containsHashMap(symbolName);
+        }
+        return false;
+            
     }
 }

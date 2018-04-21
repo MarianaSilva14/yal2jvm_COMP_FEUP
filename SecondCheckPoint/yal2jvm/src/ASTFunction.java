@@ -29,14 +29,17 @@ class ASTFunction extends SimpleNode {
 	  return test;
   }
 
+  @Override
   public boolean analyse(SymbolsTable currentTable){
     currentTable.putOnHashMap(new Symbol("Function",name));
     System.out.println("Function: ");
     System.out.println(currentTable);
-
+    
+    analyseContent(currentTable);
     return true;
   }
-
+  
+  @Override
   public boolean analyseContent(SymbolsTable currentTable){
     SymbolsTable symbolsTable = new SymbolsTable(currentTable);
 

@@ -30,5 +30,25 @@ class ASTRhs extends SimpleNode {
 	  return test;
   }
 
+  @Override
+  public boolean analyse(SymbolsTable currentTable){
+    currentTable.putOnHashMap(new Symbol("Rhs",name));
+    System.out.println("Rhs: ");
+    System.out.println(currentTable);
+
+    analyseContent(currentTable);
+    return true;
+  }
+  
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
+
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(symbolsTable);
+    }
+
+    return true;
+  }
 }
 /* JavaCC - OriginalChecksum=cc96ebd068d1335202539761baa8fdf1 (do not edit this line) */

@@ -30,5 +30,23 @@ class ASTArraySize extends SimpleNode {
 	  return test;
   }
 
+  @Override
+  public boolean analyse(SymbolsTable currentTable){
+  
+    if(name==null)
+      analyseContent(currentTable);
+    
+    return true;
+  }
+  
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+  
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(currentTable);
+    }
+
+    return true;
+  }
 }
 /* JavaCC - OriginalChecksum=74d92097ac7f75498953afd4f4b6a954 (do not edit this line) */

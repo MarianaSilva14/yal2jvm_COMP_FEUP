@@ -42,5 +42,32 @@ class ASTCallStmt extends SimpleNode {
 	  return test;
   }
 
+  @Override
+  public boolean analyse(SymbolsTable currentTable){
+    currentTable.putOnHashMap(new Symbol("CallStmt",name));
+    System.out.println("CallStmt: ");
+    System.out.println(currentTable);
+
+    
+    if(currentTable.containsHashMap(name)){
+      analyseContent(currentTable);
+
+      return true;
+    }
+
+    System.out.println("This function doesn't exist! ");
+    return false;
+  }
+
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(currentTable);
+    }
+
+    return true;
+  }
+
 }
 /* JavaCC - OriginalChecksum=1172cce7e76875502efd4a41002c39ad (do not edit this line) */

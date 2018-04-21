@@ -29,6 +29,20 @@ class ASTArrayAccess extends SimpleNode {
 	  return test;
   }
 
+  @Override
+  public boolean analyse(SymbolsTable currentTable){
+    currentTable.putOnHashMap(new Symbol("ArrayAccess",name));
+    System.out.println("ArrayAccess: ");
+    System.out.println(currentTable);
+
+    if(currentTable.containsHashMap(name)){
+      return true;}
+
+    System.out.println("This array doesn't exist! ");
+    return false;
+
+  }
+
 
 
 }

@@ -320,7 +320,7 @@ void While() #void:{}
 	Stmtlst() <RCHAVETA>
 }
 
-void If() #void:{}
+void If() :{}
 {
  		<IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
  		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA> )?
@@ -373,7 +373,7 @@ void Call():{Token t1, t2;}
 	
 
 }
-void ArgumentList() #void:{}
+void ArgumentList() :{}
 {
  	Argument() ( <VIRG> Argument() )*
 }

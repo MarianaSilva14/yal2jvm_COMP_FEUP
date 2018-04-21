@@ -41,5 +41,25 @@ class ASTCall extends SimpleNode {
 	  return test;
   }
 
+  @Override
+  public boolean analyse(SymbolsTable currentTable){
+    currentTable.putOnHashMap(new Symbol("Call",name));
+    System.out.println("Call: ");
+    System.out.println(currentTable);
+
+    analyseContent(currentTable);
+    return true;
+  }
+  
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+   
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(currentTable);
+    }
+
+    return true;
+  }
+
 }
 /* JavaCC - OriginalChecksum=fe714bd707fec445bf7be522458e02bb (do not edit this line) */

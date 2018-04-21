@@ -29,6 +29,27 @@ class ASTExprtest extends SimpleNode {
 	  return test;
   }
 
+  @Override
+  public boolean analyse(SymbolsTable currentTable){
+    currentTable.putOnHashMap(new Symbol("Exprtest",name));
+    System.out.println("Exprtest: ");
+    System.out.println(currentTable);
+
+    analyseContent(currentTable);
+    return true;
+  }
+  
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
+
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(symbolsTable);
+    }
+
+    return true;
+  }
+
 
 }
 /* JavaCC - OriginalChecksum=f5daaa2a0b7b2f613b244e6b7b43df6a (do not edit this line) */
