@@ -31,20 +31,36 @@ class ASTArrayAccess extends SimpleNode {
 
   @Override
   public boolean analyse(SymbolsTable currentTable){
-    currentTable.putOnHashMap(new Symbol("ArrayAccess",name));
-    System.out.println("ArrayAccess: ");
-    System.out.println(currentTable);
 
-    if(currentTable.containsHashMap(name)){
+    if(currentTable.returnSymbol(name) != null){
       return true;
 		}
 
-    System.out.println("This array doesn't exist! ");
+    System.out.println("This value's array doesn't exist on Symbols Table");
     return false;
 
   }
 
+	public boolean analyseRhs(SymbolsTable currentTable){
+		return true;
+	}
 
+	public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+		Symbol symbol = currentTable.returnSymbol(name);
+
+		if(symbol == null){
+			currentTable.putOnHashMap(new Symbol("ArrayAccess",name,value));
+		}
+
+		else{
+			//verificar se o valor de Rhs não é escalar OU se o símbolo não é um array
+			if(value != true || symbol.isScalar() == true)
+				System.out.println("Semantics Error!");
+		}
+
+		return true;
+
+	}
 
 }
 /* JavaCC - OriginalChecksum=0240680d35f6578981079353ffaf52fb (do not edit this line) */

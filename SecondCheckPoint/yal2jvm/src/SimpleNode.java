@@ -82,11 +82,23 @@ class SimpleNode implements Node {
   public boolean analyse(SymbolsTable currentTable){
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(currentTable);
-    }  
+    }
     return true;
   }
 
   public boolean analyseContent(SymbolsTable currentTable){
+    return true;
+  }
+
+  public boolean analyseRhs(SymbolsTable currentTable){
+    return true;
+  }
+
+  public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+    return true;
+  }
+
+  public boolean isScalar(){
     return true;
   }
 }

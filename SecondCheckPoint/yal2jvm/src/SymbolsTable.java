@@ -13,13 +13,12 @@ public class SymbolsTable {
         symbolsTable.put(symbol.getSymbolName(), symbol);
     }
 
-    public boolean containsHashMap(String symbolName){
+    public Symbol returnSymbol(String symbolName){
         if(symbolsTable.containsKey(symbolName))
-            return true;
+            return symbolsTable.get(symbolName);
         else if(parentTable != null){
-            return parentTable.containsHashMap(symbolName);
+            return parentTable.returnSymbol(symbolName);
         }
-        return false;
-            
+        return null;
     }
 }

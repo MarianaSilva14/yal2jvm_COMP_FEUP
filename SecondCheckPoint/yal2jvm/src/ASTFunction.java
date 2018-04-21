@@ -2,9 +2,9 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTFunction extends SimpleNode {
-	
+
 	private String name;
-	
+
   public ASTFunction(int id) {
     super(id);
   }
@@ -12,33 +12,38 @@ class ASTFunction extends SimpleNode {
   public ASTFunction(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public String toString() {
 	  String test;
-	  
+
 	  test = super.toString() + " " + name;
-	  
+
 	  return test;
   }
 
   @Override
   public boolean analyse(SymbolsTable currentTable){
-    currentTable.putOnHashMap(new Symbol("Function",name));
-    System.out.println("Function: ");
+		boolean isScalar = jjtGetChild(0).isScalar();
+		if(isScalar)
+    	currentTable.putOnHashMap(new Symbol("Function",name,true));
+		else
+			currentTable.putOnHashMap(new Symbol("Function",name,false));
+
+    System.out.println("Function: " + " name: " + name + " Tipo: " + isScalar);
     System.out.println(currentTable);
-    
+
     analyseContent(currentTable);
     return true;
   }
-  
+
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
     SymbolsTable symbolsTable = new SymbolsTable(currentTable);

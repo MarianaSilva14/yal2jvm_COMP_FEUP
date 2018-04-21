@@ -2,7 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTRhs extends SimpleNode {
-	
+
 	private String name;
 
   public ASTRhs(int id) {
@@ -12,43 +12,43 @@ class ASTRhs extends SimpleNode {
   public ASTRhs(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public String toString() {
 	  String test = super.toString();
-	  
+
 	  if(name != null)
 		  test += " " + name;
-	  
+
 	  return test;
   }
 
   @Override
   public boolean analyse(SymbolsTable currentTable){
-    currentTable.putOnHashMap(new Symbol("Rhs",name));
-    System.out.println("Rhs: ");
-    System.out.println(currentTable);
-
     analyseContent(currentTable);
-    return true;
+
+		return true;
   }
-  
+
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
-    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
 
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(symbolsTable);
+      jjtGetChild(i).analyse(currentTable);
     }
 
     return true;
   }
+
+	public boolean analyseRhs(SymbolsTable currentTable){
+			return jjtGetChild(0).analyseRhs(currentTable);
+	}
 }
 /* JavaCC - OriginalChecksum=cc96ebd068d1335202539761baa8fdf1 (do not edit this line) */

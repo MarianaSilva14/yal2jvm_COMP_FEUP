@@ -3,7 +3,7 @@
 public
 class ASTScalarElement extends SimpleNode {
 	private String name;
-	
+
   public ASTScalarElement(int id) {
     super(id);
   }
@@ -11,26 +11,26 @@ class ASTScalarElement extends SimpleNode {
   public ASTScalarElement(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public String toString() {
 	  String test;
-	  
+
 	  test = super.toString() + " " + name;
-	  
+
 	  return test;
   }
-  
+
   @Override
   public boolean analyse(SymbolsTable currentTable){
-    currentTable.putOnHashMap(new Symbol("ScalarElement",name));
+    currentTable.putOnHashMap(new Symbol("ScalarElement",name,true));
     System.out.println("ScalarElement: ");
     System.out.println(currentTable);
     return true;

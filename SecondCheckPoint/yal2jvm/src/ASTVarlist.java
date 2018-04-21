@@ -9,13 +9,11 @@ class ASTVarlist extends SimpleNode {
   public ASTVarlist(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
-    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
-
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(symbolsTable);
+      jjtGetChild(i).analyse(currentTable);
     }
 
     return true;

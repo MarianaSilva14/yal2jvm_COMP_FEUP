@@ -4,7 +4,7 @@ public
 class ASTExprtest extends SimpleNode {
 	private String name;
 
-	
+
   public ASTExprtest(int id) {
     super(id);
   }
@@ -12,39 +12,34 @@ class ASTExprtest extends SimpleNode {
   public ASTExprtest(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public String toString() {
 	  String test;
-	  
+
 	  test = super.toString() + " " + name;
-	  
+
 	  return test;
   }
 
   @Override
   public boolean analyse(SymbolsTable currentTable){
-    currentTable.putOnHashMap(new Symbol("Exprtest",name));
-    System.out.println("Exprtest: ");
-    System.out.println(currentTable);
 
     analyseContent(currentTable);
     return true;
   }
-  
+
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
-    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
-
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(symbolsTable);
+      jjtGetChild(i).analyse(currentTable);
     }
 
     return true;

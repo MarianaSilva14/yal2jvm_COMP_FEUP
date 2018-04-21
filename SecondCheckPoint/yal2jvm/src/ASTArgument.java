@@ -2,7 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTArgument extends SimpleNode {
-	
+
 	private String name;
 
   public ASTArgument(int id) {
@@ -12,28 +12,29 @@ class ASTArgument extends SimpleNode {
   public ASTArgument(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public String toString() {
 	  String test;
-	  
+
 	  test = super.toString() + " " + name;
-	  
+
 	  return test;
   }
 
-  
+
   public boolean analyse(SymbolsTable currentTable){
-    currentTable.putOnHashMap(new Symbol("Argument",name));
+    currentTable.putOnHashMap(new Symbol("Argument",name,true));
     System.out.println("Argument: ");
     System.out.println(currentTable);
+		
     return true;
   }
 }

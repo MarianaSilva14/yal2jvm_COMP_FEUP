@@ -4,7 +4,7 @@ public
 class ASTCall extends SimpleNode {
 	private String name;
 	private String nameId2;
-	
+
   public ASTCall(int id) {
     super(id);
   }
@@ -12,54 +12,71 @@ class ASTCall extends SimpleNode {
   public ASTCall(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public String getNameId2() {
 	  return nameId2;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public void setNameId2(String name) {
 	  this.nameId2 = name;
   }
-  
+
   public String toString() {
 	  String test = super.toString();
-			  
+
 	if(name != null)
 	  test+= " " + name;
-	
+
 	if(nameId2 != null)
 	  test+= " " + nameId2;
-	  
+
 	  return test;
   }
 
   @Override
   public boolean analyse(SymbolsTable currentTable){
-    currentTable.putOnHashMap(new Symbol("Call",name));
-    System.out.println("Call: ");
-    System.out.println(currentTable);
+		if(name.equals("io"))
+			return true;
 
+		System.out.println("Call: The function doesn't call io and I'll go trough children");	
     analyseContent(currentTable);
     return true;
   }
-  
+
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
-   
+
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(currentTable);
     }
 
     return true;
   }
+
+	public boolean analyseRhs(SymbolsTable currentTable){
+		if(name.equals("io"))
+			return true;
+
+		if(nameId2 != null){
+			return true;
+		}
+		else{
+			Symbol symbol = currentTable.returnSymbol(name);
+			if(symbol != null){
+				return symbol.isScalar();
+			}
+		}
+
+		return true;
+	}
 
 }
 /* JavaCC - OriginalChecksum=fe714bd707fec445bf7be522458e02bb (do not edit this line) */

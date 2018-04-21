@@ -7,8 +7,11 @@
 public
 interface Node {
 
-  public  boolean analyse(SymbolsTable currentTable);
-  public  boolean analyseContent(SymbolsTable currentTable);
+  public boolean analyse(SymbolsTable currentTable);
+  public boolean analyseContent(SymbolsTable currentTable);
+  public boolean analyseRhs(SymbolsTable currentTable);
+  public boolean analyseLhs(SymbolsTable currentTable, boolean value);
+  public boolean isScalar();
 
   /** This method is called after the node has been made the current
     node.  It indicates that child nodes can now be added to it. */

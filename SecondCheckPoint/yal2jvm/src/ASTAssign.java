@@ -9,13 +9,15 @@ class ASTAssign extends SimpleNode {
   public ASTAssign(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   @Override
-  public boolean analyseContent(SymbolsTable currentTable){
-   
-    for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(currentTable);
-    }
+  public boolean analyse(SymbolsTable currentTable){
+    boolean returnValue;
+
+    System.out.println("Analyse Rhs");
+    returnValue = jjtGetChild(1).analyseRhs(currentTable);
+    System.out.println("Analyse Lhs");
+    jjtGetChild(0).analyseLhs(currentTable, returnValue);
 
     return true;
   }

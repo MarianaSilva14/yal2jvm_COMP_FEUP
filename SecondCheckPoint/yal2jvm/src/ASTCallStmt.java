@@ -2,10 +2,10 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTCallStmt extends SimpleNode {
-	
+
 	private String name;
 	private String nameId2;
-	
+
   public ASTCallStmt(int id) {
     super(id);
   }
@@ -13,49 +13,51 @@ class ASTCallStmt extends SimpleNode {
   public ASTCallStmt(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public String getNameId2() {
 	  return nameId2;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public void setNameId2(String name) {
 	  this.nameId2 = name;
   }
-  
+
   public String toString() {
 	  String test = super.toString();
-			  
+
 	if(name != null)
 	  test+= " " + name;
-	
+
 	if(nameId2 != null)
 	  test+= " " + nameId2;
-	  
+
 	  return test;
   }
 
   @Override
   public boolean analyse(SymbolsTable currentTable){
-    currentTable.putOnHashMap(new Symbol("CallStmt",name));
-    System.out.println("CallStmt: ");
-    System.out.println(currentTable);
+		if(name.equals("io"))
+			return true;
 
-    
-    if(currentTable.containsHashMap(name)){
+		System.out.println("Call: The function doesn't call io and I'll go trough children");
+
+
+    if(currentTable.returnSymbol(name) != null){
       analyseContent(currentTable);
 
+			System.out.println("analyseContent");
       return true;
     }
 
-    System.out.println("This function doesn't exist! ");
+    System.out.println("This function doesn't exist! " + name);
     return false;
   }
 

@@ -4,7 +4,7 @@ public
 class ASTArraySize extends SimpleNode {
 	private String name;
 
-	
+
   public ASTArraySize(int id) {
     super(id);
   }
@@ -12,41 +12,47 @@ class ASTArraySize extends SimpleNode {
   public ASTArraySize(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public String toString() {
 	  String test = super.toString();
-		
+
 	  if(name != null)
 		  test+= " " + name;
-	  
+
 	  return test;
   }
 
   @Override
   public boolean analyse(SymbolsTable currentTable){
-  
+
     if(name==null)
       analyseContent(currentTable);
-    
+
+		System.out.println("Name of ArraySize isn't null");
+
     return true;
   }
-  
+
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
-  
+
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(currentTable);
     }
 
     return true;
   }
+
+	public boolean analyseRhs(SymbolsTable currentTable){
+		return false;
+	}
 }
 /* JavaCC - OriginalChecksum=74d92097ac7f75498953afd4f4b6a954 (do not edit this line) */

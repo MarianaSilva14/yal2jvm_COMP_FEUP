@@ -13,40 +13,37 @@ class ASTDeclaration extends SimpleNode {
   public ASTDeclaration(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public String getNameInteger() {
 	  return nameInteger;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public void setNameInteger(String name) {
 	  this.nameInteger = name;
   }
-  
+
   public String toString() {
 	  String test = super.toString();
-			  
+
 	if(name != null)
 	  test+= " " + name;
-	
+
 	if(nameInteger != null)
 	  test+= " " + nameInteger;
-	  
+
 	  return test;
   }
 
   public boolean analyse(SymbolsTable currentTable){
-    currentTable.putOnHashMap(new Symbol("Declaration",name));
-    System.out.println("Declaration");
-    System.out.println(currentTable);
-    
+
     analyseContent(currentTable);
     return true;
   }

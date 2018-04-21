@@ -4,7 +4,7 @@ public
 class ASTScalarAccess extends SimpleNode {
 	private String name;
 
-	
+
   public ASTScalarAccess(int id) {
     super(id);
   }
@@ -12,23 +12,47 @@ class ASTScalarAccess extends SimpleNode {
   public ASTScalarAccess(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public String toString() {
 	  String test;
-	  
+
 	  test = super.toString() + " " + name;
-	  
+
 	  return test;
   }
 
+	public boolean analyseRhs(SymbolsTable currentTable){
+		Symbol symbol = currentTable.returnSymbol(name);
+
+		if(symbol == null)
+			return true;
+		else{
+			return symbol.isScalar();
+		}
+	}
+
+	public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+		Symbol symbol = currentTable.returnSymbol(name);
+
+		if(symbol == null){
+			currentTable.putOnHashMap(new Symbol("ScalarAccess",name,value));
+		}
+
+		else{
+			if(value != symbol.isScalar())
+				System.out.println("Semantic Error!");
+		}
+
+		return true;
+	}
 
 }
 /* JavaCC - OriginalChecksum=8414735c95512cfd49229a5c3532b7bd (do not edit this line) */

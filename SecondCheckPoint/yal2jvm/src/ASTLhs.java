@@ -21,5 +21,12 @@ class ASTLhs extends SimpleNode {
     return true;
   }
 
+  public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyseLhs(currentTable, value);
+    }
+    return true;
+  }
+
 }
 /* JavaCC - OriginalChecksum=d122d15cdad671fb1b2de6b397c596bb (do not edit this line) */

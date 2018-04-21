@@ -12,11 +12,11 @@ class ASTArgumentList extends SimpleNode {
 
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
-    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
-
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(symbolsTable);
+      jjtGetChild(i).analyse(currentTable);
     }
+
+    System.out.println("O ASTArgumentList analisou todos os filhos");
 
     return true;
   }

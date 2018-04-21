@@ -3,8 +3,8 @@
 public
 class ASTArrayElement extends SimpleNode {
 	private String name;
-	
-	
+
+
   public ASTArrayElement(int id) {
     super(id);
   }
@@ -12,26 +12,26 @@ class ASTArrayElement extends SimpleNode {
   public ASTArrayElement(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public String toString() {
 	  String test;
-	  
+
 	  test = super.toString() + " " + name;
-	  
+
 	  return test;
   }
-  
+
   @Override
   public boolean analyse(SymbolsTable currentTable){
-    currentTable.putOnHashMap(new Symbol("ArrayElement",name));
+    currentTable.putOnHashMap(new Symbol("ArrayElement",name,false));
     System.out.println("ArrayElement: ");
     System.out.println(currentTable);
     return true;
