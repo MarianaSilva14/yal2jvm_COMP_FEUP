@@ -12,11 +12,11 @@ import java.io.*;
 public class parserGrammar
 {
   public static int NumberErrors=0;
-  
+
   public static void main(String args []) throws ParseException, FileNotFoundException
   {
     /* Open File */
-	
+
   	InputStream stream = new FileInputStream(args[0]);
 
     parserGrammarTokenManager tm= new parserGrammarTokenManager(new SimpleCharStream(stream));
@@ -26,14 +26,14 @@ public class parserGrammar
 	/* Parser creation */
 	/*parserGrammar parser = new parserGrammar(System.in);//em vez de System.in, passar o nome da variavel do ficheiro*/
 	ASTModule root = parser.Module();
-	
+
 	/* AST Print */
 	System.out.println("//////////////////////////////");
 	System.out.println("//// Abstract Syntax Tree ////");
 	System.out.println("//////////////////////////////");
 	System.out.println("");
 	root.dump("");
-	
+
 	System.out.println("");
 	System.out.println("//////////////////////////////");
 	System.out.println("/////// Semantic Tree ////////");
@@ -77,16 +77,16 @@ void skipto_do_not_consume_last(int kind) {
 		t = getNextToken();
 
 	token_kind = jj_ntk_f();
-	
+
 	consume = true;
-   	
+
   } while (token_kind != kind);
 
 }
 
 JAVACODE
 void printMessagesError(ParseException exception) {
-	
+
 	if(NumberErrors == 0) {
 		System.out.println("ERROR CATCHED");
 	}
@@ -105,8 +105,8 @@ void printMessagesError(ParseException exception) {
 		for(int k = 0; k < exception.expectedTokenSequences[i].length; k++) {
 			System.out.println(tokenImage[exception.expectedTokenSequences[i][k]]);
 		}
-		
-	} 
+
+	}
 }
 
 
@@ -155,26 +155,26 @@ void printMessagesError(ParseException exception) {
 
 ASTModule Module():{Token t;}
 {
-  	<MODULE> t=<ID> { jjtThis.setName(t.image); } <LCHAVETA> ( Declaration() )*     
+  	<MODULE> t=<ID> { jjtThis.setName(t.image); } <LCHAVETA> ( Declaration() )*
 
-	try { 
+	try {
   		( Function() )*
-  		<RCHAVETA>         
+  		<RCHAVETA>
 
  	}catch(ParseException exception) {
 		skipto(RCHAVETA);
  	}
- 	
+
  	{return jjtThis;}
 }
 
 void Declaration():{Token t1,t2;}
 {
-	try { 
+	try {
 		(LOOKAHEAD(<ID> <LPAR_RECT> <RPAR_RECT>) ArrayElement() | ScalarElement() )
 		( <ASSIGN> ( ( <LPAR_RECT> ArraySize() <RPAR_RECT> )
 		| (t1=<ADDSUB_OP> { jjtThis.setName(t1.image);})? t2=<INTEGER> { jjtThis.setNameInteger(t2.image);}) )?<PVIRG>
-		                
+
 
 	}catch(ParseException exception) {
 		System.out.println("CATCH DECLARATION");
@@ -188,7 +188,7 @@ void Function():{Token t;}
   	try {
   		( LOOKAHEAD(3) ( <FUNCTION> ( LOOKAHEAD(2) ArrayElement() | ScalarElement() )
   		 <ASSIGN> t=<ID> ) | ( <FUNCTION> t=<ID> )) <LPAR> { jjtThis.setName(t.image); }
-  		 
+
 	}catch(ParseException exception) {
 		System.out.println("CATCH FUNCTION");
 		 //System.out.println(exception.currentToken.image);
@@ -207,7 +207,7 @@ void Function():{Token t;}
 	<LCHAVETA> Stmtlst() <RCHAVETA>
 }
 
-void Varlist() #void :{}
+void Varlist():{}
 {
   	try {
 		( LOOKAHEAD(2) ArrayElement() | ScalarElement() )
@@ -230,9 +230,9 @@ void ScalarElement():{Token t;}
 
 }
 
-void Stmtlst() #void :{}
+void Stmtlst():{}
 {
-	try { 
+	try {
 		( Stmt() )*
 	}
 
@@ -241,7 +241,7 @@ void Stmtlst() #void :{}
 	}
 }
 
-void Stmt() #void :{}
+void Stmt():{}
 {
 	try {
   		While()
@@ -257,12 +257,12 @@ void Stmt() #void :{}
 
 }
 
-void Assign() #void:{}
+void Assign():{}
 {
 		Lhs() <ASSIGN> Rhs() <PVIRG>
 }
 
-void Lhs() #void:{}
+void Lhs():{}
 {
  		LOOKAHEAD(2) ArrayAccess()
 		| ScalarAccess()
@@ -270,7 +270,7 @@ void Lhs() #void:{}
 
 void Rhs():{Token t;}
 {
-		( Term() ( ( t=<ARITH_OP> | t=<BITWISE_OP> | t=<ADDSUB_OP> ) Term() { jjtThis.setName(t.image); })? ) 
+		( Term() ( ( t=<ARITH_OP> | t=<BITWISE_OP> | t=<ADDSUB_OP> ) Term() { jjtThis.setName(t.image); })? )
 		| <LPAR_RECT> ArraySize() <RPAR_RECT>
 }
 
@@ -290,9 +290,9 @@ void Term():{Token t1, t2;}
 		)
 }
 
-void Exprtest ():{Token t;}
+void Exprtest():{Token t;}
 {
-  try { 
+  try {
  		<LPAR> Lhs() t=<RELA_OP> {jjtThis.setName(t.image); } Rhs() <RPAR>
 	}
 
@@ -302,10 +302,10 @@ void Exprtest ():{Token t;}
 	}
 }
 
-void While() #void:{}
+void While():{}
 {
-  
-	try { 
+
+	try {
 
 		<WHILE> Exprtest() <LCHAVETA>
 	}
@@ -320,7 +320,7 @@ void While() #void:{}
 	Stmtlst() <RCHAVETA>
 }
 
-void If() :{}
+void If():{}
 {
  		<IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
  		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA> )?
@@ -331,8 +331,8 @@ void CallStmt():{Token t1, t2;}
   	t1=<ID> { jjtThis.setName(t1.image);}
 		( <DOT> t2=<ID> { jjtThis.setNameId2(t2.image);} )? <LPAR>
 
-		
-  	try { 
+
+  	try {
 	 ( ArgumentList() )? <RPAR>
 	}
 	catch(ParseException parse) {
@@ -345,7 +345,7 @@ void CallStmt():{Token t1, t2;}
 		  ErrorBlock();
 		  /*getNextToken();
 		  Stmtlst();*/
-		  
+
 		}
 
 		else if(t.kind==PVIRG) {
@@ -370,10 +370,10 @@ void Call():{Token t1, t2;}
 	catch(ParseException parse) {
 		skipto(RPAR);
 	}
-	
+
 
 }
-void ArgumentList() :{}
+void ArgumentList():{}
 {
  	Argument() ( <VIRG> Argument() )*
 }

@@ -7,22 +7,27 @@ public interface parserGrammarTreeConstants
   public int JJTMODULE = 3;
   public int JJTDECLARATION = 4;
   public int JJTFUNCTION = 5;
-  public int JJTVOID = 6;
+  public int JJTVARLIST = 6;
   public int JJTARRAYELEMENT = 7;
   public int JJTSCALARELEMENT = 8;
-  public int JJTRHS = 9;
-  public int JJTARRAYSIZE = 10;
-  public int JJTTERM = 11;
-  public int JJTEXPRTEST = 12;
-  public int JJTIF = 13;
-  public int JJTCALLSTMT = 14;
-  public int JJTCALL = 15;
-  public int JJTARGUMENTLIST = 16;
-  public int JJTARGUMENT = 17;
-  public int JJTARRAYACCESS = 18;
-  public int JJTSCALARACCESS = 19;
-  public int JJTINDEX = 20;
-  public int JJTERRORBLOCK = 21;
+  public int JJTSTMTLST = 9;
+  public int JJTSTMT = 10;
+  public int JJTASSIGN = 11;
+  public int JJTLHS = 12;
+  public int JJTRHS = 13;
+  public int JJTARRAYSIZE = 14;
+  public int JJTTERM = 15;
+  public int JJTEXPRTEST = 16;
+  public int JJTWHILE = 17;
+  public int JJTIF = 18;
+  public int JJTCALLSTMT = 19;
+  public int JJTCALL = 20;
+  public int JJTARGUMENTLIST = 21;
+  public int JJTARGUMENT = 22;
+  public int JJTARRAYACCESS = 23;
+  public int JJTSCALARACCESS = 24;
+  public int JJTINDEX = 25;
+  public int JJTERRORBLOCK = 26;
 
 
   public String[] jjtNodeName = {
@@ -32,13 +37,18 @@ public interface parserGrammarTreeConstants
     "Module",
     "Declaration",
     "Function",
-    "void",
+    "Varlist",
     "ArrayElement",
     "ScalarElement",
+    "Stmtlst",
+    "Stmt",
+    "Assign",
+    "Lhs",
     "Rhs",
     "ArraySize",
     "Term",
     "Exprtest",
+    "While",
     "If",
     "CallStmt",
     "Call",
@@ -50,4 +60,4 @@ public interface parserGrammarTreeConstants
     "ErrorBlock",
   };
 }
-/* JavaCC - OriginalChecksum=87fd40587d0504393f17f199ddbdaa85 (do not edit this line) */
+/* JavaCC - OriginalChecksum=d55969061f3039d0f646230de2751114 (do not edit this line) */
