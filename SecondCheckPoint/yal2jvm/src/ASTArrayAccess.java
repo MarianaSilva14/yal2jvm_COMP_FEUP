@@ -4,7 +4,7 @@ public
 class ASTArrayAccess extends SimpleNode {
 	private String name;
 
-	
+
   public ASTArrayAccess(int id) {
     super(id);
   }
@@ -12,20 +12,20 @@ class ASTArrayAccess extends SimpleNode {
   public ASTArrayAccess(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public String toString() {
 	  String test;
-	  
+
 	  test = super.toString() + " " + name;
-	  
+
 	  return test;
   }
 
@@ -36,7 +36,8 @@ class ASTArrayAccess extends SimpleNode {
     System.out.println(currentTable);
 
     if(currentTable.containsHashMap(name)){
-      return true;}
+      return true;
+		}
 
     System.out.println("This array doesn't exist! ");
     return false;
