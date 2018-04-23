@@ -32,9 +32,8 @@ class ASTArgument extends SimpleNode {
 
   public boolean analyse(SymbolsTable currentTable){
     currentTable.putOnHashMap(new Symbol("Argument",name,true));
-    System.out.println("Argument: ");
-    System.out.println(currentTable);
-		
+    System.out.println("Argument colocou na hashmap ");
+
     return true;
   }
 }

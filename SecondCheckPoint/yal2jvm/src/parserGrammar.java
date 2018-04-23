@@ -24,7 +24,8 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
         System.out.println("//// Abstract Syntax Tree ////");
         System.out.println("//////////////////////////////");
         System.out.println("");
-        root.dump("");
+  root.dump("");
+
 
         System.out.println("");
         System.out.println("//////////////////////////////");
@@ -32,6 +33,8 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
         System.out.println("//////////////////////////////");
         System.out.println("");
         root.analyse(null);
+    root.dump("");
+
   }
 
   void skipto(int kind) throws ParseException {/*@bgen(jjtree) skipto */
@@ -1307,34 +1310,6 @@ if (jjtc000) {
     finally { jj_save(8, xla); }
   }
 
-  private boolean jj_3R_14()
- {
-    if (jj_scan_token(DOT)) return true;
-    if (jj_scan_token(ID)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_6()
- {
-    if (jj_scan_token(ID)) return true;
-    if (jj_scan_token(LPAR_RECT)) return true;
-    return false;
-  }
-
-  private boolean jj_3_4()
- {
-    if (jj_3R_6()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_8()
- {
-    if (jj_3R_12()) return true;
-    if (jj_scan_token(ASSIGN)) return true;
-    if (jj_3R_13()) return true;
-    return false;
-  }
-
   private boolean jj_3R_10()
  {
     if (jj_scan_token(ID)) return true;
@@ -1552,6 +1527,34 @@ if (jjtc000) {
   private boolean jj_3_2()
  {
     if (jj_3R_6()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_14()
+ {
+    if (jj_scan_token(DOT)) return true;
+    if (jj_scan_token(ID)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_6()
+ {
+    if (jj_scan_token(ID)) return true;
+    if (jj_scan_token(LPAR_RECT)) return true;
+    return false;
+  }
+
+  private boolean jj_3_4()
+ {
+    if (jj_3R_6()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_8()
+ {
+    if (jj_3R_12()) return true;
+    if (jj_scan_token(ASSIGN)) return true;
+    if (jj_3R_13()) return true;
     return false;
   }
 

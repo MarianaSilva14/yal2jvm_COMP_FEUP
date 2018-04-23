@@ -3,6 +3,7 @@
 public
 class ASTModule extends SimpleNode {
 	private String name;
+	SymbolsTable symbolsTable;
   public ASTModule(int id) {
     super(id);
   }
@@ -10,25 +11,27 @@ class ASTModule extends SimpleNode {
   public ASTModule(parserGrammar p, int id) {
     super(p, id);
   }
-  
+
   public String getName() {
 	  return name;
   }
-  
+
   public void setName(String name) {
 	  this.name = name;
   }
-  
+
   public String toString() {
 	  String test;
-	  
+
 	  test = super.toString() + " " + name;
-	  
+
 	  return test;
   }
-  
+
   public boolean analyse(SymbolsTable currentTable){
-    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
+		System.out.println("Analyse of Module");
+
+		symbolsTable = new SymbolsTable(currentTable);
 
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(symbolsTable);
@@ -39,5 +42,12 @@ class ASTModule extends SimpleNode {
     }
     return true;
   }
+
+	@Override
+	public void dump(String prefix) {
+		System.out.println(symbolsTable);
+	}
+
 }
+
 /* JavaCC - OriginalChecksum=1fa68f33e8079fb3050f029ab6fbfb70 (do not edit this line) */

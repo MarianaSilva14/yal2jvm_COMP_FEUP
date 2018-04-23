@@ -12,6 +12,8 @@ class ASTVarlist extends SimpleNode {
 
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
+    System.out.println("Analyse the children of Varlist");
+
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(currentTable);
     }

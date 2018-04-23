@@ -32,7 +32,8 @@ public class parserGrammar
 	System.out.println("//// Abstract Syntax Tree ////");
 	System.out.println("//////////////////////////////");
 	System.out.println("");
-	root.dump("");
+  root.dump("");
+
 
 	System.out.println("");
 	System.out.println("//////////////////////////////");
@@ -40,6 +41,8 @@ public class parserGrammar
 	System.out.println("//////////////////////////////");
 	System.out.println("");
    	root.analyse(null);
+    root.dump("");
+
   }
 }
 

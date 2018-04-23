@@ -31,8 +31,7 @@ class ASTScalarElement extends SimpleNode {
   @Override
   public boolean analyse(SymbolsTable currentTable){
     currentTable.putOnHashMap(new Symbol("ScalarElement",name,true));
-    System.out.println("ScalarElement: ");
-    System.out.println(currentTable);
+    System.out.println("ScalarElement pos na hashmap ");
     return true;
   }
 

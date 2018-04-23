@@ -38,6 +38,8 @@ class ASTExprtest extends SimpleNode {
 
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
+		System.out.println("Analyse children of Exprtest");
+
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(currentTable);
     }

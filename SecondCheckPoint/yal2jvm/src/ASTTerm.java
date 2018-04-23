@@ -52,6 +52,8 @@ class ASTTerm extends SimpleNode {
 
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
+		System.out.println("Analyse the children of Term");
+
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(currentTable);
     }
@@ -60,6 +62,8 @@ class ASTTerm extends SimpleNode {
   }
 
 	public boolean analyseRhs(SymbolsTable currentTable){
+		System.out.println("Analyse the right part of Term");
+
 		if(nameInteger == null){
 			for(int i=0; i < jjtGetNumChildren();i++){
 	      return jjtGetChild(i).analyseRhs(currentTable);

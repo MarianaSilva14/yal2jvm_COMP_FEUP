@@ -46,13 +46,14 @@ class ASTCall extends SimpleNode {
 		if(name.equals("io"))
 			return true;
 
-		System.out.println("Call: The function doesn't call io and I'll go trough children");	
+		System.out.println("Call: The function doesn't call io and I'll go trough children");
     analyseContent(currentTable);
     return true;
   }
 
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
+		System.out.println("Analyse children of Call");
 
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(currentTable);
@@ -62,6 +63,8 @@ class ASTCall extends SimpleNode {
   }
 
 	public boolean analyseRhs(SymbolsTable currentTable){
+		System.out.println("Analyse the right part of Call");
+
 		if(name.equals("io"))
 			return true;
 

@@ -12,6 +12,7 @@ class ASTWhile extends SimpleNode {
 
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
+    System.out.println("Analyse the children of While");
 
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(currentTable);

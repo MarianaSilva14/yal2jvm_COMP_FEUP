@@ -39,6 +39,7 @@ class ASTRhs extends SimpleNode {
 
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
+		System.out.println("Analyse the children of Rhs");
 
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(currentTable);
@@ -48,6 +49,8 @@ class ASTRhs extends SimpleNode {
   }
 
 	public boolean analyseRhs(SymbolsTable currentTable){
+		System.out.println("Analyse the right part of Rhs");
+
 			return jjtGetChild(0).analyseRhs(currentTable);
 	}
 }

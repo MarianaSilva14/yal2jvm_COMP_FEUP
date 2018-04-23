@@ -50,6 +50,7 @@ class ASTDeclaration extends SimpleNode {
 
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
+		System.out.println("Analyse children of Declaration");
 
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(currentTable);

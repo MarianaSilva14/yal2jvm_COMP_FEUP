@@ -14,9 +14,9 @@ class ASTAssign extends SimpleNode {
   public boolean analyse(SymbolsTable currentTable){
     boolean returnValue;
 
-    System.out.println("Analyse Rhs");
+    System.out.println("Analyse Rhs of Assign");
     returnValue = jjtGetChild(1).analyseRhs(currentTable);
-    System.out.println("Analyse Lhs");
+    System.out.println("Analyse Lhs of Assign");
     jjtGetChild(0).analyseLhs(currentTable, returnValue);
 
     return true;

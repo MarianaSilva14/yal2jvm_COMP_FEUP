@@ -12,6 +12,8 @@ class ASTLhs extends SimpleNode {
 
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
+    System.out.println("Analyse children of Lhs");
+
     SymbolsTable symbolsTable = new SymbolsTable(currentTable);
 
     for(int i=0; i < jjtGetNumChildren();i++){
@@ -22,6 +24,8 @@ class ASTLhs extends SimpleNode {
   }
 
   public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+    System.out.println("Analyse the left part of Call");
+
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyseLhs(currentTable, value);
     }

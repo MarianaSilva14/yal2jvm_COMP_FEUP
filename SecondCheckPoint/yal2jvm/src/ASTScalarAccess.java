@@ -30,6 +30,8 @@ class ASTScalarAccess extends SimpleNode {
   }
 
 	public boolean analyseRhs(SymbolsTable currentTable){
+		System.out.println("Analyse the right part of ScalarAccess");
+
 		Symbol symbol = currentTable.returnSymbol(name);
 
 		if(symbol == null)
@@ -40,6 +42,8 @@ class ASTScalarAccess extends SimpleNode {
 	}
 
 	public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+		System.out.println("Analyse the left part of ScalarAccess");
+
 		Symbol symbol = currentTable.returnSymbol(name);
 
 		if(symbol == null){

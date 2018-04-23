@@ -12,6 +12,7 @@ class ASTStmtlst extends SimpleNode {
 
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
+    System.out.println("Analyse the right part of Stmtlst");
 
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(currentTable);

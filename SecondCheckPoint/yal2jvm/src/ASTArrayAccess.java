@@ -33,6 +33,8 @@ class ASTArrayAccess extends SimpleNode {
   public boolean analyse(SymbolsTable currentTable){
 
     if(currentTable.returnSymbol(name) != null){
+			System.out.println("This value's array exists on Symbols Table");
+
       return true;
 		}
 
@@ -42,6 +44,8 @@ class ASTArrayAccess extends SimpleNode {
   }
 
 	public boolean analyseRhs(SymbolsTable currentTable){
+		System.out.println("Analyse the right part of ArrayAccess");
+
 		return true;
 	}
 
@@ -49,6 +53,7 @@ class ASTArrayAccess extends SimpleNode {
 		Symbol symbol = currentTable.returnSymbol(name);
 
 		if(symbol == null){
+			System.out.println("Symbol is null on ArrayAccess");
 			currentTable.putOnHashMap(new Symbol("ArrayAccess",name,value));
 		}
 

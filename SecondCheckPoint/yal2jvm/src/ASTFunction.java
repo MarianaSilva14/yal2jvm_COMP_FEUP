@@ -38,7 +38,6 @@ class ASTFunction extends SimpleNode {
 			currentTable.putOnHashMap(new Symbol("Function",name,false));
 
     System.out.println("Function: " + " name: " + name + " Tipo: " + isScalar);
-    System.out.println(currentTable);
 
     analyseContent(currentTable);
     return true;
@@ -46,6 +45,8 @@ class ASTFunction extends SimpleNode {
 
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
+		System.out.println("Analyse children of Function");
+
     SymbolsTable symbolsTable = new SymbolsTable(currentTable);
 
     for(int i=0; i < jjtGetNumChildren();i++){

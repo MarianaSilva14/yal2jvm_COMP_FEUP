@@ -32,8 +32,7 @@ class ASTArrayElement extends SimpleNode {
   @Override
   public boolean analyse(SymbolsTable currentTable){
     currentTable.putOnHashMap(new Symbol("ArrayElement",name,false));
-    System.out.println("ArrayElement: ");
-    System.out.println(currentTable);
+    System.out.println("ArrayElement pos na hashmap");
     return true;
   }
 

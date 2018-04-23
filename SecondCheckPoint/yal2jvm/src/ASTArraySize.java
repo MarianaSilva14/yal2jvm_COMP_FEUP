@@ -33,8 +33,10 @@ class ASTArraySize extends SimpleNode {
   @Override
   public boolean analyse(SymbolsTable currentTable){
 
-    if(name==null)
-      analyseContent(currentTable);
+    if(name==null){
+			System.out.println("Name of ArraySize is null");
+			analyseContent(currentTable);
+		}
 
 		System.out.println("Name of ArraySize isn't null");
 
@@ -43,6 +45,7 @@ class ASTArraySize extends SimpleNode {
 
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
+		System.out.println("Analyse children of ArraySize");
 
     for(int i=0; i < jjtGetNumChildren();i++){
       jjtGetChild(i).analyse(currentTable);
@@ -52,6 +55,7 @@ class ASTArraySize extends SimpleNode {
   }
 
 	public boolean analyseRhs(SymbolsTable currentTable){
+		System.out.println("Analyse the right part of ArraySize");
 		return false;
 	}
 }
