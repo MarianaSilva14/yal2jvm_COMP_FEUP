@@ -32,8 +32,16 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
         System.out.println("/////// Semantic Tree ////////");
         System.out.println("//////////////////////////////");
         System.out.println("");
-        root.analyse(null);
-    root.dump("");
+  root.analyse(null);
+
+  System.out.println("");
+        System.out.println("//////////////////////////////");
+        System.out.println("  Intermediate Representation ");
+        System.out.println("//////////////////////////////");
+        System.out.println("");
+
+  Yal2jvmVisitor visitor = new Yal2jvmVisitor();
+  root.jjtAccept(visitor, null);
 
   }
 
@@ -1310,30 +1318,6 @@ if (jjtc000) {
     finally { jj_save(8, xla); }
   }
 
-  private boolean jj_3R_10()
- {
-    if (jj_scan_token(ID)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_14()) jj_scanpos = xsp;
-    if (jj_scan_token(LPAR)) return true;
-    xsp = jj_scanpos;
-    if (jj_3R_15()) jj_scanpos = xsp;
-    if (jj_scan_token(RPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_23()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(30)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(29)) return true;
-    }
-    return false;
-  }
-
   private boolean jj_3_6()
  {
     if (jj_3R_8()) return true;
@@ -1555,6 +1539,30 @@ if (jjtc000) {
     if (jj_3R_12()) return true;
     if (jj_scan_token(ASSIGN)) return true;
     if (jj_3R_13()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_10()
+ {
+    if (jj_scan_token(ID)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_14()) jj_scanpos = xsp;
+    if (jj_scan_token(LPAR)) return true;
+    xsp = jj_scanpos;
+    if (jj_3R_15()) jj_scanpos = xsp;
+    if (jj_scan_token(RPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_23()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(30)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(29)) return true;
+    }
     return false;
   }
 

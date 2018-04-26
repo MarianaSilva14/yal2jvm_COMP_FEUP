@@ -42,12 +42,6 @@ class ASTModule extends SimpleNode {
     }
     return true;
   }
-
-	@Override
-	public void dump(String prefix) {
-		System.out.println(symbolsTable);
-	}
-
 }
 
 /* JavaCC - OriginalChecksum=1fa68f33e8079fb3050f029ab6fbfb70 (do not edit this line) */

@@ -4,6 +4,7 @@
   LOOKAHEAD=1;
              
   static=false;
+               
 }
 
 PARSER_BEGIN(parserGrammar)
@@ -44,8 +45,16 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
 	System.out.println("/////// Semantic Tree ////////");
 	System.out.println("//////////////////////////////");
 	System.out.println("");
-   	root.analyse(null);
-    root.dump("");
+  root.analyse(null);
+
+  System.out.println("");
+	System.out.println("//////////////////////////////");
+	System.out.println("  Intermediate Representation ");
+	System.out.println("//////////////////////////////");
+	System.out.println("");
+
+  Yal2jvmVisitor visitor = new Yal2jvmVisitor();
+  root.jjtAccept(visitor, null);
 
   }
 }

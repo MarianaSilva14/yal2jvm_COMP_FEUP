@@ -101,6 +101,20 @@ class SimpleNode implements Node {
   public boolean isScalar(){
     return true;
   }
+
+  public Object jjtAccept(parserGrammarVisitor parser, Object data){
+    return parser.visit(this,data);
+  }
+
+  public Object childrenAccept(parserGrammarVisitor parser, Object data){
+    if(children != null){
+      for(int i= 0; i < children.length;i++){
+          children[i].jjtAccept(parser,data);
+        }
+      }
+      return data;
+  }
+
 }
 
 /* JavaCC - OriginalChecksum=4ffdb2cf57f2332df7bea5a797ddfcf8 (do not edit this line) */

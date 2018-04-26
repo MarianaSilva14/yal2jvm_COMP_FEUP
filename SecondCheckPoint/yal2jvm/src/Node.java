@@ -12,6 +12,7 @@ interface Node {
   public boolean analyseRhs(SymbolsTable currentTable);
   public boolean analyseLhs(SymbolsTable currentTable, boolean value);
   public boolean isScalar();
+  public Object jjtAccept(parserGrammarVisitor parser, Object data);
 
   /** This method is called after the node has been made the current
     node.  It indicates that child nodes can now be added to it. */
@@ -38,5 +39,6 @@ interface Node {
   public int jjtGetNumChildren();
 
   public int getId();
+
 }
 /* JavaCC - OriginalChecksum=44463b86a5a32f00f5e3ad9c8b8406be (do not edit this line) */
