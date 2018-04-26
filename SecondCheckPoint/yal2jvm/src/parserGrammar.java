@@ -43,6 +43,8 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
   Yal2jvmVisitor visitor = new Yal2jvmVisitor();
   root.jjtAccept(visitor, null);
 
+  System.out.println(visitor.myQueue);
+
   }
 
   void skipto(int kind) throws ParseException {/*@bgen(jjtree) skipto */
@@ -1318,12 +1320,6 @@ if (jjtc000) {
     finally { jj_save(8, xla); }
   }
 
-  private boolean jj_3_6()
- {
-    if (jj_3R_8()) return true;
-    return false;
-  }
-
   private boolean jj_3R_7()
  {
     if (jj_3R_11()) return true;
@@ -1563,6 +1559,12 @@ if (jjtc000) {
     jj_scanpos = xsp;
     if (jj_scan_token(29)) return true;
     }
+    return false;
+  }
+
+  private boolean jj_3_6()
+ {
+    if (jj_3R_8()) return true;
     return false;
   }
 

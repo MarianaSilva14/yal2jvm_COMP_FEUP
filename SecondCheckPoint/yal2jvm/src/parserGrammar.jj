@@ -56,6 +56,8 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
   Yal2jvmVisitor visitor = new Yal2jvmVisitor();
   root.jjtAccept(visitor, null);
 
+  System.out.println(visitor.myQueue);
+
   }
 }
 
