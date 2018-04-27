@@ -57,14 +57,17 @@ class ASTScalarAccess extends SimpleNode {
     return true;
   }
 
-  public void convertToByteCodes(MapVariables mapVariables){
+  public String convertToByteCodes(MapVariables mapVariables){
+    String line = "";
     if(mapVariables.returnByteCode(name) == -1){
       mapVariables.putOnHashMap(name);
     }
     if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTTERM)
-      System.out.println("iload_" + mapVariables.returnByteCode(name));
+      line += "iload_" + mapVariables.returnByteCode(name) + "\n";
     else
-      System.out.println("istore_" + mapVariables.returnByteCode(name));
+      line += "istore_" + mapVariables.returnByteCode(name) + "\n";
+
+    return line;
   }
 
 }

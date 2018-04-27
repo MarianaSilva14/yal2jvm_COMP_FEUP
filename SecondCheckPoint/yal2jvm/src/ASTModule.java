@@ -45,10 +45,11 @@ class ASTModule extends SimpleNode {
     return true;
   }
 
-  public void convertToByteCodes(MapVariables data){
-    System.out.println(".class public " + name);
-    System.out.println(".super java/lang/Object");
-    System.out.println();
+  public String convertToByteCodes(MapVariables data){
+    String line = "";
+    line += ".class public " + name + "\n";
+    line += ".super java/lang/Object" + "\n";
+    line += "\n";
     MapVariables mapVariables = new MapVariables(data);
     for(int i = 0; i < jjtGetNumChildren(); i++){
       if(jjtGetChild(i).getId() == parserGrammarTreeConstants.JJTFUNCTION) {
@@ -62,15 +63,17 @@ class ASTModule extends SimpleNode {
     }
 
     for(int i = 0; i < jjtGetNumChildren(); i++){
-      jjtGetChild(i).convertToByteCodes(mapVariables);
+      line += jjtGetChild(i).convertToByteCodes(mapVariables);
     }
 
-    System.out.println();
-    System.out.println(".met.method static public <clinit>()V");
-    System.out.println(".limit stack 0");
-    System.out.println(".limit locals 0");
-    System.out.println("return");
-    System.out.println(".end method");
+    line += "\n";
+    line += ".met.method static public <clinit>()V" + "\n";
+    line += ".limit stack 0" +"\n";
+    line += ".limit locals 0" + "\n";
+    line += "return" + "\n";
+    line += ".end method" + "\n";
+
+    return line;
   }
 
 }

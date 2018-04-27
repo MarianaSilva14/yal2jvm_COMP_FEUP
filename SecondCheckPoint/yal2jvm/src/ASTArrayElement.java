@@ -36,9 +36,11 @@ class ASTArrayElement extends SimpleNode {
       return true;
     }
 
-    public void convertToByteCodes(MapVariables data){
+    public String convertToByteCodes(MapVariables data){
+      String line = "";
       if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTVARLIST)
         data.putOnHashMap(name);
+      return line;
     }
 }
 /* JavaCC - OriginalChecksum=1663891d558e991061819f836a041373 (do not edit this line) */

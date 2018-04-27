@@ -104,8 +104,8 @@ class SimpleNode implements Node {
     return true;
   }
 
-  public void convertToByteCodes(MapVariables data){
-    return;
+  public String convertToByteCodes(MapVariables data){
+    return "";
   }
 
   public String getName() {

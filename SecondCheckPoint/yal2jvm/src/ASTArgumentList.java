@@ -22,10 +22,12 @@ class ASTArgumentList extends SimpleNode {
     return true;
   }
 
-  public void convertToByteCodes(MapVariables mapVariables){
+  public String convertToByteCodes(MapVariables mapVariables){
+    String line = "";
     for(int i = 0; i < jjtGetNumChildren(); i++){
-      jjtGetChild(i).convertToByteCodes(mapVariables);
+      line += jjtGetChild(i).convertToByteCodes(mapVariables);
     }
+    return line;
   }
 
   public String checkArgumentsType() {

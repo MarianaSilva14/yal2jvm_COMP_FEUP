@@ -23,33 +23,48 @@ public class parserGrammar
 
     parserGrammar parser = new parserGrammar(stream);
 
-	/* Parser creation */
-	/*parserGrammar parser = new parserGrammar(System.in);//em vez de System.in, passar o nome da variavel do ficheiro*/
-	ASTModule root = parser.Module();
+  	/* Parser creation */
+  	/*parserGrammar parser = new parserGrammar(System.in);//em vez de System.in, passar o nome da variavel do ficheiro*/
+  	ASTModule root = parser.Module();
 
-	/* AST Print */
-	System.out.println("//////////////////////////////");
-	System.out.println("//// Abstract Syntax Tree ////");
-	System.out.println("//////////////////////////////");
-	System.out.println("");
-  root.dump("");
+  	/* AST Print */
+  	System.out.println("//////////////////////////////");
+  	System.out.println("//// Abstract Syntax Tree ////");
+  	System.out.println("//////////////////////////////");
+  	System.out.println("");
+    root.dump("");
 
 
-	System.out.println("");
-	System.out.println("//////////////////////////////");
-	System.out.println("/////// Semantic Tree ////////");
-	System.out.println("//////////////////////////////");
-	System.out.println("");
-  root.analyse(null);
+  	System.out.println("");
+  	System.out.println("//////////////////////////////");
+  	System.out.println("/////// Semantic Tree ////////");
+  	System.out.println("//////////////////////////////");
+  	System.out.println("");
+    root.analyse(null);
 
-  System.out.println("");
-	System.out.println("//////////////////////////////");
-	System.out.println("/////////// Jasmin ///////////");
-	System.out.println("//////////////////////////////");
-	System.out.println("");
+    System.out.println("");
+  	System.out.println("//////////////////////////////");
+  	System.out.println("/////////// Jasmin ///////////");
+  	System.out.println("//////////////////////////////");
+  	System.out.println("");
 
-  root.convertToByteCodes(null);
+    String line = "";
+    line = root.convertToByteCodes(null);
 
+    String[] fileTemp = args[0].split("/");
+    System.out.println(fileTemp[1]);
+
+    String filename = fileTemp[1];
+    filename = filename.substring(0, filename.lastIndexOf('.'));
+    System.out.println(filename);
+
+    try {
+      PrintWriter writer = new PrintWriter(filename+".j", "UTF-8");
+      writer.println(line);
+      writer.close();
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
   }
 }
 
@@ -390,7 +405,7 @@ void ArgumentList():{}
 
 void Argument():{Token t;}
 {
-  	( t=<ID>{jjtThis.setName(t.image);} | t=<STRING>{jjtThis.setString(t.image);} | t=<INTEGER>{jjtThis.setInteger(t.image);} )  
+  	( t=<ID>{jjtThis.setName(t.image);} | t=<STRING>{jjtThis.setString(t.image);} | t=<INTEGER>{jjtThis.setInteger(t.image);} )
 }
 
 void ArrayAccess():{Token t;}

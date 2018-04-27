@@ -57,12 +57,13 @@ public boolean analyseContent(SymbolsTable currentTable){
   return true;
 }
 
-public void convertToByteCodes(MapVariables data){
+public String convertToByteCodes(MapVariables data){
+  String line = "";
   MapVariables mapVariables = new MapVariables(data);
   String returnType = "V";
   String returnArg = "";
   if(name.equals("main")){
-    System.out.println(".method public static main([Ljava/lang/String;)V");
+    line += ".method public static main([Ljava/lang/String;)V" + "\n";
   }
   else{
     ArrayList<String> typeOfArgs = new ArrayList<String>();
@@ -90,25 +91,28 @@ public void convertToByteCodes(MapVariables data){
       function += typeOfArgs.get(k);
     }
     function += ")" + returnType;
-    System.out.println(function);
+
+    line += function + "\n";
 
   }
 
-  System.out.println(".limit locals 10");
-  System.out.println(".limit stack 10");
+  line +=".limit locals 10" + "\n";
+  line +=".limit stack 10" + "\n";
 
   for(int i = 0; i < jjtGetNumChildren(); i++){
-    jjtGetChild(i).convertToByteCodes(mapVariables);
+    line += jjtGetChild(i).convertToByteCodes(mapVariables);
   }
 
   if(returnType.equals("V"))
-    System.out.println("return");
+    line += "return" + "\n";
   else {
-    System.out.println("iload_" + mapVariables.returnByteCode(returnArg));
-    System.out.println("ireturn");
+    line += "iload_" + mapVariables.returnByteCode(returnArg) + "\n";
+    line += "ireturn" + "\n";
   }
-  System.out.println(".end method");
-  System.out.println();
+    line += ".end method" + "\n";
+    line += "\n";
+
+    return line;
 
 }
 

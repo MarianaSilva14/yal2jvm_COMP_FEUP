@@ -73,7 +73,9 @@ class ASTCallStmt extends SimpleNode {
       return true;
     }
 
-    public void convertToByteCodes(MapVariables mapVariables){
+    public String convertToByteCodes(MapVariables mapVariables){
+      String line = "";
+      String call = "";
       for(int i = 0; i < jjtGetNumChildren(); i++){
           jjtGetChild(i).convertToByteCodes(mapVariables);
       }
@@ -83,16 +85,15 @@ class ASTCallStmt extends SimpleNode {
         while(node.jjtGetParent() != null) {
           node = (SimpleNode)node.jjtGetParent();
         }
-        String call = "invokestatic "+ node.getName() + "/" + name + "(";
+        call += "invokestatic "+ node.getName() + "/" + name + "(";
         for(int i = 0; i < jjtGetNumChildren(); i++){
           call += jjtGetChild(i).checkArgumentsType();
         }
         call += ")";
-        System.out.println(call);
-        System.out.println();
+
       }
       else {
-        String call = "invokestatic "+ name + "/" + nameId2 + "(";
+        call += "invokestatic "+ name + "/" + nameId2 + "(";
         if(name.equals("io")) {
           if(nameId2.equals("println"))
             call += "I)V";
@@ -107,9 +108,12 @@ class ASTCallStmt extends SimpleNode {
           else
             call += ")V";
         }
-        System.out.println(call);
-        System.out.println();
       }
+
+      line += call;
+      line += "\n";
+
+      return line;
     }
 
 }

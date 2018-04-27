@@ -59,18 +59,19 @@ class ASTArgument extends SimpleNode {
     return true;
   }
 
-  public void convertToByteCodes(MapVariables mapVariables){
-
+  public String convertToByteCodes(MapVariables mapVariables){
+    String line = "";
 
     if(name != null ) {
-      System.out.println("iload_" + mapVariables.returnByteCode(name));
+      line += "iload_" + mapVariables.returnByteCode(name);
     }
     else if(string != null)
-      System.out.println("iconst_" + string);
+      line += "iconst_" + string;
 
     else if(integer != null)
-      System.out.println("iconst_" + integer);
+      line += "iconst_" + integer;
 
+      return line;
   }
 
   public String checkArgumentsType(){

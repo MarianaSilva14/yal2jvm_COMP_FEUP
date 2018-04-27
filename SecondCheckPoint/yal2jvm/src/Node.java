@@ -13,7 +13,7 @@ interface Node {
   public boolean analyseRhs(SymbolsTable currentTable);
   public boolean analyseLhs(SymbolsTable currentTable, boolean value);
   public boolean isScalar();
-  public void convertToByteCodes(MapVariables data);
+  public String convertToByteCodes(MapVariables data);
   public String getName();
   public String checkArgumentsType();
   public ArrayList<String> getFunction();
