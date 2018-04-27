@@ -63,14 +63,27 @@ class ASTArgument extends SimpleNode {
 
 
     if(name != null ) {
-      System.out.println("iconst_" + name);
+      System.out.println("iload_" + mapVariables.returnByteCode(name));
     }
     else if(string != null)
-    System.out.println("iconst_" + string);
+      System.out.println("iconst_" + string);
 
     else if(integer != null)
-    System.out.println("iconst_" + integer);
+      System.out.println("iconst_" + integer);
 
+  }
+
+  public String checkArgumentsType(){
+
+    if(name != null ) {
+      return "I";
+    }
+    else if(string != null)
+      return "I";
+    else if(integer != null)
+      return "I";
+    else
+      return "";
   }
 
 }

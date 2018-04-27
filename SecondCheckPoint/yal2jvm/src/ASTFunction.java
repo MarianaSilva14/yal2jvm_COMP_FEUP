@@ -58,8 +58,7 @@ public boolean analyseContent(SymbolsTable currentTable){
 }
 
 public void convertToByteCodes(MapVariables data){
-
-  MapVariables mapVariables = new MapVariables();
+  MapVariables mapVariables = new MapVariables(data);
   String returnType = "V";
   String returnArg = "";
   if(name.equals("main")){
@@ -111,6 +110,26 @@ public void convertToByteCodes(MapVariables data){
   System.out.println(".end method");
   System.out.println();
 
+}
+
+public ArrayList<String> getFunction() {
+
+  String returnType = "V";
+  String name = this.name;
+  for(int i = 0; i < jjtGetNumChildren(); i++){
+      if(jjtGetChild(i).getId() == parserGrammarTreeConstants.JJTARRAYELEMENT) {
+        returnType = "[I";
+      }
+      else if(jjtGetChild(i).getId() == parserGrammarTreeConstants.JJTSCALARELEMENT) {
+        returnType = "I";
+      }
+  }
+  ArrayList<String> returns = new ArrayList<String>();
+
+  returns.add(name);
+  returns.add(returnType);
+
+  return returns;
 }
 
 

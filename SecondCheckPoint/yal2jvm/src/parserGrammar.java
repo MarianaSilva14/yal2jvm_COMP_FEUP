@@ -1107,14 +1107,23 @@ if (jjtc000) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case ID:{
         t = jj_consume_token(ID);
+jjtree.closeNodeScope(jjtn000, true);
+                  jjtc000 = false;
+jjtn000.setName(t.image);
         break;
         }
       case STRING:{
         t = jj_consume_token(STRING);
+jjtree.closeNodeScope(jjtn000, true);
+                                                          jjtc000 = false;
+jjtn000.setString(t.image);
         break;
         }
       case INTEGER:{
         t = jj_consume_token(INTEGER);
+jjtree.closeNodeScope(jjtn000, true);
+                                                                                                     jjtc000 = false;
+jjtn000.setInteger(t.image);
         break;
         }
       default:
@@ -1122,9 +1131,6 @@ if (jjtc000) {
         jj_consume_token(-1);
         throw new ParseException();
       }
-jjtree.closeNodeScope(jjtn000, true);
-                                                jjtc000 = false;
-jjtn000.setName(t.image);
     } finally {
 if (jjtc000) {
             jjtree.closeNodeScope(jjtn000, true);
@@ -1408,6 +1414,12 @@ if (jjtc000) {
     return false;
   }
 
+  private boolean jj_3R_28()
+ {
+    if (jj_scan_token(ID)) return true;
+    return false;
+  }
+
   private boolean jj_3R_24()
  {
     if (jj_scan_token(DOT)) return true;
@@ -1419,11 +1431,11 @@ if (jjtc000) {
  {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(30)) {
+    if (jj_3R_28()) {
     jj_scanpos = xsp;
-    if (jj_scan_token(33)) {
+    if (jj_3R_29()) {
     jj_scanpos = xsp;
-    if (jj_scan_token(29)) return true;
+    if (jj_3R_30()) return true;
     }
     }
     return false;
@@ -1472,6 +1484,12 @@ if (jjtc000) {
     return false;
   }
 
+  private boolean jj_3R_29()
+ {
+    if (jj_scan_token(STRING)) return true;
+    return false;
+  }
+
   private boolean jj_3_5()
  {
     if (jj_3R_6()) return true;
@@ -1487,6 +1505,12 @@ if (jjtc000) {
   private boolean jj_3R_15()
  {
     if (jj_3R_19()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_30()
+ {
+    if (jj_scan_token(INTEGER)) return true;
     return false;
   }
 

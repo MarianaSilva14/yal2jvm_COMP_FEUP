@@ -390,7 +390,7 @@ void ArgumentList():{}
 
 void Argument():{Token t;}
 {
-  	( t=<ID>{jjtThis.setInteger(t.image); | t=<STRING>{jjtThis.setString(t.image); | t=<INTEGER>{jjtThis.setName(t.image); )  }
+  	( t=<ID>{jjtThis.setName(t.image);} | t=<STRING>{jjtThis.setString(t.image);} | t=<INTEGER>{jjtThis.setInteger(t.image);} )  
 }
 
 void ArrayAccess():{Token t;}

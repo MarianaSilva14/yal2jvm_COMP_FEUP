@@ -3,6 +3,7 @@
 /* All AST nodes must implement this interface.  It provides basic
    machinery for constructing the parent and child relationships
    between nodes. */
+import java.util.ArrayList;
 
 public
 interface Node {
@@ -14,7 +15,9 @@ interface Node {
   public boolean isScalar();
   public void convertToByteCodes(MapVariables data);
   public String getName();
-  
+  public String checkArgumentsType();
+  public ArrayList<String> getFunction();
+
   /** This method is called after the node has been made the current
     node.  It indicates that child nodes can now be added to it. */
   public void jjtOpen();

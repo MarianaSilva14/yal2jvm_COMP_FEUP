@@ -919,18 +919,28 @@ void Argument():{/*@bgen(jjtree) Argument */
 {/*@bgen(jjtree) Argument */
         try {
 /*@egen*/
-  	( t=<ID> | t=<STRING> | t=<INTEGER> )/*@bgen(jjtree)*/
-                                              {
-                                                jjtree.closeNodeScope(jjtn000, true);
-                                                jjtc000 = false;
-                                              }
-/*@egen*/ {jjtn000.setName(t.image); }/*@bgen(jjtree)*/
+  	( t=<ID>/*@bgen(jjtree)*/
+                {
+                  jjtree.closeNodeScope(jjtn000, true);
+                  jjtc000 = false;
+                }
+/*@egen*/{jjtn000.setName(t.image);} | t=<STRING>/*@bgen(jjtree)*/
+                                                        {
+                                                          jjtree.closeNodeScope(jjtn000, true);
+                                                          jjtc000 = false;
+                                                        }
+/*@egen*/{jjtn000.setString(t.image);} | t=<INTEGER>/*@bgen(jjtree)*/
+                                                                                                   {
+                                                                                                     jjtree.closeNodeScope(jjtn000, true);
+                                                                                                     jjtc000 = false;
+                                                                                                   }
+/*@egen*/{jjtn000.setInteger(t.image);} )/*@bgen(jjtree)*/
         } finally {
           if (jjtc000) {
             jjtree.closeNodeScope(jjtn000, true);
           }
         }
-/*@egen*/
+/*@egen*/  
 }
 
 void ArrayAccess():{/*@bgen(jjtree) ArrayAccess */

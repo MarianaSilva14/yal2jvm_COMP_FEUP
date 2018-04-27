@@ -27,5 +27,13 @@ class ASTArgumentList extends SimpleNode {
       jjtGetChild(i).convertToByteCodes(mapVariables);
     }
   }
+
+  public String checkArgumentsType() {
+    String call = "";
+    for(int i = 0; i < jjtGetNumChildren(); i++){
+      call += jjtGetChild(i).checkArgumentsType();
+    }
+    return call;
+  }
 }
 /* JavaCC - OriginalChecksum=65f9f6dc936f457252451f98383ad1aa (do not edit this line) */

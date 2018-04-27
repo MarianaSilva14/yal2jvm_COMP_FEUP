@@ -91,11 +91,32 @@ class ASTCall extends SimpleNode {
       while(node.jjtGetParent() != null) {
         node = (SimpleNode)node.jjtGetParent();
       }
-      System.out.println("invokestatic "+ node.getName() + "/" + name + "(" + ")");
+      String call = "invokestatic "+ node.getName() + "/" + name + "(";
+      for(int i = 0; i < jjtGetNumChildren(); i++){
+        call += jjtGetChild(i).checkArgumentsType();
+      }
+      call += ")";
+      call += mapVariables.returnFunctionType(name);
+      System.out.println(call);
       System.out.println();
     }
     else {
-      System.out.println("invokestatic "+ name + "/" + nameId2 + "(" + ")");
+      String call = "invokestatic "+ name + "/" + nameId2 + "(";
+      if(name.equals("io")) {
+        if(nameId2.equals("println"))
+          call += "I)V";
+        else if (nameId2.equals("read"))
+          call += ")I";
+        else
+          call += ")V";
+      }
+      else {
+        if(nameId2.equals("size"))
+          call += ")I";
+        else
+          call += ")V";
+      }
+      System.out.println(call);
       System.out.println();
     }
   }
