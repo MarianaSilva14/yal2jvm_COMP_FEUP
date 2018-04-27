@@ -77,7 +77,7 @@ class ASTCallStmt extends SimpleNode {
       String line = "";
       String call = "";
       for(int i = 0; i < jjtGetNumChildren(); i++){
-          jjtGetChild(i).convertToByteCodes(mapVariables);
+          line += jjtGetChild(i).convertToByteCodes(mapVariables);
       }
 
       if(nameId2 == null){
@@ -111,7 +111,7 @@ class ASTCallStmt extends SimpleNode {
       }
 
       line += call;
-      line += "\n";
+      line += "\n\n";
 
       return line;
     }

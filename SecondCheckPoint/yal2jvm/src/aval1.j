@@ -4,9 +4,15 @@
 .method public static main([Ljava/lang/String;)V
 .limit locals 10
 .limit stack 10
+iconst_2
+iconst_3
 invokestatic aval1/f(II)I
+
 istore_0
+
+iload_0
 invokestatic io/println(I)V
+
 return
 .end method
 
@@ -17,6 +23,7 @@ iload_0
 iload_1
 imul
 istore_2
+
 iload_2
 ireturn
 .end method
@@ -27,4 +34,3 @@ ireturn
 .limit locals 0
 return
 .end method
-

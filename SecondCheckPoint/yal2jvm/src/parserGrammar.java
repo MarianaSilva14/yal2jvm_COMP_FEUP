@@ -42,8 +42,6 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
 
     String line = "";
     line = root.convertToByteCodes(null);
-    System.out.println(line);
-    System.out.println(args[0]);
 
     String[] fileTemp = args[0].split("/");
     System.out.println(fileTemp[1]);
@@ -1340,6 +1338,46 @@ if (jjtc000) {
     finally { jj_save(8, xla); }
   }
 
+  private boolean jj_3R_9()
+ {
+    if (jj_scan_token(ID)) return true;
+    if (jj_scan_token(LPAR_RECT)) return true;
+    if (jj_3R_23()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_21()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_25()) jj_scanpos = xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_26()) {
+    jj_scanpos = xsp;
+    if (jj_3_8()) {
+    jj_scanpos = xsp;
+    if (jj_3_9()) {
+    jj_scanpos = xsp;
+    if (jj_3R_27()) return true;
+    }
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3_3()
+ {
+    if (jj_scan_token(FUNCTION)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_2()) {
+    jj_scanpos = xsp;
+    if (jj_3R_7()) return true;
+    }
+    if (jj_scan_token(ASSIGN)) return true;
+    return false;
+  }
+
   private boolean jj_3R_28()
  {
     if (jj_scan_token(ID)) return true;
@@ -1563,46 +1601,6 @@ if (jjtc000) {
   private boolean jj_3R_25()
  {
     if (jj_scan_token(ADDSUB_OP)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_9()
- {
-    if (jj_scan_token(ID)) return true;
-    if (jj_scan_token(LPAR_RECT)) return true;
-    if (jj_3R_23()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_21()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_25()) jj_scanpos = xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_26()) {
-    jj_scanpos = xsp;
-    if (jj_3_8()) {
-    jj_scanpos = xsp;
-    if (jj_3_9()) {
-    jj_scanpos = xsp;
-    if (jj_3R_27()) return true;
-    }
-    }
-    }
-    return false;
-  }
-
-  private boolean jj_3_3()
- {
-    if (jj_scan_token(FUNCTION)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_2()) {
-    jj_scanpos = xsp;
-    if (jj_3R_7()) return true;
-    }
-    if (jj_scan_token(ASSIGN)) return true;
     return false;
   }
 

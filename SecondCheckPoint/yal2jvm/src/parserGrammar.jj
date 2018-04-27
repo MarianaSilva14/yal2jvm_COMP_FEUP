@@ -54,8 +54,6 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
 
     String line = "";
     line = root.convertToByteCodes(null);
-    System.out.println(line);
-    System.out.println(args[0]);
 
     String[] fileTemp = args[0].split("/");
     System.out.println(fileTemp[1]);

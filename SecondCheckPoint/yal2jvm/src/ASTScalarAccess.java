@@ -65,7 +65,7 @@ class ASTScalarAccess extends SimpleNode {
     if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTTERM)
       line += "iload_" + mapVariables.returnByteCode(name) + "\n";
     else
-      line += "istore_" + mapVariables.returnByteCode(name) + "\n";
+      line += "istore_" + mapVariables.returnByteCode(name) + "\n\n";
 
     return line;
   }

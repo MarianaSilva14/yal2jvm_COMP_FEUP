@@ -63,14 +63,14 @@ class ASTArgument extends SimpleNode {
     String line = "";
 
     if(name != null ) {
-      line += "iload_" + mapVariables.returnByteCode(name);
+      line += "iload_" + mapVariables.returnByteCode(name) + "\n";
     }
-    else if(string != null)
-      line += "iconst_" + string;
-
-    else if(integer != null)
-      line += "iconst_" + integer;
-
+    else if(string != null) {
+      line += "iconst_" + string + "\n";
+    }
+    else if(integer != null) {
+      line += "iconst_" + integer + "\n";
+    }
       return line;
   }
 
