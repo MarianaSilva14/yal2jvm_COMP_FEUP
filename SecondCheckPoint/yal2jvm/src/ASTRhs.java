@@ -53,5 +53,17 @@ class ASTRhs extends SimpleNode {
   			return jjtGetChild(0).analyseRhs(currentTable);
   	}
 
+    public void convertToByteCodes(MapVariables mapVariables){
+      for(int i = 0; i < jjtGetNumChildren(); i++){
+        jjtGetChild(i).convertToByteCodes(mapVariables);
+      }
+      if(name != null) {
+        if(name.equals("*"))
+          System.out.println("imul");
+        else if(name.equals("+"))
+          System.out.println("iadd");
+      }
+    }
+
 }
 /* JavaCC - OriginalChecksum=5aeb10aa2652dec5bc5a437a06189648 (do not edit this line) */

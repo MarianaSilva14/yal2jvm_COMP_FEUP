@@ -3,6 +3,8 @@
 public
 class ASTArgument extends SimpleNode {
   private String name;
+  private String string;
+  private String integer;
 
   public ASTArgument(int id) {
     super(id);
@@ -20,10 +22,31 @@ class ASTArgument extends SimpleNode {
 	  this.name = name;
   }
 
-  public String toString() {
-	  String test;
+  public String getString() {
+    return string;
+  }
 
-	  test = super.toString() + " " + name;
+  public void setString(String string) {
+    this.string = string;
+  }
+
+  public String getInteger() {
+    return integer;
+  }
+
+  public void setInteger(String integer) {
+    this.integer = integer;
+  }
+
+  public String toString() {
+	  String test = "";
+
+    if(name != null)
+      test = super.toString() + " " + name;
+    else if(string != null)
+      test = super.toString() + " " + string;
+    else if(integer != null)
+      test = super.toString() + " " + integer;
 
 	  return test;
   }
@@ -34,6 +57,20 @@ class ASTArgument extends SimpleNode {
     System.out.println("Argument colocou na hashmap ");
 
     return true;
+  }
+
+  public void convertToByteCodes(MapVariables mapVariables){
+
+
+    if(name != null ) {
+      System.out.println("iconst_" + name);
+    }
+    else if(string != null)
+    System.out.println("iconst_" + string);
+
+    else if(integer != null)
+    System.out.println("iconst_" + integer);
+
   }
 
 }

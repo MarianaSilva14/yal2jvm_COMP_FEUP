@@ -20,6 +20,12 @@ class ASTStmt extends SimpleNode {
 
     return true;
   }
+
+  public void convertToByteCodes(MapVariables data){
+    for(int i = 0; i < jjtGetNumChildren(); i++){
+      jjtGetChild(i).convertToByteCodes(data);
+    }
+  }
   
 }
 /* JavaCC - OriginalChecksum=1750e394b2fe4f32b2e8864b15ac7904 (do not edit this line) */

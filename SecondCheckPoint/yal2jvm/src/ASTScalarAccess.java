@@ -4,59 +4,68 @@ public
 class ASTScalarAccess extends SimpleNode {
   private String name;
 
+  public ASTScalarAccess(int id) {
+    super(id);
+  }
 
-public ASTScalarAccess(int id) {
-  super(id);
-}
+  public ASTScalarAccess(parserGrammar p, int id) {
+    super(p, id);
+  }
 
-public ASTScalarAccess(parserGrammar p, int id) {
-  super(p, id);
-}
+  public String getName() {
+    return name;
+  }
 
-public String getName() {
-  return name;
-}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-public void setName(String name) {
-  this.name = name;
-}
+  public String toString() {
+    String test;
 
-public String toString() {
-  String test;
+    test = super.toString() + " " + name;
 
-  test = super.toString() + " " + name;
+    return test;
+  }
 
-  return test;
-}
+  public boolean analyseRhs(SymbolsTable currentTable){
+    System.out.println("Analyse the right part of ScalarAccess");
 
-public boolean analyseRhs(SymbolsTable currentTable){
-  System.out.println("Analyse the right part of ScalarAccess");
+    Symbol symbol = currentTable.returnSymbol(name);
 
-  Symbol symbol = currentTable.returnSymbol(name);
+    if(symbol == null)
+      return true;
+    else{
+      return symbol.isScalar();
+    }
+  }
 
-  if(symbol == null)
+  public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+    System.out.println("Analyse the left part of ScalarAccess");
+
+    Symbol symbol = currentTable.returnSymbol(name);
+
+    if(symbol == null){
+      currentTable.putOnHashMap(new Symbol("ScalarAccess",name,value));
+    }
+
+    else{
+      if(value != symbol.isScalar())
+        System.out.println("Semantic Error!");
+    }
+
     return true;
-  else{
-    return symbol.isScalar();
-  }
-}
-
-public boolean analyseLhs(SymbolsTable currentTable, boolean value){
-  System.out.println("Analyse the left part of ScalarAccess");
-
-  Symbol symbol = currentTable.returnSymbol(name);
-
-  if(symbol == null){
-    currentTable.putOnHashMap(new Symbol("ScalarAccess",name,value));
   }
 
-  else{
-    if(value != symbol.isScalar())
-      System.out.println("Semantic Error!");
+  public void convertToByteCodes(MapVariables mapVariables){
+    if(mapVariables.returnByteCode(name) == -1){
+      mapVariables.putOnHashMap(name);
+    }
+    if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTTERM)
+      System.out.println("iload_" + mapVariables.returnByteCode(name));
+    else
+      System.out.println("istore_" + mapVariables.returnByteCode(name));
   }
-
-  return true;
-}
 
 }
 /* JavaCC - OriginalChecksum=4c98cf3cdc1e090826fb33787eabb252 (do not edit this line) */

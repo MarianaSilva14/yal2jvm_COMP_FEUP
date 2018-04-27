@@ -4,68 +4,67 @@ public
 class ASTArrayAccess extends SimpleNode {
   private String name;
 
+  public ASTArrayAccess(int id) {
+    super(id);
+  }
 
-    public ASTArrayAccess(int id) {
-      super(id);
-    }
+  public ASTArrayAccess(parserGrammar p, int id) {
+    super(p, id);
+  }
 
-    public ASTArrayAccess(parserGrammar p, int id) {
-      super(p, id);
-    }
+  public String getName() {
+	  return name;
+  }
 
-    public String getName() {
-  	  return name;
-    }
+  public void setName(String name) {
+	  this.name = name;
+  }
 
-    public void setName(String name) {
-  	  this.name = name;
-    }
+  public String toString() {
+	  String test;
 
-    public String toString() {
-  	  String test;
+	  test = super.toString() + " " + name;
 
-  	  test = super.toString() + " " + name;
+	  return test;
+  }
 
-  	  return test;
-    }
+  @Override
+  public boolean analyse(SymbolsTable currentTable){
 
-    @Override
-    public boolean analyse(SymbolsTable currentTable){
+    if(currentTable.returnSymbol(name) != null){
+			System.out.println("This value's array exists on Symbols Table");
 
-      if(currentTable.returnSymbol(name) != null){
-  			System.out.println("This value's array exists on Symbols Table");
+      return true;
+		}
 
-        return true;
-  		}
+    System.out.println("This value's array doesn't exist on Symbols Table");
+    return false;
 
-      System.out.println("This value's array doesn't exist on Symbols Table");
-      return false;
+  }
 
-    }
+	public boolean analyseRhs(SymbolsTable currentTable){
+		System.out.println("Analyse the right part of ArrayAccess");
 
-  	public boolean analyseRhs(SymbolsTable currentTable){
-  		System.out.println("Analyse the right part of ArrayAccess");
+		return true;
+	}
 
-  		return true;
-  	}
+	public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+		Symbol symbol = currentTable.returnSymbol(name);
 
-  	public boolean analyseLhs(SymbolsTable currentTable, boolean value){
-  		Symbol symbol = currentTable.returnSymbol(name);
+		if(symbol == null){
+			System.out.println("Symbol is null on ArrayAccess");
+			currentTable.putOnHashMap(new Symbol("ArrayAccess",name,value));
+		}
 
-  		if(symbol == null){
-  			System.out.println("Symbol is null on ArrayAccess");
-  			currentTable.putOnHashMap(new Symbol("ArrayAccess",name,value));
-  		}
+		else{
+			//verificar se o valor de Rhs não é escalar OU se o símbolo não é um array
+			if(value != true || symbol.isScalar() == true)
+				System.out.println("Semantics Error!");
+		}
 
-  		else{
-  			//verificar se o valor de Rhs não é escalar OU se o símbolo não é um array
-  			if(value != true || symbol.isScalar() == true)
-  				System.out.println("Semantics Error!");
-  		}
+		return true;
 
-  		return true;
-
-  	}
+	}
 
 }
 /* JavaCC - OriginalChecksum=7ebc8b8804d088e1ea5d187558cc8d52 (do not edit this line) */

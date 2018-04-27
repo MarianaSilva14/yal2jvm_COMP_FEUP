@@ -35,6 +35,10 @@ class ASTScalarElement extends SimpleNode {
     return true;
   }
 
-
+  public void convertToByteCodes(MapVariables data){
+    if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTVARLIST) {
+      data.putOnHashMap(name);
+    }
+  }
 }
 /* JavaCC - OriginalChecksum=431b0b6f1ff139e666bd5d9e25b1a1ea (do not edit this line) */

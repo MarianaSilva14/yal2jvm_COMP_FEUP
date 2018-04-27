@@ -21,5 +21,11 @@ class ASTArgumentList extends SimpleNode {
 
     return true;
   }
+
+  public void convertToByteCodes(MapVariables mapVariables){
+    for(int i = 0; i < jjtGetNumChildren(); i++){
+      jjtGetChild(i).convertToByteCodes(mapVariables);
+    }
+  }
 }
 /* JavaCC - OriginalChecksum=65f9f6dc936f457252451f98383ad1aa (do not edit this line) */

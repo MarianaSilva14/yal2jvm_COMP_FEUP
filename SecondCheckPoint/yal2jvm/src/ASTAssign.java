@@ -23,7 +23,9 @@ class ASTAssign extends SimpleNode {
   }
 
   public void convertToByteCodes(MapVariables data){
+    jjtGetChild(1).convertToByteCodes(data);
 
+    jjtGetChild(0).convertToByteCodes(data);
   }
 }
 /* JavaCC - OriginalChecksum=e20e022e8c7e693a216dbfcbaefa6bca (do not edit this line) */

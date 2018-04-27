@@ -80,31 +80,35 @@ class SimpleNode implements Node {
   }
 
   public boolean analyse(SymbolsTable currentTable){
-  for(int i=0; i < jjtGetNumChildren();i++){
-    jjtGetChild(i).analyse(currentTable);
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(currentTable);
+    }
+    return true;
   }
-  return true;
-}
 
-public boolean analyseContent(SymbolsTable currentTable){
-  return true;
-}
+  public boolean analyseContent(SymbolsTable currentTable){
+    return true;
+  }
 
-public boolean analyseRhs(SymbolsTable currentTable){
-  return true;
-}
+  public boolean analyseRhs(SymbolsTable currentTable){
+    return true;
+  }
 
-public boolean analyseLhs(SymbolsTable currentTable, boolean value){
-  return true;
-}
+  public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+    return true;
+  }
 
-public boolean isScalar(){
-  return true;
-}
+  public boolean isScalar(){
+    return true;
+  }
 
-public void convertToByteCodes(MapVariables data){
-  return;
-}
+  public void convertToByteCodes(MapVariables data){
+    return;
+  }
+
+  public String getName() {
+    return "";
+  }
 }
 
 /* JavaCC - OriginalChecksum=4ffdb2cf57f2332df7bea5a797ddfcf8 (do not edit this line) */

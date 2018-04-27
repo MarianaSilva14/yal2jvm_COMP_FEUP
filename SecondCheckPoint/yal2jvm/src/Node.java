@@ -13,7 +13,8 @@ interface Node {
   public boolean analyseLhs(SymbolsTable currentTable, boolean value);
   public boolean isScalar();
   public void convertToByteCodes(MapVariables data);
-
+  public String getName();
+  
   /** This method is called after the node has been made the current
     node.  It indicates that child nodes can now be added to it. */
   public void jjtOpen();

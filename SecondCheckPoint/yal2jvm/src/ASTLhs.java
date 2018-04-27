@@ -6,32 +6,35 @@ class ASTLhs extends SimpleNode {
         super(id);
       }
 
-      public ASTLhs(parserGrammar p, int id) {
-        super(p, id);
-      }
+  public ASTLhs(parserGrammar p, int id) {
+    super(p, id);
+  }
 
-      @Override
-      public boolean analyseContent(SymbolsTable currentTable){
-        System.out.println("Analyse children of Lhs");
+  @Override
+  public boolean analyseContent(SymbolsTable currentTable){
+    System.out.println("Analyse children of Lhs");
 
-        SymbolsTable symbolsTable = new SymbolsTable(currentTable);
+    SymbolsTable symbolsTable = new SymbolsTable(currentTable);
 
-        for(int i=0; i < jjtGetNumChildren();i++){
-          jjtGetChild(i).analyse(symbolsTable);
-        }
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyse(symbolsTable);
+    }
 
-        return true;
-      }
+    return true;
+  }
 
-      public boolean analyseLhs(SymbolsTable currentTable, boolean value){
-        System.out.println("Analyse the left part of Call");
+  public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+    System.out.println("Analyse the left part of Call");
 
-        for(int i=0; i < jjtGetNumChildren();i++){
-          jjtGetChild(i).analyseLhs(currentTable, value);
-        }
-        return true;
-      }
+    for(int i=0; i < jjtGetNumChildren();i++){
+      jjtGetChild(i).analyseLhs(currentTable, value);
+    }
+    return true;
+  }
 
+  public void convertToByteCodes(MapVariables mapVariables){
+      jjtGetChild(0).convertToByteCodes(mapVariables);
+  }
 
 
 }

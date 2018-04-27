@@ -71,7 +71,23 @@ class ASTCallStmt extends SimpleNode {
       return true;
     }
 
-
+    public void convertToByteCodes(MapVariables mapVariables){
+      for(int i = 0; i < jjtGetNumChildren(); i++){
+          jjtGetChild(i).convertToByteCodes(mapVariables);
+      }
+      if(nameId2 == null){
+        SimpleNode node = (SimpleNode)this;
+        while(node.jjtGetParent() != null) {
+          node = (SimpleNode)node.jjtGetParent();
+        }
+        System.out.println("invokestatic "+ node.getName());
+        System.out.println();
+      }
+      else {
+        System.out.println("invokestatic "+ name + "/" + nameId2 + "(" + ")");
+        System.out.println();
+      }
+    }
 
 }
 /* JavaCC - OriginalChecksum=b1093cf9be00752b849437115fba253a (do not edit this line) */

@@ -61,7 +61,7 @@ public void convertToByteCodes(MapVariables data){
 
   MapVariables mapVariables = new MapVariables();
   String returnType = "V";
-
+  String returnArg = "";
   if(name.equals("main")){
     System.out.println(".method public static main([Ljava/lang/String;)V");
   }
@@ -78,9 +78,11 @@ public void convertToByteCodes(MapVariables data){
         }
         else if(jjtGetChild(i).getId() == parserGrammarTreeConstants.JJTARRAYELEMENT) {
           returnType = "[I";
+          returnArg = jjtGetChild(i).getName();
         }
         else if(jjtGetChild(i).getId() == parserGrammarTreeConstants.JJTSCALARELEMENT) {
           returnType = "I";
+          returnArg = jjtGetChild(i).getName();
         }
     }
 
@@ -102,9 +104,10 @@ public void convertToByteCodes(MapVariables data){
 
   if(returnType.equals("V"))
     System.out.println("return");
-  else
+  else {
+    System.out.println("iload_" + mapVariables.returnByteCode(returnArg));
     System.out.println("ireturn");
-
+  }
   System.out.println(".end method");
   System.out.println();
 

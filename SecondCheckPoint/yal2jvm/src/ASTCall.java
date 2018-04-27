@@ -81,6 +81,24 @@ class ASTCall extends SimpleNode {
     return true;
   }
 
+  public void convertToByteCodes(MapVariables mapVariables){
+    for(int i = 0; i < jjtGetNumChildren(); i++){
+        jjtGetChild(i).convertToByteCodes(mapVariables);
+    }
+
+    if(nameId2 == null){
+      SimpleNode node = (SimpleNode)this;
+      while(node.jjtGetParent() != null) {
+        node = (SimpleNode)node.jjtGetParent();
+      }
+      System.out.println("invokestatic "+ node.getName() + "/" + name + "(" + ")");
+      System.out.println();
+    }
+    else {
+      System.out.println("invokestatic "+ name + "/" + nameId2 + "(" + ")");
+      System.out.println();
+    }
+  }
 
 }
 /* JavaCC - OriginalChecksum=5426cbd81caaa60f1af1e93f4db8172e (do not edit this line) */
