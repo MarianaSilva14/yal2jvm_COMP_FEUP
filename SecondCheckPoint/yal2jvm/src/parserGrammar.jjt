@@ -3,7 +3,6 @@ options
   LOOKAHEAD=1;
   MULTI=true;
   static=false;
-  VISITOR=true;
 }
 
 PARSER_BEGIN(parserGrammar)
@@ -45,14 +44,11 @@ public class parserGrammar
 
   System.out.println("");
 	System.out.println("//////////////////////////////");
-	System.out.println("  Intermediate Representation ");
+	System.out.println("/////////// Jasmin ///////////");
 	System.out.println("//////////////////////////////");
 	System.out.println("");
 
-  Yal2jvmVisitor visitor = new Yal2jvmVisitor();
-  root.jjtAccept(visitor, null);
-
-
+  root.convertToByteCodes(null);
 
   }
 }
