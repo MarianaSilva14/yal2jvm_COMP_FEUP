@@ -44,11 +44,10 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
     line = root.convertToByteCodes(null);
 
     String[] fileTemp = args[0].split("/");
-    System.out.println(fileTemp[1]);
 
     String filename = fileTemp[1];
     filename = filename.substring(0, filename.lastIndexOf('.'));
-    System.out.println(filename);
+    System.out.println("The " + filename + ".j file was generated from the file " + fileTemp[1]);
 
     try {
       PrintWriter writer = new PrintWriter(filename+".j", "UTF-8");
@@ -1338,6 +1337,12 @@ if (jjtc000) {
     finally { jj_save(8, xla); }
   }
 
+  private boolean jj_3R_25()
+ {
+    if (jj_scan_token(ADDSUB_OP)) return true;
+    return false;
+  }
+
   private boolean jj_3R_9()
  {
     if (jj_scan_token(ID)) return true;
@@ -1595,12 +1600,6 @@ if (jjtc000) {
   private boolean jj_3R_26()
  {
     if (jj_scan_token(INTEGER)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_25()
- {
-    if (jj_scan_token(ADDSUB_OP)) return true;
     return false;
   }
 

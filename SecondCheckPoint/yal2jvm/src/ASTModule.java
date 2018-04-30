@@ -67,7 +67,7 @@ class ASTModule extends SimpleNode {
     }
 
     line += "\n";
-    line += ".met.method static public <clinit>()V" + "\n";
+    line += ".method static public <clinit>()V" + "\n";
     line += ".limit stack 0" +"\n";
     line += ".limit locals 0" + "\n";
     line += "return" + "\n";

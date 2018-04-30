@@ -56,11 +56,10 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
     line = root.convertToByteCodes(null);
 
     String[] fileTemp = args[0].split("/");
-    System.out.println(fileTemp[1]);
 
     String filename = fileTemp[1];
     filename = filename.substring(0, filename.lastIndexOf('.'));
-    System.out.println(filename);
+    System.out.println("The " + filename + ".j file was generated from the file " + fileTemp[1]);
 
     try {
       PrintWriter writer = new PrintWriter(filename+".j", "UTF-8");
