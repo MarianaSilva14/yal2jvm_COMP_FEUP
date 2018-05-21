@@ -120,7 +120,7 @@ try {
 	if(consume)
 		t = getNextToken();
 
-	token_kind = jj_ntk_f();
+	token_kind = getToken(0).kind;
 
 	consume = true;
 

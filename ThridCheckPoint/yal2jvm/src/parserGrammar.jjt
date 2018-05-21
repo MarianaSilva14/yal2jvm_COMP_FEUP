@@ -100,7 +100,7 @@ void skipto_do_not_consume_last(int kind) {
 	if(consume)
 		t = getNextToken();
 
-	token_kind = jj_ntk_f();
+	token_kind = getToken(0).kind;
 
 	consume = true;
 

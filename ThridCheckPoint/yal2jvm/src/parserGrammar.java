@@ -96,7 +96,7 @@ try {ParseException e = generateParseException();  // generate the exception obj
         if(consume)
                 t = getNextToken();
 
-        token_kind = jj_ntk_f();
+        token_kind = getToken(0).kind;
 
         consume = true;
 

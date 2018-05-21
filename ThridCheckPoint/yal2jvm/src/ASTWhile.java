@@ -2,12 +2,18 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTWhile extends SimpleNode {
+    static int loopCounter=0;
   public ASTWhile(int id) {
     super(id);
   }
 
   public ASTWhile(parserGrammar p, int id) {
     super(p, id);
+  }
+
+  public int getNextLoopNumber(){
+    loopCounter++;
+    return loopCounter;
   }
 
   @Override
@@ -20,5 +26,33 @@ class ASTWhile extends SimpleNode {
 
     return true;
   }
+
+  public String convertToByteCodes(MapVariables data){
+    String line = "";
+    line += "loop: " /*+ name*/ + "\n";
+    line += "\n";
+    MapVariables mapVariables = new MapVariables(data);
+    for(int i = 0; i < jjtGetNumChildren(); i++){
+      if(jjtGetChild(i).getId() == parserGrammarTreeConstants.JJTWHILE) {
+        String name = "";
+        String returnType = "";
+        /*ArrayList<String> returns = jjtGetChild(i).getFunction();
+        name = returns.get(0);
+        returnType = returns.get(1);
+        mapVariables.putOnHashMapFunctionReturn(name,returnType);*/
+      }
+    }
+
+    for(int i = 0; i < jjtGetNumChildren(); i++){
+      line += jjtGetChild(i).convertToByteCodes(mapVariables);
+    }
+
+    line += "\n";
+    line += "goto loop" + "\n";
+    line += "loop end: " + "\n";
+
+    return line;
+  }
+
 }
 /* JavaCC - OriginalChecksum=98e9f9132d5f2dd8e8478e4f328518ba (do not edit this line) */
