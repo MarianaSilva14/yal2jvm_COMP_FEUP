@@ -21,10 +21,10 @@ class ASTVarlist extends SimpleNode {
         return true;
       }
 
-      public String convertToByteCodes(MapVariables data){
+      public String convertToByteCodes(MapVariables data, int loop_no){
         String line = "";
         for(int i=0; i < jjtGetNumChildren();i++){
-          line += jjtGetChild(i).convertToByteCodes(data);
+          line += jjtGetChild(i).convertToByteCodes(data, loop_no);
         }
 
         return line;

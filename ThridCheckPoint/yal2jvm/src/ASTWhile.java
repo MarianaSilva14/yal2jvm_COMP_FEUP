@@ -11,11 +11,6 @@ class ASTWhile extends SimpleNode {
     super(p, id);
   }
 
-  public int getNextLoopNumber(){
-    loopCounter++;
-    return loopCounter;
-  }
-
   @Override
   public boolean analyseContent(SymbolsTable currentTable){
     System.out.println("Analyse the children of While");
@@ -27,30 +22,22 @@ class ASTWhile extends SimpleNode {
     return true;
   }
 
-  public String convertToByteCodes(MapVariables data){
+  public String convertToByteCodes(MapVariables data, int loop_no){
     String line = "";
-    line += "loop: " /*+ name*/ + "\n";
+    int loop_number = loop_no;
+
+    String loopname="loop" + loop_number;
+    line += loopname +  ":\n";
     line += "\n";
-    MapVariables mapVariables = new MapVariables(data);
-    for(int i = 0; i < jjtGetNumChildren(); i++){
-      if(jjtGetChild(i).getId() == parserGrammarTreeConstants.JJTWHILE) {
-        String name = "";
-        String returnType = "";
-        /*ArrayList<String> returns = jjtGetChild(i).getFunction();
-        name = returns.get(0);
-        returnType = returns.get(1);
-        mapVariables.putOnHashMapFunctionReturn(name,returnType);*/
-      }
-    }
 
     for(int i = 0; i < jjtGetNumChildren(); i++){
-      line += jjtGetChild(i).convertToByteCodes(mapVariables);
+      line += jjtGetChild(i).convertToByteCodes(data, loop_no);
     }
 
     line += "\n";
-    line += "goto loop" + "\n";
-    line += "loop end: " + "\n";
-
+    line += "goto "+ loopname + "\n";
+    line += loopname + "_end:" + "\n";
+    loop_no++;
     return line;
   }
 

@@ -32,9 +32,9 @@ class ASTLhs extends SimpleNode {
     return true;
   }
 
-  public String convertToByteCodes(MapVariables mapVariables){
+  public String convertToByteCodes(MapVariables mapVariables, int loop_no){
       String line = "";
-      line += jjtGetChild(0).convertToByteCodes(mapVariables);
+      line += jjtGetChild(0).convertToByteCodes(mapVariables, loop_no);
 
       return line;
   }

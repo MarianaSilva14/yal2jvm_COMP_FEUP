@@ -20,5 +20,34 @@ class ASTIf extends SimpleNode {
 
     return true;
   }
+
+
+  public String convertToByteCodes(MapVariables data, int loop_no){
+    String line = "";
+    int loop_number = loop_no;
+
+    String loopname="loop" + loop_number;
+
+    for(int i = 0; i < jjtGetNumChildren(); i++){
+      if(jjtGetChild(i).equals("else")){
+        String loopname="loop" + loop_number;
+        line += jjtGetChild(i).convertToByteCodes(data, loop_no);
+
+      }
+      else{
+        line += jjtGetChild(i).convertToByteCodes(data, loop_no);
+      }
+    }
+
+    line += "\n";
+    line += loopname + "_end:" + "\n";
+
+
+
+
+
+    loop_no++;
+    return line;
+  }
 }
 /* JavaCC - OriginalChecksum=2ec96525784b2bcad433eadafd7c9b56 (do not edit this line) */

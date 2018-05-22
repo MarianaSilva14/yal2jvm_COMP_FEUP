@@ -22,11 +22,11 @@ class ASTAssign extends SimpleNode {
     return true;
   }
 
-  public String convertToByteCodes(MapVariables data){
+  public String convertToByteCodes(MapVariables data, int loop_no){
     String line = "";
-    line += jjtGetChild(1).convertToByteCodes(data);
+    line += jjtGetChild(1).convertToByteCodes(data, loop_no);
 
-    line += jjtGetChild(0).convertToByteCodes(data);
+    line += jjtGetChild(0).convertToByteCodes(data, loop_no);
 
     return line;
   }

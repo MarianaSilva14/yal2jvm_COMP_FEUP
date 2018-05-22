@@ -60,7 +60,7 @@ public boolean analyseContent(SymbolsTable currentTable){
   return true;
 }
 
-public String convertToByteCodes(MapVariables data){
+public String convertToByteCodes(MapVariables data, int loop_no){
   String line = "";
   MapVariables mapVariables = new MapVariables(data);
   String returnType = "V";
@@ -103,7 +103,7 @@ public String convertToByteCodes(MapVariables data){
   line +=".limit stack 10" + "\n";
 
   for(int i = 0; i < jjtGetNumChildren(); i++){
-    line += jjtGetChild(i).convertToByteCodes(mapVariables);
+    line += jjtGetChild(i).convertToByteCodes(mapVariables, loop_no);
   }
 
   if(returnType.equals("V"))

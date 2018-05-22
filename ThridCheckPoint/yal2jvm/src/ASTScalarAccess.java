@@ -70,7 +70,7 @@ class ASTScalarAccess extends SimpleNode {
     return true;
   }
 
-  public String convertToByteCodes(MapVariables mapVariables){
+  public String convertToByteCodes(MapVariables mapVariables, int loop_no){
     String line = "";
     if(mapVariables.returnByteCode(name) == -1){
       mapVariables.putOnHashMap(name);

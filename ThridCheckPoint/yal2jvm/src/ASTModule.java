@@ -45,7 +45,7 @@ class ASTModule extends SimpleNode {
     return true;
   }
 
-  public String convertToByteCodes(MapVariables data){
+  public String convertToByteCodes(MapVariables data, int loop_no){
     String line = "";
     line += ".class public " + name + "\n";
     line += ".super java/lang/Object" + "\n";
@@ -63,7 +63,7 @@ class ASTModule extends SimpleNode {
     }
 
     for(int i = 0; i < jjtGetNumChildren(); i++){
-      line += jjtGetChild(i).convertToByteCodes(mapVariables);
+      line += jjtGetChild(i).convertToByteCodes(mapVariables, loop_no);
     }
 
     line += "\n";

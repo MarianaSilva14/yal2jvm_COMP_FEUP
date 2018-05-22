@@ -29,7 +29,7 @@ public class parserGrammar
 	 }
 
 
-	
+
     parserGrammarTokenManager tm= new parserGrammarTokenManager(new SimpleCharStream(stream));
 
     parserGrammar parser = new parserGrammar(stream);
@@ -60,7 +60,8 @@ public class parserGrammar
   	System.out.println("");
 
     String line = "";
-    line = root.convertToByteCodes(null);
+    int loop_no=0;
+    line = root.convertToByteCodes(null, loop_no);
 	String filename;
 
 	if(args[0].contains("/")){
@@ -74,10 +75,10 @@ public class parserGrammar
 		filename = filename.substring(0, filename.lastIndexOf('.'));
 		System.out.println("The " + filename + ".j file was generated from the file " + filename);
 	}
-  
 
-    
-    
+
+
+
 
     try {
       PrintWriter writer = new PrintWriter(filename+".j", "UTF-8");

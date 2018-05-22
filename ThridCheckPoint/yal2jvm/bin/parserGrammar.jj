@@ -2,7 +2,7 @@
 /*@egen*/options
 {
   LOOKAHEAD=1;
-             
+
   static=false;
 }
 
@@ -33,7 +33,7 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
 	 }
 
 
-	
+
     parserGrammarTokenManager tm= new parserGrammarTokenManager(new SimpleCharStream(stream));
 
     parserGrammar parser = new parserGrammar(stream);
@@ -78,10 +78,10 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
 		filename = filename.substring(0, filename.lastIndexOf('.'));
 		System.out.println("The " + filename + ".j file was generated from the file " + filename);
 	}
-  
 
-    
-    
+
+
+
 
     try {
       PrintWriter writer = new PrintWriter(filename+".j", "UTF-8");

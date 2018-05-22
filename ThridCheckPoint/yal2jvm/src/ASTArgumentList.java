@@ -22,10 +22,10 @@ class ASTArgumentList extends SimpleNode {
     return true;
   }
 
-  public String convertToByteCodes(MapVariables mapVariables){
+  public String convertToByteCodes(MapVariables mapVariables, int loop_no){
     String line = "";
     for(int i = 0; i < jjtGetNumChildren(); i++){
-      line += jjtGetChild(i).convertToByteCodes(mapVariables);
+      line += jjtGetChild(i).convertToByteCodes(mapVariables, loop_no);
     }
     return line;
   }
@@ -33,7 +33,7 @@ class ASTArgumentList extends SimpleNode {
   public String checkArgumentsType() {
     String call = "";
     for(int i = 0; i < jjtGetNumChildren(); i++){
-   
+
       call += jjtGetChild(i).checkArgumentsType();
       if(jjtGetNumChildren()!=i+1){
         call += ";";

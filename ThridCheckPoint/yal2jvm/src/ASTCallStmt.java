@@ -70,11 +70,11 @@ class ASTCallStmt extends SimpleNode {
       return true;
     }
 
-    public String convertToByteCodes(MapVariables mapVariables){
+    public String convertToByteCodes(MapVariables mapVariables, int loop_no){
       String line = "";
       String call = "";
       for(int i = 0; i < jjtGetNumChildren(); i++){
-          line += jjtGetChild(i).convertToByteCodes(mapVariables);
+          line += jjtGetChild(i).convertToByteCodes(mapVariables, loop_no);
       }
 
       if(nameId2 == null){
