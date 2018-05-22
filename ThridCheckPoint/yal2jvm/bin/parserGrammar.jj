@@ -21,8 +21,19 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
   {
     /* Open File */
 
-  	InputStream stream = new FileInputStream(args[0]);
+	 /* Open File */
+	 InputStream stream=null;
 
+	 try{
+	   stream = new FileInputStream(args[0]);
+	 }
+	 catch(FileNotFoundException e){
+	   System.out.println("usage: java Yal2jvm"+ args[0]);
+	   System.exit(0);
+	 }
+
+
+	
     parserGrammarTokenManager tm= new parserGrammarTokenManager(new SimpleCharStream(stream));
 
     parserGrammar parser = new parserGrammar(stream);
@@ -54,12 +65,23 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
 
     String line = "";
     line = root.convertToByteCodes(null);
+	String filename;
 
-    String[] fileTemp = args[0].split("/");
+	if(args[0].contains("/")){
+		String[] fileTemp = args[0].split("/");
+		filename = fileTemp[1];
+		filename = filename.substring(0, filename.lastIndexOf('.'));
+		System.out.println("The " + filename + ".j file was generated from the file " + fileTemp[1]);
+	}
+	else{
+		filename =args[0];
+		filename = filename.substring(0, filename.lastIndexOf('.'));
+		System.out.println("The " + filename + ".j file was generated from the file " + filename);
+	}
+  
 
-    String filename = fileTemp[1];
-    filename = filename.substring(0, filename.lastIndexOf('.'));
-    System.out.println("The " + filename + ".j file was generated from the file " + fileTemp[1]);
+    
+    
 
     try {
       PrintWriter writer = new PrintWriter(filename+".j", "UTF-8");
@@ -120,7 +142,7 @@ try {
 	if(consume)
 		t = getNextToken();
 
-	token_kind = jj_ntk_f();
+	token_kind = getToken(0).kind;
 
 	consume = true;
 
@@ -992,11 +1014,11 @@ void ScalarAccess():{/*@bgen(jjtree) ScalarAccess */
                      ASTScalarAccess jjtn000 = new ASTScalarAccess(JJTSCALARACCESS);
                      boolean jjtc000 = true;
                      jjtree.openNodeScope(jjtn000);
-/*@egen*/Token t;}
+/*@egen*/Token t; Token size;}
 {/*@bgen(jjtree) ScalarAccess */
         try {
 /*@egen*/
-	t=<ID> {jjtn000.setName(t.image); } ( <DOT> <SIZE> )?/*@bgen(jjtree)*/
+	t=<ID> {jjtn000.setName(t.image); } ( <DOT> size=<SIZE> {jjtn000.setSize(size.image);})?/*@bgen(jjtree)*/
         } finally {
           if (jjtc000) {
             jjtree.closeNodeScope(jjtn000, true);

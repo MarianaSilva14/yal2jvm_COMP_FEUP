@@ -17,8 +17,19 @@ public class parserGrammar
   {
     /* Open File */
 
-  	InputStream stream = new FileInputStream(args[0]);
+	 /* Open File */
+	 InputStream stream=null;
 
+	 try{
+	   stream = new FileInputStream(args[0]);
+	 }
+	 catch(FileNotFoundException e){
+	   System.out.println("usage: java Yal2jvm"+ args[0]);
+	   System.exit(0);
+	 }
+
+
+	
     parserGrammarTokenManager tm= new parserGrammarTokenManager(new SimpleCharStream(stream));
 
     parserGrammar parser = new parserGrammar(stream);
@@ -50,12 +61,23 @@ public class parserGrammar
 
     String line = "";
     line = root.convertToByteCodes(null);
+	String filename;
 
-    String[] fileTemp = args[0].split("/");
+	if(args[0].contains("/")){
+		String[] fileTemp = args[0].split("/");
+		filename = fileTemp[1];
+		filename = filename.substring(0, filename.lastIndexOf('.'));
+		System.out.println("The " + filename + ".j file was generated from the file " + fileTemp[1]);
+	}
+	else{
+		filename =args[0];
+		filename = filename.substring(0, filename.lastIndexOf('.'));
+		System.out.println("The " + filename + ".j file was generated from the file " + filename);
+	}
+  
 
-    String filename = fileTemp[1];
-    filename = filename.substring(0, filename.lastIndexOf('.'));
-    System.out.println("The " + filename + ".j file was generated from the file " + fileTemp[1]);
+    
+    
 
     try {
       PrintWriter writer = new PrintWriter(filename+".j", "UTF-8");
@@ -412,9 +434,9 @@ void ArrayAccess():{Token t;}
 	t=<ID> {jjtThis.setName(t.image); } <LPAR_RECT> Index() <RPAR_RECT>
 }
 
-void ScalarAccess():{Token t;}
+void ScalarAccess():{Token t; Token size;}
 {
-	t=<ID> {jjtThis.setName(t.image); } ( <DOT> <SIZE> )?
+	t=<ID> {jjtThis.setName(t.image); } ( <DOT> size=<SIZE> {jjtThis.setSize(size.image);})?
 }
 
 void Index():{Token t;}

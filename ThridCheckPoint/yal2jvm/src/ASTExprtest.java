@@ -40,9 +40,11 @@ class ASTExprtest extends SimpleNode {
   public boolean analyseContent(SymbolsTable currentTable){
 		System.out.println("Analyse children of Exprtest");
 
-    for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(currentTable);
-    }
+    boolean returnValue;
+    System.out.println("Analyse Rhs of Exprtest");
+    returnValue = jjtGetChild(1).analyseRhs(currentTable);
+    System.out.println("Analyse Lhs of Exprtest");
+    jjtGetChild(0).analyseLhs(currentTable, returnValue);
 
     return true;
   }

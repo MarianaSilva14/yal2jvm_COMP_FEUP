@@ -45,11 +45,8 @@ class ASTCallStmt extends SimpleNode {
 
     @Override
     public boolean analyse(SymbolsTable currentTable){
-  		if(name.equals("io"))
+  		if(name != null && nameId2 != null)
   			return true;
-
-  		System.out.println("Call: The function doesn't call io and I'll go trough children");
-
 
       if(currentTable.returnSymbol(name) != null){
         analyseContent(currentTable);
@@ -67,7 +64,7 @@ class ASTCallStmt extends SimpleNode {
   		System.out.println("Analyse children of CallStmt");
 
       for(int i=0; i < jjtGetNumChildren();i++){
-        jjtGetChild(i).analyse(currentTable);
+        jjtGetChild(i).analyseContent(currentTable);
       }
 
       return true;
@@ -94,20 +91,11 @@ class ASTCallStmt extends SimpleNode {
       }
       else {
         call += "invokestatic "+ name + "/" + nameId2 + "(";
-        if(name.equals("io")) {
-          if(nameId2.equals("println"))
-            call += "I)V";
-          else if (nameId2.equals("read"))
-            call += ")I";
-          else
-            call += ")V";
+        for(int i = 0; i < jjtGetNumChildren(); i++){
+          call += jjtGetChild(i).checkArgumentsType();
         }
-        else {
-          if(nameId2.equals("size"))
-            call += ")I";
-          else
-            call += ")V";
-        }
+        call += ")";
+
       }
 
       line += call;

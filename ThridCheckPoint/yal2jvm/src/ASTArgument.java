@@ -53,9 +53,11 @@ class ASTArgument extends SimpleNode {
 
 
   public boolean analyse(SymbolsTable currentTable){
-    currentTable.putOnHashMap(new Symbol("Argument",name,true));
-    System.out.println("Argument colocou na hashmap ");
 
+    if(name != null && currentTable.returnSymbol(name) == null){
+      System.out.println("Error, variable " + name + " does not exists!");
+      return true;
+    }
     return true;
   }
 
@@ -66,10 +68,13 @@ class ASTArgument extends SimpleNode {
       line += "iload_" + mapVariables.returnByteCode(name) + "\n";
     }
     else if(string != null) {
-      line += "iconst_" + string + "\n";
+      line += "ldc " + string + "\n";
     }
     else if(integer != null) {
-      line += "iconst_" + integer + "\n";
+      if(Integer.parseInt(integer)<=5)
+        line += "iconst_" + integer + "\n";
+      else
+        line += "bipush " + integer + "\n";
     }
       return line;
   }
@@ -80,7 +85,7 @@ class ASTArgument extends SimpleNode {
       return "I";
     }
     else if(string != null)
-      return "I";
+      return "Ljava/lang/String";
     else if(integer != null)
       return "I";
     else

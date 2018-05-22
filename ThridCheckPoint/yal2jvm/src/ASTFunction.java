@@ -33,6 +33,10 @@ public String toString() {
 @Override
 public boolean analyse(SymbolsTable currentTable){
   boolean isScalar = jjtGetChild(0).isScalar();
+  if(currentTable.returnSymbol(name)!=null){
+    System.out.println("Function already exists!");
+    return true;
+  }
   if(isScalar)
     currentTable.putOnHashMap(new Symbol("Function",name,true));
   else
@@ -40,7 +44,6 @@ public boolean analyse(SymbolsTable currentTable){
 
   System.out.println("Function: " + " name: " + name + " Tipo: " + isScalar);
 
-  analyseContent(currentTable);
   return true;
 }
 

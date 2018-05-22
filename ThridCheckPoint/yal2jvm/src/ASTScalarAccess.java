@@ -3,6 +3,7 @@
 public
 class ASTScalarAccess extends SimpleNode {
   private String name;
+  private String size;
 
   public ASTScalarAccess(int id) {
     super(id);
@@ -18,6 +19,10 @@ class ASTScalarAccess extends SimpleNode {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public void setSize(String size) {
+    this.size = size;
   }
 
   public String toString() {
@@ -36,7 +41,15 @@ class ASTScalarAccess extends SimpleNode {
     if(symbol == null)
       return true;
     else{
+      if(symbol.isScalar() && size != null) {
+        System.out.println("Can't get size of a scalar variable!");
+      }
+  
+      if(!symbol.isScalar() && size != null) 
+        return true;
+      
       return symbol.isScalar();
+      
     }
   }
 
@@ -51,7 +64,7 @@ class ASTScalarAccess extends SimpleNode {
 
     else{
       if(value != symbol.isScalar())
-        System.out.println("Semantic Error!");
+        System.out.println("Semantic Error! " + name + " Expected Value " + value + " Value " + symbol.isScalar());
     }
 
     return true;

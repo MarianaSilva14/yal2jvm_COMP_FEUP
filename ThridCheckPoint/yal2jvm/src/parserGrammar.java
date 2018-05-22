@@ -9,7 +9,18 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
   {
     /* Open File */
 
-        InputStream stream = new FileInputStream(args[0]);
+         /* Open File */
+         InputStream stream=null;
+
+         try{
+           stream = new FileInputStream(args[0]);
+         }
+         catch(FileNotFoundException e){
+           System.out.println("usage: java Yal2jvm"+ args[0]);
+           System.exit(0);
+         }
+
+
 
     parserGrammarTokenManager tm= new parserGrammarTokenManager(new SimpleCharStream(stream));
 
@@ -42,12 +53,23 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
 
     String line = "";
     line = root.convertToByteCodes(null);
+        String filename;
 
-    String[] fileTemp = args[0].split("/");
+        if(args[0].contains("/")){
+                String[] fileTemp = args[0].split("/");
+                filename = fileTemp[1];
+                filename = filename.substring(0, filename.lastIndexOf('.'));
+                System.out.println("The " + filename + ".j file was generated from the file " + fileTemp[1]);
+        }
+        else{
+                filename =args[0];
+                filename = filename.substring(0, filename.lastIndexOf('.'));
+                System.out.println("The " + filename + ".j file was generated from the file " + filename);
+        }
 
-    String filename = fileTemp[1];
-    filename = filename.substring(0, filename.lastIndexOf('.'));
-    System.out.println("The " + filename + ".j file was generated from the file " + fileTemp[1]);
+
+
+
 
     try {
       PrintWriter writer = new PrintWriter(filename+".j", "UTF-8");
@@ -1186,14 +1208,15 @@ if (jjtc000) {
   final public void ScalarAccess() throws ParseException {/*@bgen(jjtree) ScalarAccess */
                      ASTScalarAccess jjtn000 = new ASTScalarAccess(JJTSCALARACCESS);
                      boolean jjtc000 = true;
-                     jjtree.openNodeScope(jjtn000);Token t;
+                     jjtree.openNodeScope(jjtn000);Token t; Token size;
     try {
       t = jj_consume_token(ID);
 jjtn000.setName(t.image);
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case DOT:{
         jj_consume_token(DOT);
-        jj_consume_token(SIZE);
+        size = jj_consume_token(SIZE);
+jjtn000.setSize(size.image);
         break;
         }
       default:
@@ -1335,6 +1358,103 @@ if (jjtc000) {
     try { return !jj_3_9(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(8, xla); }
+  }
+
+  private boolean jj_3R_14()
+ {
+    if (jj_scan_token(DOT)) return true;
+    if (jj_scan_token(ID)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_6()
+ {
+    if (jj_scan_token(ID)) return true;
+    if (jj_scan_token(LPAR_RECT)) return true;
+    return false;
+  }
+
+  private boolean jj_3_4()
+ {
+    if (jj_3R_6()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_8()
+ {
+    if (jj_3R_12()) return true;
+    if (jj_scan_token(ASSIGN)) return true;
+    if (jj_3R_13()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_10()
+ {
+    if (jj_scan_token(ID)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_14()) jj_scanpos = xsp;
+    if (jj_scan_token(LPAR)) return true;
+    xsp = jj_scanpos;
+    if (jj_3R_15()) jj_scanpos = xsp;
+    if (jj_scan_token(RPAR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_23()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(30)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(29)) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3_6()
+ {
+    if (jj_3R_8()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_7()
+ {
+    if (jj_3R_11()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_27()
+ {
+    if (jj_3R_20()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_20()
+ {
+    if (jj_scan_token(ID)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_24()) jj_scanpos = xsp;
+    return false;
+  }
+
+  private boolean jj_3_9()
+ {
+    if (jj_3R_9()) return true;
+    return false;
+  }
+
+  private boolean jj_3_8()
+ {
+    if (jj_3R_10()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_26()
+ {
+    if (jj_scan_token(INTEGER)) return true;
+    return false;
   }
 
   private boolean jj_3R_25()
@@ -1503,103 +1623,6 @@ if (jjtc000) {
   private boolean jj_3_2()
  {
     if (jj_3R_6()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_14()
- {
-    if (jj_scan_token(DOT)) return true;
-    if (jj_scan_token(ID)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_6()
- {
-    if (jj_scan_token(ID)) return true;
-    if (jj_scan_token(LPAR_RECT)) return true;
-    return false;
-  }
-
-  private boolean jj_3_4()
- {
-    if (jj_3R_6()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_8()
- {
-    if (jj_3R_12()) return true;
-    if (jj_scan_token(ASSIGN)) return true;
-    if (jj_3R_13()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_10()
- {
-    if (jj_scan_token(ID)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_14()) jj_scanpos = xsp;
-    if (jj_scan_token(LPAR)) return true;
-    xsp = jj_scanpos;
-    if (jj_3R_15()) jj_scanpos = xsp;
-    if (jj_scan_token(RPAR)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_23()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(30)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(29)) return true;
-    }
-    return false;
-  }
-
-  private boolean jj_3_6()
- {
-    if (jj_3R_8()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_7()
- {
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_27()
- {
-    if (jj_3R_20()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_20()
- {
-    if (jj_scan_token(ID)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_24()) jj_scanpos = xsp;
-    return false;
-  }
-
-  private boolean jj_3_9()
- {
-    if (jj_3R_9()) return true;
-    return false;
-  }
-
-  private boolean jj_3_8()
- {
-    if (jj_3R_10()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_26()
- {
-    if (jj_scan_token(INTEGER)) return true;
     return false;
   }
 

@@ -80,7 +80,7 @@ class ASTArgument extends SimpleNode {
       return "I";
     }
     else if(string != null)
-      return "I";
+      return "Ljava/lang/String";
     else if(integer != null)
       return "I";
     else
