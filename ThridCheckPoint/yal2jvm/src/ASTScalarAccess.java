@@ -4,7 +4,7 @@ public
 class ASTScalarAccess extends SimpleNode {
   private String name;
   private String size;
-
+  private SymbolsTable symbolsTable;
   public ASTScalarAccess(int id) {
     super(id);
   }
@@ -44,12 +44,12 @@ class ASTScalarAccess extends SimpleNode {
       if(symbol.isScalar() && size != null) {
         System.out.println("Can't get size of a scalar variable!");
       }
-  
-      if(!symbol.isScalar() && size != null) 
+
+      if(!symbol.isScalar() && size != null)
         return true;
-      
+
       return symbol.isScalar();
-      
+
     }
   }
 
@@ -57,7 +57,7 @@ class ASTScalarAccess extends SimpleNode {
     System.out.println("Analyse the left part of ScalarAccess");
 
     Symbol symbol = currentTable.returnSymbol(name);
-
+    this.symbolsTable = currentTable;
     if(symbol == null){
       currentTable.putOnHashMap(new Symbol("ScalarAccess",name,value));
     }
@@ -72,16 +72,19 @@ class ASTScalarAccess extends SimpleNode {
 
   public String convertToByteCodes(MapVariables mapVariables, int loop_no){
     String line = "";
+
     if(mapVariables.returnByteCode(name) == -1){
       mapVariables.putOnHashMap(name);
     }
-    if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTTERM)
+    if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTTERM || jjtGetParent().getId() == parserGrammarTreeConstants.JJTARRAYSIZE || jjtGetParent().jjtGetParent().getId() == parserGrammarTreeConstants.JJTEXPRTEST)
       line += "iload_" + mapVariables.returnByteCode(name) + "\n";
-    else
-      line += "istore_" + mapVariables.returnByteCode(name) + "\n\n";
-
+    else {
+      if(symbolsTable.returnSymbol(name).isScalar())
+        line += "istore_" + mapVariables.returnByteCode(name) + "\n\n";
+      else
+        line += "newarray int" + "\n" + "astore_" + mapVariables.returnByteCode(name) + "\n\n";
+    }
     return line;
   }
-
 }
 /* JavaCC - OriginalChecksum=4c98cf3cdc1e090826fb33787eabb252 (do not edit this line) */

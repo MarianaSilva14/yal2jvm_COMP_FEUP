@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTAssign extends SimpleNode {
+
   public ASTAssign(int id) {
         super(id);
       }
@@ -13,7 +14,6 @@ class ASTAssign extends SimpleNode {
   @Override
   public boolean analyse(SymbolsTable currentTable){
     boolean returnValue;
-
     System.out.println("Analyse Rhs of Assign");
     returnValue = jjtGetChild(1).analyseRhs(currentTable);
     System.out.println("Analyse Lhs of Assign");
@@ -24,6 +24,7 @@ class ASTAssign extends SimpleNode {
 
   public String convertToByteCodes(MapVariables data, int loop_no){
     String line = "";
+
     line += jjtGetChild(1).convertToByteCodes(data, loop_no);
 
     line += jjtGetChild(0).convertToByteCodes(data, loop_no);
