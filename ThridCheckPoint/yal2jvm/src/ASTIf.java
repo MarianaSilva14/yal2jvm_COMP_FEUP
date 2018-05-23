@@ -30,7 +30,7 @@ class ASTIf extends SimpleNode {
 
     for(int i = 0; i < jjtGetNumChildren(); i++){
       if(jjtGetChild(i).equals("else")){
-        String loopname="loop" + loop_number;
+        loopname="loop" + loop_number;
         line += jjtGetChild(i).convertToByteCodes(data, loop_no);
 
       }
