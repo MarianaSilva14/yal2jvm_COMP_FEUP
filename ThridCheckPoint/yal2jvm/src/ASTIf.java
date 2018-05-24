@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTIf extends SimpleNode {
+
   public ASTIf(int id) {
     super(id);
   }
@@ -25,21 +26,21 @@ class ASTIf extends SimpleNode {
   public String convertToByteCodes(MapVariables data, int loop_no){
     String line = "";
 
-    String loopname="loop" + data.loopCounter;
-
-    for(int i = 0; i < jjtGetNumChildren(); i++){
-      if(jjtGetChild(i).equals("else")){
-        loopname="loop" + data.loopCounter;
+    if(jjtGetNumChildren() == 2) {
+      for(int i = 0; i < jjtGetNumChildren(); i++){
         line += jjtGetChild(i).convertToByteCodes(data, data.loopCounter);
-
       }
-      else{
+    } else {
+      for(int i = 0; i < jjtGetNumChildren(); i++){
+        if(i == 2) {
+          line +="goto loop" + data.loopCounter + "_next";
+          line += "\nloop"+ data.loopCounter +"_end:\n";
+        }
         line += jjtGetChild(i).convertToByteCodes(data, data.loopCounter);
       }
     }
 
-    line += "\n";
-    line += loopname + "_end:" + "\n";
+    line += "loop" + data.loopCounter +"_next:" + "\n";
 
     data.loopCounter++;
     return line;

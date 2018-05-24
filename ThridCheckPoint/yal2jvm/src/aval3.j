@@ -11,11 +11,12 @@ if_icmplt loop0_end
 iconst_2
 istore_2
 
+goto loop0_next
+loop0_end:
 iconst_4
 istore_2
 
-
-loop0_end:
+loop0_next:
 iload_2
 ireturn
 .end method

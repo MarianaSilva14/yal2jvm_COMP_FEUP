@@ -367,10 +367,10 @@ void While():{}
 	Stmtlst() <RCHAVETA>
 }
 
-void If(Token t, Token t1):{}
+void If():{}
 {
- 		t=<IF> {Exprtest()} <LCHAVETA> Stmtlst() <RCHAVETA>}
- 		( t1=<ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA> { jjtThis.setElse(t.image);} )?
+ 		<IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
+ 		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA>)?
 }
 
 void CallStmt():{Token t1, t2;}

@@ -795,7 +795,7 @@ void If():{/*@bgen(jjtree) If */
                 try {
 /*@egen*/
  		<IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
- 		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA> )?/*@bgen(jjtree)*/
+ 		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA>)?/*@bgen(jjtree)*/
                 } catch (Throwable jjte000) {
                   if (jjtc000) {
                     jjtree.clearNodeScope(jjtn000);
