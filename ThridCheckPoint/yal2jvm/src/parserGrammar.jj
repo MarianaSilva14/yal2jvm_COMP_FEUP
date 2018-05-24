@@ -1032,16 +1032,21 @@ void Index():{/*@bgen(jjtree) Index */
               ASTIndex jjtn000 = new ASTIndex(JJTINDEX);
               boolean jjtc000 = true;
               jjtree.openNodeScope(jjtn000);
-/*@egen*/Token t;}
+/*@egen*/Token t; Token t1;}
 {/*@bgen(jjtree) Index */
                 try {
 /*@egen*/
-		(t=<ID> | t=<INTEGER>)/*@bgen(jjtree)*/
-                                       {
-                                         jjtree.closeNodeScope(jjtn000, true);
-                                         jjtc000 = false;
-                                       }
-/*@egen*/ {jjtn000.setName(t.image); }/*@bgen(jjtree)*/
+		(t1=<ID>/*@bgen(jjtree)*/
+                           {
+                             jjtree.closeNodeScope(jjtn000, true);
+                             jjtc000 = false;
+                           }
+/*@egen*/   {jjtn000.setName(t1.image); } | t=<INTEGER>/*@bgen(jjtree)*/
+                                                                        {
+                                                                          jjtree.closeNodeScope(jjtn000, true);
+                                                                          jjtc000 = false;
+                                                                        }
+/*@egen*/  {jjtn000.setConst(t.image); })/*@bgen(jjtree)*/
                 } finally {
                   if (jjtc000) {
                     jjtree.closeNodeScope(jjtn000, true);

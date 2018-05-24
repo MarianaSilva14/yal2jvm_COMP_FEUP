@@ -60,7 +60,8 @@ public class parserGrammar
   	System.out.println("");
 
     String line = "";
-    line = root.convertToByteCodes(null);
+    int loop_no=0;
+    line = root.convertToByteCodes(null, loop_no);
 	String filename;
 
 	if(args[0].contains("/")){
@@ -369,7 +370,7 @@ void While():{}
 void If():{}
 {
  		<IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
- 		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA> )?
+ 		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA> { jjtThis.setElse(t.image);} )?
 }
 
 void CallStmt():{Token t1, t2;}
@@ -439,9 +440,9 @@ void ScalarAccess():{Token t; Token size;}
 	t=<ID> {jjtThis.setName(t.image); } ( <DOT> size=<SIZE> {jjtThis.setSize(size.image);})?
 }
 
-void Index():{Token t;}
+void Index():{Token t; Token t1;}
 {
-		(t=<ID> | t=<INTEGER>) {jjtThis.setName(t.image); }
+		(t1=<ID>   {jjtThis.setName(t1.image); } | t=<INTEGER>  {jjtThis.setConst(t.image); })
 }
 
 void ErrorBlock(): {}

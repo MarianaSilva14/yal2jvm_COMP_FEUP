@@ -2,7 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTWhile extends SimpleNode {
-    static int loopCounter=0;
+
   public ASTWhile(int id) {
     super(id);
   }
@@ -24,20 +24,19 @@ class ASTWhile extends SimpleNode {
 
   public String convertToByteCodes(MapVariables data, int loop_no){
     String line = "";
-    int loop_number = loop_no;
 
-    String loopname="loop" + loop_number;
+    String loopname="loop" + data.loopCounter;
     line += loopname +  ":\n";
     line += "\n";
 
     for(int i = 0; i < jjtGetNumChildren(); i++){
-      line += jjtGetChild(i).convertToByteCodes(data, loop_no);
+      line += jjtGetChild(i).convertToByteCodes(data, data.loopCounter);
     }
 
+    line += "goto "+ loopname + "\n\n";
+    line += loopname + "_end:\n";
+    data.loopCounter++;
     line += "\n";
-    line += "goto "+ loopname + "\n";
-    line += loopname + "_end:" + "\n";
-    loop_no++;
     return line;
   }
 

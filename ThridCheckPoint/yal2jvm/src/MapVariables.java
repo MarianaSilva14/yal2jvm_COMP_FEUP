@@ -6,6 +6,7 @@ public class MapVariables {
     public HashMap<String,Integer> variableByteCodes = new HashMap<String,Integer>();
     public HashMap<String,String> functionReturn = new HashMap<String,String>();
     public int counter;
+    public int loopCounter=0;
 
     public MapVariables(MapVariables parent){
       counter = 0;
@@ -33,6 +34,10 @@ public class MapVariables {
             return parent.functionReturn.get(variable);
 
         return "";
+    }
+
+    public int getLoopCounter(){
+        return loopCounter;
     }
 
 }

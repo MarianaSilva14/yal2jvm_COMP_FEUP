@@ -66,5 +66,17 @@ class ASTArrayAccess extends SimpleNode {
 
 	}
 
+	public String convertToByteCodes(MapVariables mapVariables, int loop_no){
+    String line = "";
+
+		line += "aload_" +  mapVariables.returnByteCode(name) + "\n";
+		line +=  this.jjtGetChild(0).convertToByteCodes(mapVariables, loop_no);
+
+		if(this.jjtGetParent().getId() != parserGrammarTreeConstants.JJTLHS)
+			line += "iaload"  + "\n";
+		
+		return line;
+  }
+
 }
 /* JavaCC - OriginalChecksum=7ebc8b8804d088e1ea5d187558cc8d52 (do not edit this line) */

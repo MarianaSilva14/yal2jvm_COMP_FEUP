@@ -55,37 +55,21 @@ class ASTExprtest extends SimpleNode {
       line += jjtGetChild(i).convertToByteCodes(data, loop_no);
     }
 
-    if(this.jjtGetParent() instanceof ASTWhile){
-      if(name.equals("<"))
-        line+="if_icmplt";
-      else if(name.equals(">"))
-        line+="if_icmpgt";
-      else if(name.equals("<="))
-          line+="if_icmple";
-      else if(name.equals(">="))
-          line+="if_icmpge";
-      else if(name.equals("=="))
-          line+="if_icmpeq";
-      else if(name.equals("!="))
-          line+="if_icmpne";
-      else return "error on comparison";
-    }
-    else if(this.jjtGetParent() instanceof ASTIf){
-      if(name.equals("<"))//>=
-        line+="if_icmpge";
-      else if(name.equals(">"))//<=
-        line+="if_icmple";
-      else if(name.equals("<="))//>
-          line+="if_icmpgt";
-      else if(name.equals(">="))//<
-          line+="if_icmplt";
-      else if(name.equals("=="))//!=
-          line+="if_icmpne";
-      else if(name.equals("!="))//==
-          line+="if_icmpeq";
-      else return "error on comparison";
-    }
 
+    if(name.equals("<"))//>=
+      line+="if_icmpge";
+    else if(name.equals(">"))//<=
+      line+="if_icmple";
+    else if(name.equals("<="))//>
+        line+="if_icmpgt";
+    else if(name.equals(">="))//<
+        line+="if_icmplt";
+    else if(name.equals("=="))//!=
+        line+="if_icmpne";
+    else if(name.equals("!="))//==
+        line+="if_icmpeq";
+    else return "error on comparison";
+  
 
     line +=" loop"+ loop_no + "_end" + "\n";
     line += "\n";

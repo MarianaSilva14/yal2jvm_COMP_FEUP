@@ -24,29 +24,24 @@ class ASTIf extends SimpleNode {
 
   public String convertToByteCodes(MapVariables data, int loop_no){
     String line = "";
-    int loop_number = loop_no;
 
-    String loopname="loop" + loop_number;
+    String loopname="loop" + data.loopCounter;
 
     for(int i = 0; i < jjtGetNumChildren(); i++){
       if(jjtGetChild(i).equals("else")){
-        loopname="loop" + loop_number;
-        line += jjtGetChild(i).convertToByteCodes(data, loop_no);
+        loopname="loop" + data.loopCounter;
+        line += jjtGetChild(i).convertToByteCodes(data, data.loopCounter);
 
       }
       else{
-        line += jjtGetChild(i).convertToByteCodes(data, loop_no);
+        line += jjtGetChild(i).convertToByteCodes(data, data.loopCounter);
       }
     }
 
     line += "\n";
     line += loopname + "_end:" + "\n";
 
-
-
-
-
-    loop_no++;
+    data.loopCounter++;
     return line;
   }
 }

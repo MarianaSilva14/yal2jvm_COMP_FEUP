@@ -3,6 +3,7 @@
 public
 class ASTIndex extends SimpleNode {
   private String name;
+  private String constant;
 
       public ASTIndex(int id) {
         super(id);
@@ -20,12 +21,31 @@ class ASTIndex extends SimpleNode {
     	  this.name = name;
       }
 
+      public void setConst(String constant) {
+    	  this.constant = constant;
+      }
+
       public String toString() {
     	  String test;
 
     	  test = super.toString() + " " + name;
 
     	  return test;
+      }
+
+      public String convertToByteCodes(MapVariables mapVariables, int loop_no){
+        String line = "";
+    
+        if(constant != null) {
+          if(Integer.parseInt(constant) > 5)
+            line += "bipush_" +  mapVariables.returnByteCode(constant) + "\n";
+          else
+            line += "iconst_" +  mapVariables.returnByteCode(constant) + "\n";
+          
+        }
+        else
+          line += "iload_" +  mapVariables.returnByteCode(name) + "\n";
+        return line;
       }
 
 

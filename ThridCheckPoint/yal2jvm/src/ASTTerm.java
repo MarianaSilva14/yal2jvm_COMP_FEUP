@@ -95,5 +95,7 @@ class ASTTerm extends SimpleNode {
     return line;
   }
 
+  
+
 }
 /* JavaCC - OriginalChecksum=6e0a45afda7272769448323ecc8eb0e4 (do not edit this line) */
