@@ -116,7 +116,10 @@ public String convertToByteCodes(MapVariables data, int loop_no){
         max= lengthMaxAux;
     }
   }
-  line +=".limit locals " + mapVariables.counter + "\n";
+  if(name.equals("main") && mapVariables.counter==0)
+  line +=".limit locals 1" + "\n";
+  else
+    line +=".limit locals " + mapVariables.counter + "\n";
   line +=".limit stack " + max + "\n";
 
   line+=aux;
