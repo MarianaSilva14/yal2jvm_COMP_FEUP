@@ -43,15 +43,22 @@ public class parserGrammar
   	System.out.println("//// Abstract Syntax Tree ////");
   	System.out.println("//////////////////////////////");
   	System.out.println("");
-    root.dump("");
-
+	root.dump("");
+	
+	if(NumberErrors!=0){
+	 System.out.println("Errors on Grammar of file!\n");
+	 System.exit(0);
+	}
 
   	System.out.println("");
   	System.out.println("//////////////////////////////");
   	System.out.println("/////// Semantic Tree ////////");
   	System.out.println("//////////////////////////////");
   	System.out.println("");
-    root.analyse(null);
+    if(root.analyse(null)==-1) {
+		System.out.println("Errors on Semantic!\n");
+		System.exit(0);
+	}
 
     System.out.println("");
   	System.out.println("//////////////////////////////");

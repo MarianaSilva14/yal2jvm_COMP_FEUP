@@ -4,7 +4,7 @@ public
 class ASTScalarAccess extends SimpleNode {
   private String name;
   private String size;
-  private SymbolsTable symbolsTable;
+  private boolean value;
   public ASTScalarAccess(int id) {
     super(id);
   }
@@ -33,53 +33,55 @@ class ASTScalarAccess extends SimpleNode {
     return test;
   }
 
-  public boolean analyseRhs(SymbolsTable currentTable){
+  public int analyseRhs(SymbolsTable currentTable){
     System.out.println("Analyse the right part of ScalarAccess");
 
     Symbol symbol = currentTable.returnSymbol(name);
 
     if(symbol == null)
-      return true;
+      return -1;
     else{
       if(symbol.isScalar() && size != null) {
         System.out.println("Can't get size of a scalar variable!");
       }
 
       if(!symbol.isScalar() && size != null)
-        return true;
+        return 0;
 
-      return symbol.isScalar();
+      if(symbol.isScalar())
+        return 1;
+      else
+        return 0;
 
     }
   }
 
-  public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+  public int analyseLhs(SymbolsTable currentTable, boolean value){
     System.out.println("Analyse the left part of ScalarAccess");
 
     Symbol symbol = currentTable.returnSymbol(name);
-    this.symbolsTable = currentTable;
+    this.value = value;
     if(symbol == null){
       currentTable.putOnHashMap(new Symbol("ScalarAccess",name,value));
     }
-
     else{
       if(value != symbol.isScalar())
         System.out.println("Semantic Error! " + name + " Expected Value " + value + " Value " + symbol.isScalar());
     }
 
-    return true;
+    return 0;
   }
 
   public String convertToByteCodes(MapVariables mapVariables, int loop_no){
     String line = "";
-
     if(mapVariables.returnByteCode(name) == -1){
       mapVariables.putOnHashMap(name);
     }
     if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTTERM || jjtGetParent().getId() == parserGrammarTreeConstants.JJTARRAYSIZE || jjtGetParent().jjtGetParent().getId() == parserGrammarTreeConstants.JJTEXPRTEST)
       line += "iload_" + mapVariables.returnByteCode(name) + "\n";
     else {
-      if(symbolsTable.returnSymbol(name).isScalar())
+
+      if(value)
         line += "istore_" + mapVariables.returnByteCode(name) + "\n\n";
       else
         line += "newarray int" + "\n" + "astore_" + mapVariables.returnByteCode(name) + "\n\n";

@@ -52,13 +52,12 @@ class ASTArgument extends SimpleNode {
   }
 
 
-  public boolean analyse(SymbolsTable currentTable){
-
+  public int analyse(SymbolsTable currentTable){
     if(name != null && currentTable.returnSymbol(name) == null){
       System.out.println("Error, variable " + name + " does not exists!");
-      return true;
+      return -1;
     }
-    return true;
+    return 0;
   }
 
   public String convertToByteCodes(MapVariables mapVariables, int loop_no){

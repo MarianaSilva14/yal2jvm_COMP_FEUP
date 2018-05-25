@@ -12,14 +12,22 @@ class ASTAssign extends SimpleNode {
   }
 
   @Override
-  public boolean analyse(SymbolsTable currentTable){
-    boolean returnValue;
+  public int analyse(SymbolsTable currentTable){
+    int returnValue;
+    int b=0;
+    boolean arg;
     System.out.println("Analyse Rhs of Assign");
     returnValue = jjtGetChild(1).analyseRhs(currentTable);
     System.out.println("Analyse Lhs of Assign");
-    jjtGetChild(0).analyseLhs(currentTable, returnValue);
+    if(returnValue==1 || returnValue ==-1)
+      arg=true;
+    else
+      arg=false;
+    b=jjtGetChild(0).analyseLhs(currentTable, arg);
+    if(b==-1 || returnValue==-1)
+      return -1;
 
-    return true;
+    return b;
   }
 
   public String convertToByteCodes(MapVariables data, int loop_no){

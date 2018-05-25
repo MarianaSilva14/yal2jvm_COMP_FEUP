@@ -35,15 +35,22 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
         System.out.println("//// Abstract Syntax Tree ////");
         System.out.println("//////////////////////////////");
         System.out.println("");
-    root.dump("");
+        root.dump("");
 
+        if(NumberErrors!=0){
+         System.out.println("Errors on Grammar of file!\u005cn");
+         System.exit(0);
+        }
 
         System.out.println("");
         System.out.println("//////////////////////////////");
         System.out.println("/////// Semantic Tree ////////");
         System.out.println("//////////////////////////////");
         System.out.println("");
-    root.analyse(null);
+    if(root.analyse(null)==-1) {
+                System.out.println("Errors on Semantic!\u005cn");
+                System.exit(0);
+        }
 
     System.out.println("");
         System.out.println("//////////////////////////////");
@@ -1364,25 +1371,6 @@ if (jjtc000) {
     finally { jj_save(8, xla); }
   }
 
-  private boolean jj_3_2()
- {
-    if (jj_3R_6()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_6()
- {
-    if (jj_scan_token(ID)) return true;
-    if (jj_scan_token(LPAR_RECT)) return true;
-    return false;
-  }
-
-  private boolean jj_3_4()
- {
-    if (jj_3R_6()) return true;
-    return false;
-  }
-
   private boolean jj_3R_31()
  {
     if (jj_scan_token(ID)) return true;
@@ -1639,6 +1627,25 @@ if (jjtc000) {
   private boolean jj_3R_29()
  {
     if (jj_scan_token(STRING)) return true;
+    return false;
+  }
+
+  private boolean jj_3_2()
+ {
+    if (jj_3R_6()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_6()
+ {
+    if (jj_scan_token(ID)) return true;
+    if (jj_scan_token(LPAR_RECT)) return true;
+    return false;
+  }
+
+  private boolean jj_3_4()
+ {
+    if (jj_3R_6()) return true;
     return false;
   }
 

@@ -29,23 +29,28 @@ class ASTExprtest extends SimpleNode {
   }
 
   @Override
-  public boolean analyse(SymbolsTable currentTable){
-
-    analyseContent(currentTable);
-    return true;
+  public int analyse(SymbolsTable currentTable){
+    return analyseContent(currentTable);
   }
 
   @Override
-  public boolean analyseContent(SymbolsTable currentTable){
+  public int analyseContent(SymbolsTable currentTable){
 		System.out.println("Analyse children of Exprtest");
 
-    boolean returnValue;
+    int returnValue;
+    boolean arg;
     System.out.println("Analyse Rhs of Exprtest");
     returnValue = jjtGetChild(1).analyseRhs(currentTable);
+    if(returnValue==-1 || returnValue==1)
+      arg=true;
+    else
+      arg=false;
     System.out.println("Analyse Lhs of Exprtest");
-    jjtGetChild(0).analyseLhs(currentTable, returnValue);
+    int b = jjtGetChild(0).analyseLhs(currentTable, arg);
 
-    return true;
+    if(b == -1 || returnValue == -1)
+      return -1;
+    return 0;
   }
 
   public String convertToByteCodes(MapVariables data, int loop_no){

@@ -11,14 +11,15 @@ class ASTStmt extends SimpleNode {
   }
 
   @Override
-  public boolean analyseContent(SymbolsTable currentTable){
+  public int analyseContent(SymbolsTable currentTable){
     System.out.println("Analyse children of Stmt");
-
+    int b=0;
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(currentTable);
+      if(jjtGetChild(i).analyseContent(currentTable)==-1)
+        b=-1;
     }
 
-    return true;
+    return b;
   }
 
   public String convertToByteCodes(MapVariables data, int loop_no){

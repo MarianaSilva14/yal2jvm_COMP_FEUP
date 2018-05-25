@@ -42,21 +42,22 @@ class ASTDeclaration extends SimpleNode {
 	  return test;
   }
 
-  public boolean analyse(SymbolsTable currentTable){
+  public int analyse(SymbolsTable currentTable){
 
-    analyseContent(currentTable);
-    return true;
+    return analyseContent(currentTable);
   }
 
   @Override
-  public boolean analyseContent(SymbolsTable currentTable){
+  public int analyseContent(SymbolsTable currentTable){
 		System.out.println("Analyse children of Declaration");
+    int b=0;
 
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(currentTable);
+      if(jjtGetChild(i).analyse(currentTable)==-1)
+        b=-1;
     }
 
-    return true;
+    return b;
   }
 
 }

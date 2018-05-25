@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public
 interface Node {
 
-  public boolean analyse(SymbolsTable currentTable);
-  public boolean analyseContent(SymbolsTable currentTable);
-  public boolean analyseRhs(SymbolsTable currentTable);
-  public boolean analyseLhs(SymbolsTable currentTable, boolean value);
+  public int analyse(SymbolsTable currentTable);
+  public int analyseContent(SymbolsTable currentTable);
+  public int analyseRhs(SymbolsTable currentTable);
+  public int analyseLhs(SymbolsTable currentTable, boolean value);
   public boolean isScalar();
   public String convertToByteCodes(MapVariables data, int loop_no);
   public String getName();

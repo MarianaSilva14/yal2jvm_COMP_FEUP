@@ -42,25 +42,23 @@ class ASTTerm extends SimpleNode {
   }
 
   @Override
-  public boolean analyse(SymbolsTable currentTable){
-
-		analyseContent(currentTable);
-
-    return true;
+  public int analyse(SymbolsTable currentTable){
+		return analyseContent(currentTable);
   }
 
   @Override
-  public boolean analyseContent(SymbolsTable currentTable){
+  public int analyseContent(SymbolsTable currentTable){
 		System.out.println("Analyse the children of Term");
-
+    int b=0;
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(currentTable);
+      if(jjtGetChild(i).analyse(currentTable)==-1)
+        b=-1;
     }
 
-    return true;
+    return b;
   }
 
-	public boolean analyseRhs(SymbolsTable currentTable){
+	public int analyseRhs(SymbolsTable currentTable){
 		System.out.println("Analyse the right part of Term");
 
 		if(nameInteger == null){
@@ -69,9 +67,9 @@ class ASTTerm extends SimpleNode {
 	    }
 		}
 		else{
-			return true;
+			return 0;
 		}
-		return true;
+		return 0;
 
 	}
 
