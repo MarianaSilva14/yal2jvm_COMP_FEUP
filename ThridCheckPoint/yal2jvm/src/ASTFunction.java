@@ -61,7 +61,7 @@ public int analyseContent(SymbolsTable currentTable){
   return b;
 }
 
-public String convertToByteCodes(MapVariables data, int loop_no){
+public String convertToByteCodes(MapVariables data){
   String line = "";
   MapVariables mapVariables = new MapVariables(data);
   String returnType = "V";
@@ -103,7 +103,7 @@ public String convertToByteCodes(MapVariables data, int loop_no){
   String aux="";
 
   for(int i = 0; i < jjtGetNumChildren(); i++){
-    aux += jjtGetChild(i).convertToByteCodes(mapVariables, loop_no);
+    aux += jjtGetChild(i).convertToByteCodes(mapVariables);
   }
 
   int max = 3;

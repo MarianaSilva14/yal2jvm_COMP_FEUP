@@ -73,11 +73,11 @@ class ASTTerm extends SimpleNode {
 
 	}
 
-  public String convertToByteCodes(MapVariables mapVariables, int loop_no){
+  public String convertToByteCodes(MapVariables mapVariables){
     String line = "";
     if(name == null && nameInteger == null) {
       for(int i = 0; i < jjtGetNumChildren(); i++){
-        line += jjtGetChild(i).convertToByteCodes(mapVariables, loop_no);
+        line += jjtGetChild(i).convertToByteCodes(mapVariables);
       }
     }
     else if (nameInteger != null) {

@@ -60,7 +60,7 @@ class ASTArgument extends SimpleNode {
     return 0;
   }
 
-  public String convertToByteCodes(MapVariables mapVariables, int loop_no){
+  public String convertToByteCodes(MapVariables mapVariables){
     String line = "";
 
     if(name != null ) {

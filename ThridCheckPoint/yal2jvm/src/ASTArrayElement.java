@@ -35,7 +35,7 @@ class ASTArrayElement extends SimpleNode {
       return 0;
     }
 
-    public String convertToByteCodes(MapVariables data, int loop_no){
+    public String convertToByteCodes(MapVariables data){
       String line = "";
       if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTVARLIST)
         data.putOnHashMap(name);

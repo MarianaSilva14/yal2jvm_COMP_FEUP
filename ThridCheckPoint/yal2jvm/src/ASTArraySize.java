@@ -61,10 +61,10 @@ class ASTArraySize extends SimpleNode {
 		return 0;
 	}
 
-  public String convertToByteCodes(MapVariables mapVariables, int loop_no){
+  public String convertToByteCodes(MapVariables mapVariables){
     String line = "";
     for(int i = 0; i < jjtGetNumChildren(); i++){
-      line += jjtGetChild(i).convertToByteCodes(mapVariables, loop_no);
+      line += jjtGetChild(i).convertToByteCodes(mapVariables);
     }
     return line;
   }

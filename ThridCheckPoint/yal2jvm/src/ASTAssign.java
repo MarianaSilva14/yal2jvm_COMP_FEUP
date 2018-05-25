@@ -32,12 +32,12 @@ class ASTAssign extends SimpleNode {
     return b;
   }
 
-  public String convertToByteCodes(MapVariables data, int loop_no){
+  public String convertToByteCodes(MapVariables data){
     String line = "";
 
     if(jjtGetChild(0).jjtGetChild(0).getId() != parserGrammarTreeConstants.JJTARRAYACCESS) {
-      line += jjtGetChild(1).convertToByteCodes(data, loop_no);
-      line += jjtGetChild(0).convertToByteCodes(data, loop_no);
+      line += jjtGetChild(1).convertToByteCodes(data);
+      line += jjtGetChild(0).convertToByteCodes(data);
       String[] aux = line.split("\n");
       if(aux.length==4){
 
@@ -53,8 +53,8 @@ class ASTAssign extends SimpleNode {
       }
     } 
     else{
-      line += jjtGetChild(0).convertToByteCodes(data, loop_no);
-      line += jjtGetChild(1).convertToByteCodes(data, loop_no);
+      line += jjtGetChild(0).convertToByteCodes(data);
+      line += jjtGetChild(1).convertToByteCodes(data);
       line+="iastore\n";
     }
 

@@ -22,11 +22,11 @@ class ASTStmt extends SimpleNode {
     return b;
   }
 
-  public String convertToByteCodes(MapVariables data, int loop_no){
+  public String convertToByteCodes(MapVariables data){
     String line = "";
 
     for(int i = 0; i < jjtGetNumChildren(); i++){
-      line += jjtGetChild(i).convertToByteCodes(data, loop_no);
+      line += jjtGetChild(i).convertToByteCodes(data);
     }
     return line;
   }

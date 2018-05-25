@@ -53,11 +53,11 @@ class ASTExprtest extends SimpleNode {
     return 0;
   }
 
-  public String convertToByteCodes(MapVariables data, int loop_no){
+  public String convertToByteCodes(MapVariables data){
     String line = "";
 
     for(int i = 0; i < jjtGetNumChildren(); i++){
-      line += jjtGetChild(i).convertToByteCodes(data, loop_no);
+      line += jjtGetChild(i).convertToByteCodes(data);
     }
 
 
@@ -76,7 +76,7 @@ class ASTExprtest extends SimpleNode {
     else return "error on comparison";
   
 
-    line +=" loop"+ loop_no + "_end" + "\n";
+    line +=" loop"+ data.loopCounter + "_end" + "\n";
     line += "\n";
 
     return line;
