@@ -29,26 +29,26 @@ class ASTArrayAccess extends SimpleNode {
   }
 
   @Override
-  public boolean analyse(SymbolsTable currentTable){
+  public int analyse(SymbolsTable currentTable){
 
     if(currentTable.returnSymbol(name) != null){
 			System.out.println("This value's array exists on Symbols Table");
 
-      return true;
+      return 1;
 		}
 
     System.out.println("This value's array doesn't exist on Symbols Table");
-    return false;
+    return -1;
 
   }
 
-	public boolean analyseRhs(SymbolsTable currentTable){
+	public int analyseRhs(SymbolsTable currentTable){
 		System.out.println("Analyse the right part of ArrayAccess");
 
-		return true;
+		return 0;
 	}
 
-	public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+	public int analyseLhs(SymbolsTable currentTable, boolean value){
 		Symbol symbol = currentTable.returnSymbol(name);
 
 		if(symbol == null){
@@ -58,19 +58,21 @@ class ASTArrayAccess extends SimpleNode {
 
 		else{
 			//verificar se o valor de Rhs não é escalar OU se o símbolo não é um array
-			if(value != true || symbol.isScalar() == true)
+			if(value != true || symbol.isScalar() == true){
 				System.out.println("Semantics Error!");
+				return -1;
+			}
 		}
 
-		return true;
+		return 0;
 
 	}
 
-	public String convertToByteCodes(MapVariables mapVariables, int loop_no){
+	public String convertToByteCodes(MapVariables mapVariables){
     String line = "";
 
 		line += "aload_" +  mapVariables.returnByteCode(name) + "\n";
-		line +=  this.jjtGetChild(0).convertToByteCodes(mapVariables, loop_no);
+		line +=  this.jjtGetChild(0).convertToByteCodes(mapVariables);
 
 		if(this.jjtGetParent().getId() != parserGrammarTreeConstants.JJTLHS)
 			line += "iaload"  + "\n";

@@ -33,7 +33,7 @@ class ASTIndex extends SimpleNode {
     	  return test;
       }
 
-      public String convertToByteCodes(MapVariables mapVariables, int loop_no){
+      public String convertToByteCodes(MapVariables mapVariables){
         String line = "";
     
         if(constant != null) {

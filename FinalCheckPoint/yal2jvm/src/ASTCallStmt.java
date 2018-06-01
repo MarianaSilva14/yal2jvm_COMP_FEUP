@@ -44,37 +44,39 @@ class ASTCallStmt extends SimpleNode {
     }
 
     @Override
-    public boolean analyse(SymbolsTable currentTable){
+    public int analyse(SymbolsTable currentTable){
   		if(name != null && nameId2 != null)
-  			return true;
+  			return 0;
 
       if(currentTable.returnSymbol(name) != null){
-        analyseContent(currentTable);
+        int b = analyseContent(currentTable);
 
   			System.out.println("This function exists: CallStmt");
-        return true;
+        return b;
       }
 
       System.out.println("This function doesn't exist! " + name);
-      return false;
+      return -1;
     }
 
     @Override
-    public boolean analyseContent(SymbolsTable currentTable){
+    public int analyseContent(SymbolsTable currentTable){
   		System.out.println("Analyse children of CallStmt");
+      int b=0;
 
       for(int i=0; i < jjtGetNumChildren();i++){
-        jjtGetChild(i).analyseContent(currentTable);
+        if(jjtGetChild(i).analyseContent(currentTable)==-1)
+          b=-1;
       }
 
-      return true;
+      return b;
     }
 
-    public String convertToByteCodes(MapVariables mapVariables, int loop_no){
+    public String convertToByteCodes(MapVariables mapVariables){
       String line = "";
       String call = "";
       for(int i = 0; i < jjtGetNumChildren(); i++){
-          line += jjtGetChild(i).convertToByteCodes(mapVariables, loop_no);
+          line += jjtGetChild(i).convertToByteCodes(mapVariables);
       }
 
       if(nameId2 == null){

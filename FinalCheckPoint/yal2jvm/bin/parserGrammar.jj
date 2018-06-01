@@ -47,15 +47,22 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
   	System.out.println("//// Abstract Syntax Tree ////");
   	System.out.println("//////////////////////////////");
   	System.out.println("");
-    root.dump("");
-
+	root.dump("");
+	
+	if(NumberErrors!=0){
+	 System.out.println("Errors on Grammar of file!\n");
+	 System.exit(0);
+	}
 
   	System.out.println("");
   	System.out.println("//////////////////////////////");
   	System.out.println("/////// Semantic Tree ////////");
   	System.out.println("//////////////////////////////");
   	System.out.println("");
-    root.analyse(null);
+    if(root.analyse(null)==-1) {
+		System.out.println("Errors on Semantic!\n");
+		System.exit(0);
+	}
 
     System.out.println("");
   	System.out.println("//////////////////////////////");
@@ -64,8 +71,8 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
   	System.out.println("");
 
     String line = "";
-    int loop_no=0;
-    line = root.convertToByteCodes(null, loop_no);
+
+    line = root.convertToByteCodes(null);
 	String filename;
 
 	if(args[0].contains("/")){
@@ -795,7 +802,7 @@ void If():{/*@bgen(jjtree) If */
                 try {
 /*@egen*/
  		<IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
- 		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA> )?/*@bgen(jjtree)*/
+ 		( <ELSE> <LCHAVETA>	Stmtlst() <RCHAVETA>)?/*@bgen(jjtree)*/
                 } catch (Throwable jjte000) {
                   if (jjtc000) {
                     jjtree.clearNodeScope(jjtn000);

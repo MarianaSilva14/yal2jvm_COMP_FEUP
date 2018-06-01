@@ -30,22 +30,24 @@ class ASTModule extends SimpleNode {
 	  return test;
   }
 
-  public boolean analyse(SymbolsTable currentTable){
+  public int analyse(SymbolsTable currentTable){
 		System.out.println("Analyse of Module");
-
+    int b= 0;
 		symbolsTable = new SymbolsTable(currentTable);
 
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(symbolsTable);
+      if(jjtGetChild(i).analyse(symbolsTable)==-1)
+        b=-1;
     }
 
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyseContent(symbolsTable);
+      if(jjtGetChild(i).analyseContent(symbolsTable)==-1)
+        b=-1;
     }
-    return true;
+    return b;
   }
 
-  public String convertToByteCodes(MapVariables data, int loop_no){
+  public String convertToByteCodes(MapVariables data){
     String line = "";
     line += ".class public " + name + "\n";
     line += ".super java/lang/Object" + "\n";
@@ -63,7 +65,7 @@ class ASTModule extends SimpleNode {
     }
 
     for(int i = 0; i < jjtGetNumChildren(); i++){
-      line += jjtGetChild(i).convertToByteCodes(mapVariables, loop_no);
+      line += jjtGetChild(i).convertToByteCodes(mapVariables);
     }
 
     line += "\n";

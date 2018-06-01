@@ -12,23 +12,25 @@ class ASTIf extends SimpleNode {
   }
 
   @Override
-  public boolean analyseContent(SymbolsTable currentTable){
+  public int analyseContent(SymbolsTable currentTable){
     System.out.println("Analyse children of If");
+    int b= 0;
 
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(currentTable);
+      if(jjtGetChild(i).analyse(currentTable)==-1)
+        b=-1;
     }
 
-    return true;
+    return b;
   }
 
 
-  public String convertToByteCodes(MapVariables data, int loop_no){
+  public String convertToByteCodes(MapVariables data){
     String line = "";
 
     if(jjtGetNumChildren() == 2) {
       for(int i = 0; i < jjtGetNumChildren(); i++){
-        line += jjtGetChild(i).convertToByteCodes(data, data.loopCounter);
+        line += jjtGetChild(i).convertToByteCodes(data);
       }
     } else {
       for(int i = 0; i < jjtGetNumChildren(); i++){
@@ -36,7 +38,7 @@ class ASTIf extends SimpleNode {
           line +="goto loop" + data.loopCounter + "_next";
           line += "\nloop"+ data.loopCounter +"_end:\n";
         }
-        line += jjtGetChild(i).convertToByteCodes(data, data.loopCounter);
+        line += jjtGetChild(i).convertToByteCodes(data);
       }
     }
 
