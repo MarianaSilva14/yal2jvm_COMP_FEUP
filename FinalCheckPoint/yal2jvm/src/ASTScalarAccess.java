@@ -4,7 +4,7 @@ public
 class ASTScalarAccess extends SimpleNode {
   private String name;
   private String size;
-  private boolean value;
+  private boolean isScalar;
   public ASTScalarAccess(int id) {
     super(id);
   }
@@ -56,18 +56,20 @@ class ASTScalarAccess extends SimpleNode {
     }
   }
 
-  public int analyseLhs(SymbolsTable currentTable, boolean value){
+  public int analyseLhs(SymbolsTable currentTable, boolean isScalar){
     System.out.println("Analyse the left part of ScalarAccess");
 
     Symbol symbol = currentTable.returnSymbol(name);
-    this.value = value;
+    this.isScalar = isScalar;
     if(symbol == null){
-      currentTable.putOnHashMap(new Symbol("ScalarAccess",name,value));
+      currentTable.putOnHashMap(new Symbol("ScalarAccess",name,isScalar));
     }
     else{
       if(value != symbol.isScalar())
-        System.out.println("Semantic Error! " + name + " Expected Value " + value + " Value " + symbol.isScalar());
+        System.out.println("Semantic Error! " + name + " Expected Value " + isScalar + " Value " + symbol.isScalar());
     }
+
+    System.out.println("\n \n Valor alterado " + isScalar + "\n");
 
     return 0;
   }
@@ -80,8 +82,8 @@ class ASTScalarAccess extends SimpleNode {
     if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTTERM || jjtGetParent().getId() == parserGrammarTreeConstants.JJTARRAYSIZE || jjtGetParent().jjtGetParent().getId() == parserGrammarTreeConstants.JJTEXPRTEST)
       line += "iload_" + mapVariables.returnByteCode(name) + "\n";
     else {
-
-      if(value)
+      System.out.println("Valor do value: " + this.isScalar + " varname: " + name);
+      if(isScalar)
         line += "istore_" + mapVariables.returnByteCode(name) + "\n\n";
       else
         line += "newarray int" + "\n" + "astore_" + mapVariables.returnByteCode(name) + "\n\n";
