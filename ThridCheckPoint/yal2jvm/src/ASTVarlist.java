@@ -11,20 +11,21 @@ class ASTVarlist extends SimpleNode {
       }
 
       @Override
-      public boolean analyseContent(SymbolsTable currentTable){
+      public int analyseContent(SymbolsTable currentTable){
         System.out.println("Analyse the children of Varlist");
-
+        int b=0;
         for(int i=0; i < jjtGetNumChildren();i++){
-          jjtGetChild(i).analyse(currentTable);
+         if(jjtGetChild(i).analyse(currentTable)==-1)
+          b=-1;
         }
 
-        return true;
+        return b;
       }
 
-      public String convertToByteCodes(MapVariables data, int loop_no){
+      public String convertToByteCodes(MapVariables data){
         String line = "";
         for(int i=0; i < jjtGetNumChildren();i++){
-          line += jjtGetChild(i).convertToByteCodes(data, loop_no);
+          line += jjtGetChild(i).convertToByteCodes(data);
         }
 
         return line;

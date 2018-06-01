@@ -31,38 +31,40 @@ class ASTArraySize extends SimpleNode {
   }
 
   @Override
-  public boolean analyse(SymbolsTable currentTable){
-
+  public int analyse(SymbolsTable currentTable){
+    int b = 0;
     if(name==null){
 			System.out.println("Name of ArraySize is null");
-			analyseContent(currentTable);
+			b = analyseContent(currentTable);
 		}
 
 		System.out.println("Name of ArraySize isn't null");
 
-    return true;
+    return b;
   }
 
   @Override
-  public boolean analyseContent(SymbolsTable currentTable){
+  public int analyseContent(SymbolsTable currentTable){
 		System.out.println("Analyse children of ArraySize");
+    int b = 0;
 
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(currentTable);
+      if(jjtGetChild(i).analyse(currentTable)==-1)
+        b=-1; 
     }
 
-    return true;
+    return b;
   }
 
-	public boolean analyseRhs(SymbolsTable currentTable){
+	public int analyseRhs(SymbolsTable currentTable){
 		System.out.println("Analyse the right part of ArraySize");
-		return false;
+		return 0;
 	}
 
-  public String convertToByteCodes(MapVariables mapVariables, int loop_no){
+  public String convertToByteCodes(MapVariables mapVariables){
     String line = "";
     for(int i = 0; i < jjtGetNumChildren(); i++){
-      line += jjtGetChild(i).convertToByteCodes(mapVariables, loop_no);
+      line += jjtGetChild(i).convertToByteCodes(mapVariables);
     }
     return line;
   }

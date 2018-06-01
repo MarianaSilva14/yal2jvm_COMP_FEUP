@@ -11,30 +11,33 @@ class ASTLhs extends SimpleNode {
   }
 
   @Override
-  public boolean analyseContent(SymbolsTable currentTable){
+  public int analyseContent(SymbolsTable currentTable){
     System.out.println("Analyse children of Lhs");
-
+    int b=0;
     SymbolsTable symbolsTable = new SymbolsTable(currentTable);
 
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyse(symbolsTable);
+      if(jjtGetChild(i).analyse(symbolsTable)==-1)
+        return -1;
     }
 
-    return true;
+    return b;
   }
 
-  public boolean analyseLhs(SymbolsTable currentTable, boolean value){
+  public int analyseLhs(SymbolsTable currentTable, boolean value){
     System.out.println("Analyse the left part of Call");
+    int b=0;
 
     for(int i=0; i < jjtGetNumChildren();i++){
-      jjtGetChild(i).analyseLhs(currentTable, value);
+      if(jjtGetChild(i).analyseLhs(currentTable, value)==-1)
+        b= -1;
     }
-    return true;
+    return b;
   }
 
-  public String convertToByteCodes(MapVariables mapVariables, int loop_no){
+  public String convertToByteCodes(MapVariables mapVariables){
       String line = "";
-      line += jjtGetChild(0).convertToByteCodes(mapVariables, loop_no);
+      line += jjtGetChild(0).convertToByteCodes(mapVariables);
 
       return line;
   }

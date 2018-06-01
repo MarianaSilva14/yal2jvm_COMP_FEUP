@@ -31,11 +31,11 @@ public String toString() {
 }
 
 @Override
-public boolean analyse(SymbolsTable currentTable){
+public int analyse(SymbolsTable currentTable){
   boolean isScalar = jjtGetChild(0).isScalar();
   if(currentTable.returnSymbol(name)!=null){
     System.out.println("Function already exists!");
-    return true;
+    return -1;
   }
   if(isScalar)
     currentTable.putOnHashMap(new Symbol("Function",name,true));
@@ -44,23 +44,24 @@ public boolean analyse(SymbolsTable currentTable){
 
   System.out.println("Function: " + " name: " + name + " Tipo: " + isScalar);
 
-  return true;
+  return 0;
 }
 
 @Override
-public boolean analyseContent(SymbolsTable currentTable){
+public int analyseContent(SymbolsTable currentTable){
   System.out.println("Analyse children of Function");
-
+  int b=0;
   SymbolsTable symbolsTable = new SymbolsTable(currentTable);
 
   for(int i=0; i < jjtGetNumChildren();i++){
-    jjtGetChild(i).analyse(symbolsTable);
+    if(jjtGetChild(i).analyseContent(symbolsTable)==-1)
+      b=-1;
   }
 
-  return true;
+  return b;
 }
 
-public String convertToByteCodes(MapVariables data, int loop_no){
+public String convertToByteCodes(MapVariables data){
   String line = "";
   MapVariables mapVariables = new MapVariables(data);
   String returnType = "V";
@@ -99,12 +100,29 @@ public String convertToByteCodes(MapVariables data, int loop_no){
 
   }
 
-  line +=".limit locals 10" + "\n";
-  line +=".limit stack 10" + "\n";
+  String aux="";
 
   for(int i = 0; i < jjtGetNumChildren(); i++){
-    line += jjtGetChild(i).convertToByteCodes(mapVariables, loop_no);
+    aux += jjtGetChild(i).convertToByteCodes(mapVariables);
   }
+
+  int max = 3;
+  String[] maxAux = aux.split("\n");
+
+  for(int i=0; i < maxAux.length;i++){
+    if(maxAux[i].contains("invokestatic")){
+      int lengthMaxAux = maxAux[i].split(";").length;
+      if(lengthMaxAux>max)
+        max= lengthMaxAux;
+    }
+  }
+  if(name.equals("main") && mapVariables.counter==0)
+  line +=".limit locals 1" + "\n";
+  else
+    line +=".limit locals " + mapVariables.counter + "\n";
+  line +=".limit stack " + max + "\n";
+
+  line+=aux;
 
   if(returnType.equals("V"))
     line += "return" + "\n";
