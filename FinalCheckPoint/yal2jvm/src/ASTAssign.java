@@ -21,6 +21,7 @@ class ASTAssign extends SimpleNode {
     System.out.println("Analyse Rhs of Assign");
     returnValue = jjtGetChild(1).analyseRhs(currentTable);
     System.out.println("Analyse Lhs of Assign");
+
     if(returnValue==1 || returnValue ==-1)
       arg=true;
     else
@@ -30,6 +31,12 @@ class ASTAssign extends SimpleNode {
       return -1;
 
     return b;
+  }
+
+  @Override
+  public int analyseContent(SymbolsTable currentTable){
+  
+    return analyse(currentTable);
   }
 
   public String convertToByteCodes(MapVariables data){

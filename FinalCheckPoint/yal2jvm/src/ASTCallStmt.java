@@ -97,9 +97,34 @@ class ASTCallStmt extends SimpleNode {
           call += jjtGetChild(i).checkArgumentsType();
         }
         call += ")";
-
+     
+      }
+      Node node=this;
+      boolean value= false;
+      while(node.getId() != parserGrammarTreeConstants.JJTFUNCTION){
+        if(node.getId()== parserGrammarTreeConstants.JJTASSIGN){
+          value=true;
+          break;
+        }
+        node=node.jjtGetParent();
       }
 
+      if(!value){
+        call+="V";
+      }
+      else{
+        if(node.jjtGetChild(0).jjtGetChild(0).getId()==parserGrammarTreeConstants.JJTARRAYACCESS)
+          call+="I";
+        else{
+          ASTScalarAccess scalarAccess = (ASTScalarAccess) node.jjtGetChild(0).jjtGetChild(0);
+          if(scalarAccess.isScalar())
+            call+="I";
+          else
+            call+="[I";
+
+        }  
+          
+      }
       line += call;
       line += "\n\n";
 

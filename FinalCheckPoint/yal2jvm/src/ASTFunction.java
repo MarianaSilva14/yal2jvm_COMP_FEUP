@@ -2,6 +2,8 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 import java.util.ArrayList;
 
+import javax.lang.model.util.ElementScanner6;
+
 public
 class ASTFunction extends SimpleNode {
   private String name;
@@ -106,14 +108,63 @@ public String convertToByteCodes(MapVariables data){
     aux += jjtGetChild(i).convertToByteCodes(mapVariables);
   }
 
-  int max = 3;
+  int max = 0;
+  int stack=0;
+  int argNumber = 0;
+  int lastIndex = 0;
+  String findStr = "I";
   String[] maxAux = aux.split("\n");
 
   for(int i=0; i < maxAux.length;i++){
     if(maxAux[i].contains("invokestatic")){
-      int lengthMaxAux = maxAux[i].split(";").length;
-      if(lengthMaxAux>max)
-        max= lengthMaxAux;
+      argNumber = 0;
+      lastIndex = 0;
+      findStr = "I";
+
+      while(lastIndex != -1){
+   
+          lastIndex = maxAux[i].indexOf(findStr,lastIndex);
+
+          if(lastIndex != -1){
+              argNumber ++;
+              lastIndex += findStr.length();
+          }
+
+      }
+
+      lastIndex = 0;
+      findStr = "String";
+
+      while(lastIndex != -1){
+   
+        lastIndex = maxAux[i].indexOf(findStr,lastIndex);
+
+        if(lastIndex != -1){
+            argNumber ++;
+            lastIndex += findStr.length();
+        }
+
+      }
+
+      stack-=argNumber;
+      if(!maxAux[i].contains("V"))
+        stack++;
+    }
+    else if(maxAux[i].contains("iastore")){
+      stack-=3;
+    }
+    else if(maxAux[i].contains("if_") || maxAux[i].contains("iaload") || maxAux[i].contains("astore") || maxAux[i].contains("iadd") || maxAux[i].contains("imul") || maxAux[i].contains("isub") || maxAux[i].contains("idiv") || maxAux[i].contains("iand") || maxAux[i].contains("ior") || maxAux[i].contains("ishl") || maxAux[i].contains("ishr")){
+      stack-=2;
+    }
+    else if(maxAux[i].contains("iinc") || maxAux[i].equals("") || maxAux[i].contains("loop") || maxAux[i].contains(".limit"))
+      continue;
+    else if(maxAux[i].contains("istore") || maxAux[i].contains("ireturn") || maxAux[i].contains("areturn") || maxAux[i].contains("arraylength")){
+      stack-=1;
+    }
+    else
+      stack++;
+    if(stack>max){
+      max=stack;
     }
   }
   if(name.equals("main") && mapVariables.counter==0)

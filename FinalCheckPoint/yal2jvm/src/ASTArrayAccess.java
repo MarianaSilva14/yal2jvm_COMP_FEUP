@@ -45,7 +45,7 @@ class ASTArrayAccess extends SimpleNode {
 	public int analyseRhs(SymbolsTable currentTable){
 		System.out.println("Analyse the right part of ArrayAccess");
 
-		return 0;
+		return 1;
 	}
 
 	public int analyseLhs(SymbolsTable currentTable, boolean value){
