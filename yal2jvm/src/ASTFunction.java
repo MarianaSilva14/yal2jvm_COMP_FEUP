@@ -182,14 +182,17 @@ public String convertToByteCodes(MapVariables data){
     }
     else
       stack++;
-    System.out.println("stack: " + stack + " code: " + maxAux[i]);
 
     if(stack > max){
       max=stack;
     }
+
+    System.out.println("stack: " + stack + " code: " + maxAux[i]);
+    System.out.println("max: " + max);
   }
+
   if(name.equals("main") && mapVariables.counter==0)
-  line +=".limit locals 1" + "\n";
+    line += ".limit locals 1" + "\n";
   else
     line +=".limit locals " + mapVariables.counter + "\n";
   line +=".limit stack " + max + "\n";
