@@ -66,6 +66,8 @@ class ASTCall extends SimpleNode {
   public int analyseRhs(SymbolsTable currentTable){
     System.out.println("Analyse the right part of Call");
 
+    analyseContent(currentTable);
+
     if(name.equals("io"))
       return 0;
 
@@ -81,7 +83,6 @@ class ASTCall extends SimpleNode {
           return 0;
       }
     }
-
     return 0;
   }
 

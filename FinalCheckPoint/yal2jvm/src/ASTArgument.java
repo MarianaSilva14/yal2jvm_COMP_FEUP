@@ -5,6 +5,7 @@ class ASTArgument extends SimpleNode {
   private String name;
   private String string;
   private String integer;
+  private Boolean isScalar = true;
 
   public ASTArgument(int id) {
     super(id);
@@ -57,14 +58,28 @@ class ASTArgument extends SimpleNode {
       System.out.println("Error, variable " + name + " does not exists!");
       return -1;
     }
+    if(name != null){
+      Symbol symbol = currentTable.returnSymbol(name);
+      this.isScalar = symbol.isScalar();
+    }
+    else{
+      isScalar = true;
+    }
+
+    System.out.println("isScalar + name " + isScalar + name);
+
     return 0;
   }
+
 
   public String convertToByteCodes(MapVariables mapVariables){
     String line = "";
 
-    if(name != null ) {
+    if(name != null && isScalar) {
       line += "iload_" + mapVariables.returnByteCode(name) + "\n";
+    }
+    else if(name != null && !isScalar) {
+      line += "aload_" + mapVariables.returnByteCode(name) + "\n";
     }
     else if(string != null) {
       line += "ldc " + string + "\n";
@@ -80,8 +95,11 @@ class ASTArgument extends SimpleNode {
 
   public String checkArgumentsType(){
 
-    if(name != null ) {
+    if(name != null && isScalar) {
       return "I";
+    }
+    else if(name != null && !isScalar){
+      return "[I";
     }
     else if(string != null)
       return "Ljava/lang/String";
