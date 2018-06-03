@@ -3,11 +3,11 @@ module aval6
 
 function a=sqrt(vsqn) {
 	vsq=vsqn;
-     	asq=0; 
-     	a=0; 
+     	asq=0;
+     	a=0;
      	tvsq=0;
      	i=0;
-     	while(I < 6) {
+     	while(i < 6) {
         	nasq1 = asq + a;
         	nasq2 = nasq1 << 2;
 	    	nasq = nasq2 | 1;

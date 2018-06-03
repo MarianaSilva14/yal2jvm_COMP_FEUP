@@ -44,8 +44,6 @@ public int analyse(SymbolsTable currentTable){
   else
     currentTable.putOnHashMap(new Symbol("Function",name,false));
 
-  System.out.println("Function: " + " name: " + name + " Tipo: " + isScalar);
-
   return 0;
 }
 
@@ -108,6 +106,7 @@ public String convertToByteCodes(MapVariables data){
     aux += jjtGetChild(i).convertToByteCodes(mapVariables);
   }
 
+
   int max = 0;
   int stack=0;
   int argNumber = 0;
@@ -115,15 +114,33 @@ public String convertToByteCodes(MapVariables data){
   String findStr = "I";
   String[] maxAux = aux.split("\n");
 
-  for(int i=0; i < maxAux.length;i++){
+  for(int i=0; i < maxAux.length; i++){
+    if(maxAux[i].contains("istore")){
+      String[] var = maxAux[i].split("_");
+      if(var.length == 1){
+        var = maxAux[i].split(" ");
+      }
+      if(mapVariables.returnByteCode(returnArg) == Integer.parseInt(var[1])){
+        String newAux = "iconst_0\nistore_" + mapVariables.returnByteCode(returnArg) + "\n";
+        aux = newAux + aux;
+        break;
+      }
+    }
+  }
+
+  for(int i=0; i < maxAux.length; i++){
+
     if(maxAux[i].contains("invokestatic")){
+      String[] value = maxAux[i].split("\\(");
+      String[] temp = value[1].split("\\)");
+
       argNumber = 0;
       lastIndex = 0;
       findStr = "I";
 
       while(lastIndex != -1){
-   
-          lastIndex = maxAux[i].indexOf(findStr,lastIndex);
+
+          lastIndex = temp[0].indexOf(findStr,lastIndex);
 
           if(lastIndex != -1){
               argNumber ++;
@@ -136,8 +153,8 @@ public String convertToByteCodes(MapVariables data){
       findStr = "String";
 
       while(lastIndex != -1){
-   
-        lastIndex = maxAux[i].indexOf(findStr,lastIndex);
+
+        lastIndex = temp[0].indexOf(findStr,lastIndex);
 
         if(lastIndex != -1){
             argNumber ++;
@@ -147,23 +164,27 @@ public String convertToByteCodes(MapVariables data){
       }
 
       stack-=argNumber;
-      if(!maxAux[i].contains("V"))
-        stack++;
+    if(!maxAux[i].contains("V")){
+      stack++;
+      System.out.println("\nEntrou no if V\n");
+    }
     }
     else if(maxAux[i].contains("iastore")){
       stack-=3;
     }
-    else if(maxAux[i].contains("if_") || maxAux[i].contains("iaload") || maxAux[i].contains("astore") || maxAux[i].contains("iadd") || maxAux[i].contains("imul") || maxAux[i].contains("isub") || maxAux[i].contains("idiv") || maxAux[i].contains("iand") || maxAux[i].contains("ior") || maxAux[i].contains("ishl") || maxAux[i].contains("ishr")){
+    else if(maxAux[i].contains("if_") || maxAux[i].contains("astore")){
       stack-=2;
     }
-    else if(maxAux[i].contains("iinc") || maxAux[i].equals("") || maxAux[i].contains("loop") || maxAux[i].contains(".limit"))
+    else if(maxAux[i].contains("iinc") ||  maxAux[i].contains("arraylength") || maxAux[i].equals("") || maxAux[i].contains("loop") || maxAux[i].contains(".limit"))
       continue;
-    else if(maxAux[i].contains("istore") || maxAux[i].contains("ireturn") || maxAux[i].contains("areturn") || maxAux[i].contains("arraylength")){
+    else if(maxAux[i].contains("istore") || maxAux[i].contains("iadd") || maxAux[i].contains("imul") || maxAux[i].contains("isub") || maxAux[i].contains("idiv") || maxAux[i].contains("iand") || maxAux[i].contains("ior") || maxAux[i].contains("ishl") || maxAux[i].contains("ishr") || maxAux[i].contains("iaload") || maxAux[i].contains("ireturn") || maxAux[i].contains("areturn")){
       stack-=1;
     }
     else
       stack++;
-    if(stack>max){
+    System.out.println("stack: " + stack + " code: " + maxAux[i]);
+
+    if(stack > max){
       max=stack;
     }
   }

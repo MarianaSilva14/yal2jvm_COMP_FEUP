@@ -35,7 +35,7 @@ class ASTAssign extends SimpleNode {
 
   @Override
   public int analyseContent(SymbolsTable currentTable){
-  
+
     return analyse(currentTable);
   }
 
@@ -51,14 +51,19 @@ class ASTAssign extends SimpleNode {
         if(aux[0].contains("iload") && aux[1].contains("iconst") && aux[2].contains("iadd") && aux[3].contains("istore")){
           String[] varNumber = aux[0].split("_");
           String[] varNumber2 = aux[3].split("_");
-
+          if(varNumber.length == 1){
+            varNumber = aux[0].split(" ");
+          }
+          if(varNumber2.length == 1){
+            varNumber2 = aux[3].split(" ");
+          }
           if(varNumber[1].equals(varNumber2[1])){
             String[] constant = aux[1].split("_");
             line = "iinc " + varNumber[1] + " " + constant[1] + "\n";
           }
         }
       }
-    } 
+    }
     else{
       line += jjtGetChild(0).convertToByteCodes(data);
       line += jjtGetChild(1).convertToByteCodes(data);

@@ -50,7 +50,7 @@ class ASTArraySize extends SimpleNode {
 
     for(int i=0; i < jjtGetNumChildren();i++){
       if(jjtGetChild(i).analyse(currentTable)==-1)
-        b=-1; 
+        b=-1;
     }
 
     return b;
@@ -63,9 +63,19 @@ class ASTArraySize extends SimpleNode {
 
   public String convertToByteCodes(MapVariables mapVariables){
     String line = "";
-    for(int i = 0; i < jjtGetNumChildren(); i++){
-      line += jjtGetChild(i).convertToByteCodes(mapVariables);
+
+    if(name == null){
+      for(int i = 0; i < jjtGetNumChildren(); i++){
+        line += jjtGetChild(i).convertToByteCodes(mapVariables);
+      }
     }
+    else{
+      if(Integer.parseInt(name) > 5 || Integer.parseInt(name) < 0)
+        line += "bipush " + name + "\n";
+      else
+        line += "iconst_" + name + "\n";
+    }
+
     return line;
   }
 

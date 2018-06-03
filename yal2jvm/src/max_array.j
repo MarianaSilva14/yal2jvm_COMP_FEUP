@@ -1,74 +1,80 @@
-.class public array2
+.class public max_array
 .super java/lang/Object
 
-.method public static sum_array([I)I
+.method public static maxarray([I)I
 .limit locals 3
 .limit stack 3
 iconst_0
 istore_1
-
+aload_0
 iconst_0
+iaload
+istore_1
+
+iconst_1
 istore_2
 
 loop0:
 
-iload_1
+iload_2
 aload_0
 arraylength
 if_icmpge loop0_end
 
-iload_2
-aload_0
 iload_1
+aload_0
+iload_2
 iaload
-iadd
-istore_2
+if_icmpge loop1_end
 
-iinc 1 1
-goto loop0
-
-loop0_end:
-
+aload_0
 iload_2
-ireturn
-.end method
+iaload
+istore_1
 
-.method public static main([Ljava/lang/String;)V
-.limit locals 4
-.limit stack 3
-bipush 16
-istore_0
-
-iload_0
-newarray int
-astore_1
-
-iconst_0
-istore_2
-
-loop0:
-
-iload_2
-iload_0
-if_icmpge loop0_end
-
-aload_1
-iload_2
-iconst_1
-iastore
+loop1_end:
 iinc 2 1
 goto loop0
 
 loop0_end:
 
-aload_1
-invokestatic array2/sum_array([I)I
+ldc "max: "
+iload_1
+invokestatic io/print(Ljava/lang/String;I)V
 
-istore_3
+iload_1
+ireturn
+.end method
 
-ldc "sum of array elements = "
-iload_3
-invokestatic io/println(Ljava/lang/String;I)V
+.method public static main([Ljava/lang/String;)V
+.limit locals 3
+.limit stack 3
+bipush 10
+newarray int
+astore_0
+
+iconst_0
+istore_1
+
+loop0:
+
+iload_1
+bipush 10
+if_icmpge loop0_end
+
+aload_0
+iload_1
+iload_1
+iastore
+iinc 1 1
+goto loop0
+
+loop0_end:
+
+aload_0
+invokestatic max_array/maxarray([I)I
+
+istore_2
 
 return
 .end method

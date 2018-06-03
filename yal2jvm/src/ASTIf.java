@@ -27,6 +27,10 @@ class ASTIf extends SimpleNode {
 
   public String convertToByteCodes(MapVariables data){
     String line = "";
+    boolean value = true;
+    int loopCounter = data.loopCounter;
+
+    data.loopCounter++;
 
     if(jjtGetNumChildren() == 2) {
       for(int i = 0; i < jjtGetNumChildren(); i++){
@@ -35,16 +39,18 @@ class ASTIf extends SimpleNode {
     } else {
       for(int i = 0; i < jjtGetNumChildren(); i++){
         if(i == 2) {
-          line +="goto loop" + data.loopCounter + "_next";
-          line += "\nloop"+ data.loopCounter +"_end:\n";
+          value = false;
+          line +="goto loop" + loopCounter + "_next";
+          line += "\nloop"+ loopCounter +"_end:\n";
         }
         line += jjtGetChild(i).convertToByteCodes(data);
       }
     }
+    if(value)
+      line += "loop" + loopCounter +"_end:" + "\n";
+    else
+      line += "loop" + loopCounter +"_next:" + "\n";
 
-    line += "loop" + data.loopCounter +"_next:" + "\n";
-
-    data.loopCounter++;
     return line;
   }
 }

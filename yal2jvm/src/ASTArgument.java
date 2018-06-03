@@ -66,8 +66,6 @@ class ASTArgument extends SimpleNode {
       isScalar = true;
     }
 
-    System.out.println("isScalar + name " + isScalar + name);
-
     return 0;
   }
 
@@ -102,7 +100,7 @@ class ASTArgument extends SimpleNode {
       return "[I";
     }
     else if(string != null)
-      return "Ljava/lang/String";
+      return "Ljava/lang/String;";
     else if(integer != null)
       return "I";
     else

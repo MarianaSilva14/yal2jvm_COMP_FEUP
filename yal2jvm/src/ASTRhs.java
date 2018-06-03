@@ -61,6 +61,18 @@ class ASTRhs extends SimpleNode {
           line += "imul" + "\n";
         else if(name.equals("+"))
           line += "iadd" + "\n";
+        else if(name.equals("<<"))
+          line += "ishl" + "\n";
+        else if(name.equals(">>"))
+          line += "ishr" + "\n";
+        else if(name.equals("|"))
+          line += "ior" + "\n";
+        else if(name.equals("/"))
+          line += "idiv" + "\n";
+        else if(name.equals("-"))
+          line += "isub" + "\n";
+        else if(name.equals("&"))
+          line += "iand" + "\n";
       }
 
       return line;

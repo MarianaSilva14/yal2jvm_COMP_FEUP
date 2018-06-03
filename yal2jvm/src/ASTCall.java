@@ -69,7 +69,7 @@ class ASTCall extends SimpleNode {
     analyseContent(currentTable);
 
     if(name.equals("io"))
-      return 0;
+      return 1;
 
     if(nameId2 != null){
       return 0;

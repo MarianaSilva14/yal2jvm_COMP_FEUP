@@ -36,9 +36,6 @@ class ASTArgumentList extends SimpleNode {
     for(int i = 0; i < jjtGetNumChildren(); i++){
 
       call += jjtGetChild(i).checkArgumentsType();
-      if(jjtGetNumChildren()!=i+1){
-        call += ";";
-      }
     }
     return call;
   }

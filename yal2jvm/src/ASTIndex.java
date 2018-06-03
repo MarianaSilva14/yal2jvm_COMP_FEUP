@@ -28,20 +28,23 @@ class ASTIndex extends SimpleNode {
       public String toString() {
     	  String test;
 
-    	  test = super.toString() + " " + name;
+        if(name != null)
+    	   test = super.toString() + " " + name;
+        else
+          test = super.toString() + " " + constant;
 
-    	  return test;
+        return test;
       }
 
       public String convertToByteCodes(MapVariables mapVariables){
         String line = "";
-    
+
         if(constant != null) {
-          if(Integer.parseInt(constant) > 5)
-            line += "bipush_" +  mapVariables.returnByteCode(constant) + "\n";
+          if(Integer.parseInt(constant) > 5 || Integer.parseInt(constant) < 0)
+            line += "bipush " + constant + "\n";
           else
-            line += "iconst_" +  mapVariables.returnByteCode(constant) + "\n";
-          
+            line += "iconst_" + constant + "\n";
+
         }
         else
           line += "iload_" +  mapVariables.returnByteCode(name) + "\n";

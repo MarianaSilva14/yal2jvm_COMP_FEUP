@@ -74,9 +74,8 @@ class ASTExprtest extends SimpleNode {
     else if(name.equals("!="))//==
         line+="if_icmpeq";
     else return "error on comparison";
-  
 
-    line +=" loop"+ data.loopCounter + "_end" + "\n";
+    line +=" loop"+ (data.loopCounter - 1) + "_end" + "\n";
     line += "\n";
 
     return line;

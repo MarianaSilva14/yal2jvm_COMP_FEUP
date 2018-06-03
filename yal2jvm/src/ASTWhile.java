@@ -30,6 +30,7 @@ class ASTWhile extends SimpleNode {
     String loopname="loop" + data.loopCounter;
     line += loopname +  ":\n";
     line += "\n";
+    data.loopCounter++;
 
     for(int i = 0; i < jjtGetNumChildren(); i++){
       line += jjtGetChild(i).convertToByteCodes(data);
@@ -37,7 +38,6 @@ class ASTWhile extends SimpleNode {
 
     line += "goto "+ loopname + "\n\n";
     line += loopname + "_end:\n";
-    data.loopCounter++;
     line += "\n";
     return line;
   }

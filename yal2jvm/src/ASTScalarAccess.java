@@ -39,7 +39,7 @@ class ASTScalarAccess extends SimpleNode {
     System.out.println("Analyse the right part of ScalarAccess");
 
     Symbol symbol = currentTable.returnSymbol(name);
-  
+
     if(symbol == null)
       return -1;
     else{
@@ -79,13 +79,35 @@ class ASTScalarAccess extends SimpleNode {
     if(mapVariables.returnByteCode(name) == -1){
       mapVariables.putOnHashMap(name);
     }
-    if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTTERM || jjtGetParent().getId() == parserGrammarTreeConstants.JJTARRAYSIZE || jjtGetParent().jjtGetParent().getId() == parserGrammarTreeConstants.JJTEXPRTEST)
-      line += "iload_" + mapVariables.returnByteCode(name) + "\n";
+    if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTTERM || jjtGetParent().getId() == parserGrammarTreeConstants.JJTARRAYSIZE || jjtGetParent().jjtGetParent().getId() == parserGrammarTreeConstants.JJTEXPRTEST){
+      if(size == null){
+        if(mapVariables.returnByteCode(name) >= 4)
+          line += "iload " + mapVariables.returnByteCode(name) + "\n";
+        else
+          line += "iload_" + mapVariables.returnByteCode(name) + "\n";
+      }
+      else{
+        if(mapVariables.returnByteCode(name) >= 4)
+          line += "aload " + mapVariables.returnByteCode(name) + "\n";
+        else
+          line += "aload_" + mapVariables.returnByteCode(name) + "\n";
+
+        line += "arraylength" + "\n";
+      }
+    }
     else {
-      if(isScalar)
-        line += "istore_" + mapVariables.returnByteCode(name) + "\n\n";
-      else
-        line += "newarray int" + "\n" + "astore_" + mapVariables.returnByteCode(name) + "\n\n";
+      if(isScalar){
+        if(mapVariables.returnByteCode(name) >= 4)
+          line += "istore " + mapVariables.returnByteCode(name) + "\n\n";
+        else
+          line += "istore_" + mapVariables.returnByteCode(name) + "\n\n";
+      }
+      else{
+        if(mapVariables.returnByteCode(name) >= 4)
+          line += "newarray int" + "\n" + "astore " + mapVariables.returnByteCode(name) + "\n\n";
+        else
+          line += "newarray int" + "\n" + "astore_" + mapVariables.returnByteCode(name) + "\n\n";
+      }
     }
     return line;
   }
