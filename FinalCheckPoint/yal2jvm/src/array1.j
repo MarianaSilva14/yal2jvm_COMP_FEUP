@@ -2,8 +2,8 @@
 .super java/lang/Object
 
 .method public static print_array(I)V
-.limit locals 4
-.limit stack 3
+.limit locals 10
+.limit stack 10
 iload_0
 newarray int
 astore_1
@@ -21,7 +21,11 @@ aload_1
 iload_2
 iload_2
 iastore
-iinc 2 1
+iload_2
+iconst_1
+iadd
+istore_2
+
 goto loop0
 
 loop0_end:
@@ -42,9 +46,13 @@ istore_3
 
 ldc "a: "
 iload_3
-invokestatic io/print(Ljava/lang/String;I)V
+invokestatic io/print(Ljava/lang/String;I)
 
-iinc 2 1
+iload_2
+iconst_1
+iadd
+istore_2
+
 goto loop1
 
 loop1_end:
@@ -53,10 +61,10 @@ return
 .end method
 
 .method public static main([Ljava/lang/String;)V
-.limit locals 1
-.limit stack 1
+.limit locals 10
+.limit stack 10
 bipush 10
-invokestatic array1/print_array(I)V
+invokestatic array1/print_array(I)
 
 return
 .end method
