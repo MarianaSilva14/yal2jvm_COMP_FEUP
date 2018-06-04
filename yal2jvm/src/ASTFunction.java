@@ -171,7 +171,7 @@ public String convertToByteCodes(MapVariables data){
 		}
 		if(b) {
         	if(mapVariables.returnByteCode(returnArg)>=4)
-          		newAux = "iconst_0\nistore_" + mapVariables.returnByteCode(returnArg) + "\n";
+          		newAux = "iconst_0\nistore " + mapVariables.returnByteCode(returnArg) + "\n";
         	else
           		newAux = "iconst_0\nistore_" + mapVariables.returnByteCode(returnArg) + "\n";
 		}
