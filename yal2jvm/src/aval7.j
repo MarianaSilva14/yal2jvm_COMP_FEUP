@@ -9,7 +9,7 @@ istore_1
 iconst_0
 istore_1
 
-iconst_m1
+bipush -1
 istore_2
 
 loop0:

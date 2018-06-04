@@ -43,7 +43,7 @@ istore 4
 
 goto loop1_next
 loop1_end:
-iconst_m2
+bipush -2
 iconst_4
 imul
 istore 4

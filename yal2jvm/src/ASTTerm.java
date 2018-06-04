@@ -83,9 +83,6 @@ class ASTTerm extends SimpleNode {
     else if (nameInteger != null) {
 
       if(name != null && name.equals("-")){
-        if(Integer.parseInt(nameInteger)<=5)
-          line +="iconst_m" + nameInteger + "\n";
-        else
           line +="bipush " + name + nameInteger + "\n";
       }
       else{
