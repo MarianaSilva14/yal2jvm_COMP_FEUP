@@ -57,8 +57,12 @@ class ASTIndex extends SimpleNode {
         else
           line += "getstatic " + module + "/" + name + " [I\n";
         }
-        else
-          line += "iload_" +  mapVariables.returnByteCode(name) + "\n";
+        else{
+          if(this.name!=null){
+            line += "iload_" +  mapVariables.returnByteCode(name) + "\n";
+          }
+        }
+
         return line;
       }
 
