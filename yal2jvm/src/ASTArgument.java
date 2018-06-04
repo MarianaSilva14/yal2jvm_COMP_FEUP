@@ -74,10 +74,42 @@ class ASTArgument extends SimpleNode {
     String line = "";
 
     if(name != null && isScalar) {
-      line += "iload_" + mapVariables.returnByteCode(name) + "\n";
+      if(mapVariables.existsGlobalVariable(name)){
+        Node node = this.jjtGetParent();
+        while(node.getId() != parserGrammarTreeConstants.JJTMODULE) {
+          node = node.jjtGetParent();
+        }
+        String module = ((ASTModule)node).getName();
+        if(mapVariables.getGlobalVariableIsScalar(name))
+          line += "getstatic " + module + "/" + name + " I\n";
+        else {
+          line += "getstatic " + module + "/" + name + " [I\n";
+          isScalar = false;
+        }
+      }
+      else if(mapVariables.returnByteCode(name)>=4)
+        line += "iload " + mapVariables.returnByteCode(name) + "\n";
+      else
+        line += "iload_" + mapVariables.returnByteCode(name) + "\n";
     }
     else if(name != null && !isScalar) {
-      line += "aload_" + mapVariables.returnByteCode(name) + "\n";
+      if(mapVariables.existsGlobalVariable(name)){
+        Node node = this.jjtGetParent();
+        while(node.getId() != parserGrammarTreeConstants.JJTMODULE) {
+          node = node.jjtGetParent();
+        }
+        String module = ((ASTModule)node).getName();
+        if(mapVariables.getGlobalVariableIsScalar(name)) 
+          line += "getstatic " + module + "/" + name + " I\n";
+        else {
+          line += "getstatic " + module + "/" + name + " [I\n";
+          isScalar = false;
+        }
+      }
+      else if(mapVariables.returnByteCode(name)>=4)
+        line += "aload " + mapVariables.returnByteCode(name) + "\n";
+      else
+        line += "aload_" + mapVariables.returnByteCode(name) + "\n";
     }
     else if(string != null) {
       line += "ldc " + string + "\n";

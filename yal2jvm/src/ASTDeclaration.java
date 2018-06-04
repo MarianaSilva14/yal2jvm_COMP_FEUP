@@ -60,5 +60,27 @@ class ASTDeclaration extends SimpleNode {
     return b;
   }
 
+  public String convertToByteCodes(MapVariables data){
+    String line = "";
+    String aux = "";
+
+    aux += jjtGetChild(0).convertToByteCodes(data);
+    if(jjtGetNumChildren() == 2 && jjtGetChild(1) != null) {
+      String[] split = aux.split(" I");
+      line = split[0] + " [I\n";
+      String[] temp = split[0].split(" ");
+      String name = temp[2];
+      for(int i = 0; i < data.globalVariables.size();i++) {
+        if(data.globalVariables.get(i).getSymbolName().equals(name)) {
+          data.globalVariables.get(i).setSymbolType("GlobalArray");
+          data.globalVariables.get(i).setIsScalar(false);
+        }
+      }
+    }
+    else
+      line = aux;
+    return line;
+  }
+
 }
 /* JavaCC - OriginalChecksum=7937f9650d27ed34a54fb92c15537b29 (do not edit this line) */

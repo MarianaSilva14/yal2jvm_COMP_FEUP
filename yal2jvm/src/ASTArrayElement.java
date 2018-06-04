@@ -39,6 +39,11 @@ class ASTArrayElement extends SimpleNode {
       String line = "";
       if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTVARLIST)
         data.putOnHashMap(name);
+      else if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTDECLARATION) {
+        line = ".field static " + name + " [I\n";
+        data.putOnGlobalVariables(new Symbol("GlobalArray", name, false)); 
+      }
+       
       return line;
     }
 }

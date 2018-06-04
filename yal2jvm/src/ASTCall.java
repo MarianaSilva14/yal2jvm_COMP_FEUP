@@ -109,21 +109,38 @@ class ASTCall extends SimpleNode {
     }
     else {
       call += "invokestatic "+ name + "/" + nameId2 + "(";
-      if(name.equals("io")) {
-        if(nameId2.equals("println"))
-          call += "I)V";
-        else if (nameId2.equals("read"))
-          call += ")I";
-        else
-          call += ")V";
+      for(int i = 0; i < jjtGetNumChildren(); i++){
+        call += jjtGetChild(i).checkArgumentsType();
       }
-      else {
-        if(nameId2.equals("size"))
-          call += ")I";
-        else
-          call += ")V";
-      }
+      call += ")";
 
+    }
+
+    Node node=this;
+    boolean value= false;
+    while(node.getId() != parserGrammarTreeConstants.JJTFUNCTION){
+      if(node.getId()== parserGrammarTreeConstants.JJTASSIGN){
+        value=true;
+        break;
+      }
+      node=node.jjtGetParent();
+    }
+
+    if(!value){
+      call+="V";
+    }
+    else{
+      if(node.jjtGetChild(0).jjtGetChild(0).getId()==parserGrammarTreeConstants.JJTARRAYACCESS)
+        call+="I";
+      else{
+        ASTScalarAccess scalarAccess = (ASTScalarAccess) node.jjtGetChild(0).jjtGetChild(0);
+        if(scalarAccess.isScalar())
+          call+="I";
+        else
+          call+="[I";
+
+      }  
+        
     }
 
     line += call;

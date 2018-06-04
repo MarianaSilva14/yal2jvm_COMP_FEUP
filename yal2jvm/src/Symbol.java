@@ -21,4 +21,12 @@ public class Symbol{
     public Boolean isScalar(){
       return isScalar;
     }
+
+    public void setSymbolType(String newType) {
+        symbolType = newType;
+    }
+
+    public void setIsScalar(Boolean b) {
+        isScalar = b;
+    }
 }

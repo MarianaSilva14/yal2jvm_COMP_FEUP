@@ -66,11 +66,12 @@ public String convertToByteCodes(MapVariables data){
   MapVariables mapVariables = new MapVariables(data);
   String returnType = "V";
   String returnArg = "";
+  ArrayList<String> typeOfArgs = new ArrayList<String>();
   if(name.equals("main")){
     line += ".method public static main([Ljava/lang/String;)V" + "\n";
   }
   else{
-    ArrayList<String> typeOfArgs = new ArrayList<String>();
+   
     for(int i = 0; i < jjtGetNumChildren(); i++){
         if(jjtGetChild(i).getId() == parserGrammarTreeConstants.JJTVARLIST) {
           for(int j = 0; j < jjtGetChild(i).jjtGetNumChildren(); j++){
@@ -107,12 +108,13 @@ public String convertToByteCodes(MapVariables data){
   }
 
 
-  int max = 0;
+  int max = typeOfArgs.size();
   int stack=0;
   int argNumber = 0;
   int lastIndex = 0;
   String findStr = "I";
   String[] maxAux = aux.split("\n");
+  String newAux="";
 
   for(int i=0; i < maxAux.length; i++){
     if(maxAux[i].contains("istore")){
@@ -121,7 +123,10 @@ public String convertToByteCodes(MapVariables data){
         var = maxAux[i].split(" ");
       }
       if(mapVariables.returnByteCode(returnArg) == Integer.parseInt(var[1])){
-        String newAux = "iconst_0\nistore_" + mapVariables.returnByteCode(returnArg) + "\n";
+        if(mapVariables.returnByteCode(returnArg)>=4)
+          newAux = "iconst_0\nistore " + mapVariables.returnByteCode(returnArg) + "\n";
+        else
+          newAux = "iconst_0\nistore_" + mapVariables.returnByteCode(returnArg) + "\n";
         aux = newAux + aux;
         break;
       }
@@ -166,7 +171,6 @@ public String convertToByteCodes(MapVariables data){
       stack-=argNumber;
     if(!maxAux[i].contains("V")){
       stack++;
-      System.out.println("\nEntrou no if V\n");
     }
     }
     else if(maxAux[i].contains("iastore")){
@@ -187,8 +191,6 @@ public String convertToByteCodes(MapVariables data){
       max=stack;
     }
 
-    System.out.println("stack: " + stack + " code: " + maxAux[i]);
-    System.out.println("max: " + max);
   }
 
   if(name.equals("main") && mapVariables.counter==0)
@@ -201,8 +203,11 @@ public String convertToByteCodes(MapVariables data){
 
   if(returnType.equals("V"))
     line += "return" + "\n";
-  else {
-    line += "iload_" + mapVariables.returnByteCode(returnArg) + "\n";
+  else{
+    if(mapVariables.returnByteCode(returnArg)>=4)
+      line += "iload " + mapVariables.returnByteCode(returnArg) + "\n";
+    else
+      line += "iload_" + mapVariables.returnByteCode(returnArg) + "\n";
     line += "ireturn" + "\n";
   }
     line += ".end method" + "\n";

@@ -67,8 +67,10 @@ class ASTScalarAccess extends SimpleNode {
       currentTable.putOnHashMap(new Symbol("ScalarAccess",name,isScalar));
     }
     else{
-      if(isScalar != symbol.isScalar())
+      if(isScalar != symbol.isScalar()) {
         System.out.println("Semantic Error! " + name + " Expected Value " + isScalar + " Value " + symbol.isScalar());
+        this.isScalar = true;
+      }
     }
 
     return 0;
@@ -81,13 +83,37 @@ class ASTScalarAccess extends SimpleNode {
     }
     if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTTERM || jjtGetParent().getId() == parserGrammarTreeConstants.JJTARRAYSIZE || jjtGetParent().jjtGetParent().getId() == parserGrammarTreeConstants.JJTEXPRTEST){
       if(size == null){
-        if(mapVariables.returnByteCode(name) >= 4)
+        if(mapVariables.existsGlobalVariable(name)){
+          Node node = this.jjtGetParent();
+          while(node.getId() != parserGrammarTreeConstants.JJTMODULE) {
+            node = node.jjtGetParent();
+          }
+          String module = ((ASTModule)node).getName();
+          if(mapVariables.getGlobalVariableIsScalar(name))
+            line += "getstatic " + module + "/" + name + " I\n";
+          else
+            line += "getstatic " + module + "/" + name + " [I\n";
+          isScalar = mapVariables.getGlobalVariableIsScalar(name);
+        }
+        else if(mapVariables.returnByteCode(name) >= 4)
           line += "iload " + mapVariables.returnByteCode(name) + "\n";
         else
           line += "iload_" + mapVariables.returnByteCode(name) + "\n";
       }
       else{
-        if(mapVariables.returnByteCode(name) >= 4)
+        if(mapVariables.existsGlobalVariable(name)){
+          Node node = this.jjtGetParent();
+          while(node.getId() != parserGrammarTreeConstants.JJTMODULE) {
+            node = node.jjtGetParent();
+          }
+          String module = ((ASTModule)node).getName();
+          if(mapVariables.getGlobalVariableIsScalar(name))
+            line += "getstatic " + module + "/" + name + " I\n";
+          else
+            line += "getstatic " + module + "/" + name + " [I\n";
+          isScalar = mapVariables.getGlobalVariableIsScalar(name);
+        }
+        else if(mapVariables.returnByteCode(name) >= 4)
           line += "aload " + mapVariables.returnByteCode(name) + "\n";
         else
           line += "aload_" + mapVariables.returnByteCode(name) + "\n";
@@ -97,13 +123,39 @@ class ASTScalarAccess extends SimpleNode {
     }
     else {
       if(isScalar){
-        if(mapVariables.returnByteCode(name) >= 4)
+        if(mapVariables.existsGlobalVariable(name)){
+          Node node = this.jjtGetParent();
+          while(node.getId() != parserGrammarTreeConstants.JJTMODULE) {
+            node = node.jjtGetParent();
+          }
+          String module = ((ASTModule)node).getName();
+          if(mapVariables.getGlobalVariableIsScalar(name))
+            line += "putstatic " + module + "/" + name + " I\n";
+          else
+            line += "putstatic " + module + "/" + name + " [I\n";
+          isScalar = mapVariables.getGlobalVariableIsScalar(name);
+
+        }
+        else if(mapVariables.returnByteCode(name) >= 4)
           line += "istore " + mapVariables.returnByteCode(name) + "\n\n";
         else
           line += "istore_" + mapVariables.returnByteCode(name) + "\n\n";
       }
       else{
-        if(mapVariables.returnByteCode(name) >= 4)
+        if(mapVariables.existsGlobalVariable(name)){
+          Node node = this.jjtGetParent();
+          while(node.getId() != parserGrammarTreeConstants.JJTMODULE) {
+            node = node.jjtGetParent();
+          }
+          String module = ((ASTModule)node).getName();
+          if(mapVariables.getGlobalVariableIsScalar(name))
+            line += "putstatic " + module + "/" + name + " I\n";
+          else
+            line += "putstatic " + module + "/" + name + " [I\n";
+
+          isScalar = mapVariables.getGlobalVariableIsScalar(name);
+        }
+        else if(mapVariables.returnByteCode(name) >= 4)
           line += "newarray int" + "\n" + "astore " + mapVariables.returnByteCode(name) + "\n\n";
         else
           line += "newarray int" + "\n" + "astore_" + mapVariables.returnByteCode(name) + "\n\n";

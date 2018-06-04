@@ -46,6 +46,17 @@ class ASTIndex extends SimpleNode {
             line += "iconst_" + constant + "\n";
 
         }
+        if(mapVariables.existsGlobalVariable(name)){
+          Node node = this.jjtGetParent();
+          while(node.getId() != parserGrammarTreeConstants.JJTMODULE) {
+            node = node.jjtGetParent();
+          }
+          String module = ((ASTModule)node).getName();
+          if(mapVariables.getGlobalVariableIsScalar(name))
+          line += "getstatic " + module + "/" + name + " I\n";
+        else
+          line += "getstatic " + module + "/" + name + " [I\n";
+        }
         else
           line += "iload_" +  mapVariables.returnByteCode(name) + "\n";
         return line;

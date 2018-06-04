@@ -31,16 +31,19 @@ class ASTScalarElement extends SimpleNode {
   @Override
   public int analyse(SymbolsTable currentTable){
     currentTable.putOnHashMap(new Symbol("ScalarElement",name,true));
-    System.out.println("ScalarElement pos na hashmap ");
     return 0;
   }
 
   public String convertToByteCodes(MapVariables data){
     String line = "";
 
-    if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTVARLIST) {
+    if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTVARLIST) 
       data.putOnHashMap(name);
+    else if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTDECLARATION){
+      line = ".field static " + name + " I\n";
+      data.putOnGlobalVariables(new Symbol("GlobalScalar", name, true));
     }
+     
     return line;
   }
 }

@@ -70,11 +70,26 @@ class ASTModule extends SimpleNode {
 
     line += "\n";
     line += ".method static public <clinit>()V" + "\n";
-    line += ".limit stack 0" +"\n";
-    line += ".limit locals 0" + "\n";
-    line += "return" + "\n";
-    line += ".end method" + "\n";
-
+    String temp = "";
+    int locals = 0;
+    for(int i = 0; i < this.jjtGetNumChildren(); i++) {
+      if(this.jjtGetChild(i).getId() != parserGrammarTreeConstants.JJTDECLARATION)
+        break;
+      ASTDeclaration declaration = (ASTDeclaration)this.jjtGetChild(i);
+      if(declaration.jjtGetNumChildren()>1){
+        locals++;
+        if(Integer.parseInt(declaration.jjtGetChild(1).getName()) > 5)
+          temp += "bipush " + declaration.jjtGetChild(1).getName() + "\n";
+        else
+          temp += "iconst_" + declaration.jjtGetChild(1).getName() + "\n";
+        temp+= "newarray int\nputstatic " + name + "/"+declaration.jjtGetChild(0).getName() + " [I\n";
+      }
+    }
+    line+= ".limit locals " + locals + "\n";
+    line+= ".limit stack 1 \n";
+    line+= temp;
+    line+= "return\n";
+    line+= ".end method\n";
     return line;
   }
 
