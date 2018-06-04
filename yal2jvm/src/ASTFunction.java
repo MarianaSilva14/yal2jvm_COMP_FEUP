@@ -157,14 +157,14 @@ public String convertToByteCodes(MapVariables data){
       if(var.length == 1){
         var = maxAux[i].split(" ");
       }
-      if(mapVariables.returnByteCode(returnArg) == Integer.parseInt(var[1])){
+      /*if(mapVariables.returnByteCode(returnArg) == Integer.parseInt(var[1])){
         if(mapVariables.returnByteCode(returnArg)>=4)
-          newAux = "iconst_0\nistore " + mapVariables.returnByteCode(returnArg) + "\n";
+          newAux = "iconst_0\nistore_" + mapVariables.returnByteCode(returnArg) + "\n";
         else
           newAux = "iconst_0\nistore_" + mapVariables.returnByteCode(returnArg) + "\n";
         aux = newAux + aux;
         break;
-      }
+      }*/
     }
   }
 
