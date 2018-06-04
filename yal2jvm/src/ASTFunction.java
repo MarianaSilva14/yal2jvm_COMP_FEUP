@@ -67,6 +67,7 @@ public String convertToByteCodes(MapVariables data){
   String returnType = "V";
   String returnArg = "";
   ArrayList<String> typeOfArgs = new ArrayList<String>();
+  ArrayList<String> args = new ArrayList<String>();
   if(name.equals("main")){
     line += ".method public static main([Ljava/lang/String;)V" + "\n";
   }
@@ -75,10 +76,14 @@ public String convertToByteCodes(MapVariables data){
     for(int i = 0; i < jjtGetNumChildren(); i++){
         if(jjtGetChild(i).getId() == parserGrammarTreeConstants.JJTVARLIST) {
           for(int j = 0; j < jjtGetChild(i).jjtGetNumChildren(); j++){
-            if(jjtGetChild(i).jjtGetChild(j).getId() == parserGrammarTreeConstants.JJTARRAYELEMENT)
+            if(jjtGetChild(i).jjtGetChild(j).getId() == parserGrammarTreeConstants.JJTARRAYELEMENT) {
               typeOfArgs.add("[I");
-            else if(jjtGetChild(i).jjtGetChild(j).getId() == parserGrammarTreeConstants.JJTSCALARELEMENT)
+			  args.add(jjtGetChild(i).jjtGetChild(j).getName());
+			}
+            else if(jjtGetChild(i).jjtGetChild(j).getId() == parserGrammarTreeConstants.JJTSCALARELEMENT) {
               typeOfArgs.add("I");
+			  args.add(jjtGetChild(i).jjtGetChild(j).getName());
+			}
           }
         }
         else if(jjtGetChild(i).getId() == parserGrammarTreeConstants.JJTARRAYELEMENT) {
@@ -158,10 +163,18 @@ public String convertToByteCodes(MapVariables data){
         var = maxAux[i].split(" ");
       }
       if(mapVariables.returnByteCode(returnArg) == Integer.parseInt(var[1])){
-        if(mapVariables.returnByteCode(returnArg)>=4)
-          newAux = "iconst_0\nistore_" + mapVariables.returnByteCode(returnArg) + "\n";
-        else
-          newAux = "iconst_0\nistore_" + mapVariables.returnByteCode(returnArg) + "\n";
+		boolean b = true;
+		for(int j = 0; j < args.size(); j++) {
+			if(args.get(j).equals(returnArg)){
+				b = false;
+			}
+		}
+		if(b) {
+        	if(mapVariables.returnByteCode(returnArg)>=4)
+          		newAux = "iconst_0\nistore_" + mapVariables.returnByteCode(returnArg) + "\n";
+        	else
+          		newAux = "iconst_0\nistore_" + mapVariables.returnByteCode(returnArg) + "\n";
+		}
         aux = newAux + aux;
         break;
       }
