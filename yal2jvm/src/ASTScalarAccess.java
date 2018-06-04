@@ -122,6 +122,30 @@ class ASTScalarAccess extends SimpleNode {
       }
     }
     else {
+      boolean newarray = false;
+      if(jjtGetParent().jjtGetParent().getId() == parserGrammarTreeConstants.JJTASSIGN){
+        ASTAssign assign = (ASTAssign)jjtGetParent().jjtGetParent();
+        if(assign.jjtGetChild(1).jjtGetNumChildren() > 0 && assign.jjtGetChild(1).jjtGetChild(0).jjtGetNumChildren() > 0 && assign.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0).getId() == parserGrammarTreeConstants.JJTCALL){
+          ASTCall call = (ASTCall)assign.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0);
+          if(call.getNameId2() == null){
+            String functionReturn = mapVariables.returnFunctionType(call.getName());
+            if(functionReturn.equals("[I")){
+              isScalar = false;
+              newarray = true;
+            }
+          }
+        }
+        else if(assign.jjtGetChild(1).jjtGetNumChildren() > 0 && assign.jjtGetChild(1).jjtGetChild(0).jjtGetNumChildren() > 0 && assign.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0).getId() == parserGrammarTreeConstants.JJTCALLSTMT){
+          ASTCallStmt call = (ASTCallStmt)assign.jjtGetChild(1).jjtGetChild(0).jjtGetChild(0);
+          if(call.getNameId2() == null){
+            String functionReturn = mapVariables.returnFunctionType(call.getName());
+            if(functionReturn.equals("[I")){
+              isScalar = false;
+              newarray = true;
+            }
+          }
+        }
+      }
       if(isScalar){
         if(mapVariables.existsGlobalVariable(name)){
           Node node = this.jjtGetParent();
@@ -155,10 +179,19 @@ class ASTScalarAccess extends SimpleNode {
 
           isScalar = mapVariables.getGlobalVariableIsScalar(name);
         }
-        else if(mapVariables.returnByteCode(name) >= 4)
-          line += "newarray int" + "\n" + "astore " + mapVariables.returnByteCode(name) + "\n\n";
-        else
-          line += "newarray int" + "\n" + "astore_" + mapVariables.returnByteCode(name) + "\n\n";
+        else if(mapVariables.returnByteCode(name) >= 4){
+          if(!newarray)
+            line += "newarray int" + "\n";
+
+          line += "astore " + mapVariables.returnByteCode(name) + "\n\n";
+        }
+        else{
+          if(!newarray)
+            line += "newarray int" + "\n";
+
+          line += "astore_" + mapVariables.returnByteCode(name) + "\n\n";
+
+        }
       }
     }
     return line;

@@ -81,7 +81,7 @@ iastore
 aload_0
 invokestatic programa2/f1([I)[I
 
-istore_1
+astore_1
 
 aload_1
 iconst_0
@@ -104,7 +104,7 @@ invokestatic io/println(Ljava/lang/String;I)V
 bipush 100
 invokestatic programa2/f2(I)[I
 
-istore_1
+astore_1
 
 aload_1
 iconst_0
