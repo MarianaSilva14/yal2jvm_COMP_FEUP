@@ -71,7 +71,7 @@ public String convertToByteCodes(MapVariables data){
     line += ".method public static main([Ljava/lang/String;)V" + "\n";
   }
   else{
-   
+
     for(int i = 0; i < jjtGetNumChildren(); i++){
         if(jjtGetChild(i).getId() == parserGrammarTreeConstants.JJTVARLIST) {
           for(int j = 0; j < jjtGetChild(i).jjtGetNumChildren(); j++){
@@ -111,6 +111,9 @@ public String convertToByteCodes(MapVariables data){
   for(int j=0; j < splitstr.length - 1;j++){
     if((splitstr[j].contains("iload") || splitstr[j].contains("iconst")) && splitstr[j+1].contains("istore")){
       String[] split2 = splitstr[j+1].split("_");
+      if(split2.length < 2) {
+				split2 = splitstr[j+1].split(" ");
+			}
       for(int k=0; k < splitstr.length; k++){
         if(splitstr[k].contains("astore_"+split2[1])) {
           mapVariables.putOnHashMap("temp");
@@ -118,7 +121,7 @@ public String convertToByteCodes(MapVariables data){
           temp += "istore_" + mapVariables.returnByteCode("temp") + "\n";
           temp += "loop" + mapVariables.loopCounter + ":\n";
           temp += "iload_" + mapVariables.returnByteCode("temp") + "\n";
-          temp += "aload_" + split2[1] + "\n"; 
+          temp += "aload_" + split2[1] + "\n";
           temp += "arraylength\n";
           temp += "if_icmpge loop" + mapVariables.loopCounter + "_end\n";
           temp += "aload_" + split2[1] + "\n";
@@ -235,13 +238,13 @@ public String convertToByteCodes(MapVariables data){
 
   if(returnType.equals("V"))
     line += "return" + "\n";
-  else{ 
+  else{
     String[] split = aux.split("\n");
     boolean isScalar = true;
     for(int i = 0; i < split.length; i++) {
       if(split[i].contains(Integer.toString(mapVariables.returnByteCode(returnArg))) && split[i].contains("astore")) {
         isScalar = false;
-      } 
+      }
     }
     if(isScalar) {
       if(mapVariables.returnByteCode(returnArg)>=4)
