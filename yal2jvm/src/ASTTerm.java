@@ -81,10 +81,19 @@ class ASTTerm extends SimpleNode {
       }
     }
     else if (nameInteger != null) {
-      if(Integer.parseInt(nameInteger)<=5)
-        line +="iconst_" + nameInteger + "\n";
-      else
-        line +="bipush " + nameInteger + "\n";
+
+      if(name != null && name.equals("-")){
+        if(Integer.parseInt(nameInteger)<=5)
+          line +="iconst_m" + nameInteger + "\n";
+        else
+          line +="bipush " + name + nameInteger + "\n";
+      }
+      else{
+        if(Integer.parseInt(nameInteger)<=5)
+          line +="iconst_" + nameInteger + "\n";
+        else
+          line +="bipush " + nameInteger + "\n";
+      }
     }
     else if (name != null) {
       line += "iconst_" + name + "\n";
@@ -93,7 +102,7 @@ class ASTTerm extends SimpleNode {
     return line;
   }
 
-  
+
 
 }
 /* JavaCC - OriginalChecksum=6e0a45afda7272769448323ecc8eb0e4 (do not edit this line) */
