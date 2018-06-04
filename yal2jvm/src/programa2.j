@@ -32,22 +32,32 @@ iinc 1 1
 goto loop0
 
 loop0_end:
-
 aload_3
 areturn
 .end method
 
 .method public static f2(I)[I
-.limit locals 2
-.limit stack 2
-iconst_0
-istore_1
+.limit locals 3
+.limit stack 3
 iload_0
 newarray int
 astore_1
 
+iconst_0
+istore_2
+loop0:
+iload_2
+aload_1
+arraylength
+if_icmpge loop0_end
+aload_1
+iload_2
 iconst_1
-istore_1
+iastore
+iinc 2 1
+goto loop0
+loop0_end:
+
 
 aload_1
 areturn
@@ -71,7 +81,7 @@ iload_-1
 iconst_2
 iastore
 aload_0
-invokestatic programa2/f1([I)[II
+invokestatic programa2/f1([I)[I
 
 istore_1
 
@@ -96,7 +106,7 @@ iload_3
 invokestatic io/println(Ljava/lang/String;I)V
 
 bipush 100
-invokestatic programa2/f2(I)[II
+invokestatic programa2/f2(I)[I
 
 istore_1
 
@@ -119,7 +129,6 @@ invokestatic io/println(Ljava/lang/String;I)V
 ldc "last: "
 iload_3
 invokestatic io/println(Ljava/lang/String;I)V
-
 return
 .end method
 

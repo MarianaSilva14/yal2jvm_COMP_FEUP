@@ -139,11 +139,9 @@ class ASTCall extends SimpleNode {
       else{
         ASTScalarAccess scalarAccess = (ASTScalarAccess) node.jjtGetChild(0).jjtGetChild(0);
         if(scalarAccess.isScalar()) {
-          System.out.println("HERE!!!!!22222222222");
           returnString="I";
         }
         else {
-          System.out.println("HERE!!!!!");
           returnString="[I";
 
         }

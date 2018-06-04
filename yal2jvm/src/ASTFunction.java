@@ -107,7 +107,39 @@ public String convertToByteCodes(MapVariables data){
     aux += jjtGetChild(i).convertToByteCodes(mapVariables);
   }
 
+  String[] splitstr = aux.split("\n");
+  for(int j=0; j < splitstr.length - 1;j++){
+    if((splitstr[j].contains("iload") || splitstr[j].contains("iconst")) && splitstr[j+1].contains("istore")){
+      String[] split2 = splitstr[j+1].split("_");
+      for(int k=0; k < splitstr.length; k++){
+        if(splitstr[k].contains("astore_"+split2[1])) {
+          mapVariables.putOnHashMap("temp");
+          String temp = "iconst_0\n";
+          temp += "istore_" + mapVariables.returnByteCode("temp") + "\n";
+          temp += "loop" + mapVariables.loopCounter + ":\n";
+          temp += "iload_" + mapVariables.returnByteCode("temp") + "\n";
+          temp += "aload_" + split2[1] + "\n"; 
+          temp += "arraylength\n";
+          temp += "if_icmpge loop" + mapVariables.loopCounter + "_end\n";
+          temp += "aload_" + split2[1] + "\n";
+          temp += "iload_" + mapVariables.returnByteCode("temp") + "\n";
+          temp += splitstr[j] + "\n";
+          temp += "iastore\n";
+          temp += "iinc " + mapVariables.returnByteCode("temp") + " 1\n";
+          temp += "goto loop" + mapVariables.loopCounter + "\n";
+          temp += "loop" + mapVariables.loopCounter + "_end:\n";
+          mapVariables.loopCounter++;
+          splitstr[j+1] = "";
+          splitstr[j] = temp;
 
+        }
+      }
+    }
+  }
+  aux="";
+  for(int j=0; j < splitstr.length;j++){
+    aux+=splitstr[j]+"\n";
+  }
   int max = typeOfArgs.size();
   int stack=0;
   int argNumber = 0;
