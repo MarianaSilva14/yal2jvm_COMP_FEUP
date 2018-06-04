@@ -203,12 +203,28 @@ public String convertToByteCodes(MapVariables data){
 
   if(returnType.equals("V"))
     line += "return" + "\n";
-  else{
-    if(mapVariables.returnByteCode(returnArg)>=4)
-      line += "iload " + mapVariables.returnByteCode(returnArg) + "\n";
+  else{ 
+    String[] split = aux.split("\n");
+    boolean isScalar = true;
+    for(int i = 0; i < split.length; i++) {
+      if(split[i].contains(Integer.toString(mapVariables.returnByteCode(returnArg))) && split[i].contains("astore")) {
+        isScalar = false;
+      } 
+    }
+    if(isScalar) {
+      if(mapVariables.returnByteCode(returnArg)>=4)
+        line += "iload " + mapVariables.returnByteCode(returnArg) + "\n";
+      else
+        line += "iload_" + mapVariables.returnByteCode(returnArg) + "\n";
+      line += "ireturn" + "\n";
+    }
+    else {
+      if(mapVariables.returnByteCode(returnArg)>=4)
+      line += "aload " + mapVariables.returnByteCode(returnArg) + "\n";
     else
-      line += "iload_" + mapVariables.returnByteCode(returnArg) + "\n";
-    line += "ireturn" + "\n";
+      line += "aload_" + mapVariables.returnByteCode(returnArg) + "\n";
+    line += "areturn" + "\n";
+    }
   }
     line += ".end method" + "\n";
     line += "\n";

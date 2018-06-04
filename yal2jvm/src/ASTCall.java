@@ -90,7 +90,7 @@ class ASTCall extends SimpleNode {
   public String convertToByteCodes(MapVariables mapVariables){
     String line = "";
     String call = "";
-
+    boolean addedReturn = false;
     for(int i = 0; i < jjtGetNumChildren(); i++){
         line += jjtGetChild(i).convertToByteCodes(mapVariables);
     }
@@ -106,6 +106,7 @@ class ASTCall extends SimpleNode {
       }
       call += ")";
       call += mapVariables.returnFunctionType(name);
+      addedReturn=true;
     }
     else {
       call += "invokestatic "+ name + "/" + nameId2 + "(";
@@ -115,7 +116,8 @@ class ASTCall extends SimpleNode {
       call += ")";
 
     }
-
+    if(addedReturn) 
+      return line += call + "\n\n";
     Node node=this;
     boolean value= false;
     while(node.getId() != parserGrammarTreeConstants.JJTFUNCTION){
@@ -126,23 +128,30 @@ class ASTCall extends SimpleNode {
       node=node.jjtGetParent();
     }
 
+    String returnString = "";
     if(!value){
-      call+="V";
+      returnString="V";
     }
     else{
-      if(node.jjtGetChild(0).jjtGetChild(0).getId()==parserGrammarTreeConstants.JJTARRAYACCESS)
-        call+="I";
+      if(node.jjtGetChild(0).jjtGetChild(0).getId()==parserGrammarTreeConstants.JJTARRAYACCESS) {
+        returnString="I";
+      }
       else{
         ASTScalarAccess scalarAccess = (ASTScalarAccess) node.jjtGetChild(0).jjtGetChild(0);
-        if(scalarAccess.isScalar())
-          call+="I";
-        else
-          call+="[I";
+        if(scalarAccess.isScalar()) {
+          System.out.println("HERE!!!!!22222222222");
+          returnString="I";
+        }
+        else {
+          System.out.println("HERE!!!!!");
+          returnString="[I";
+
+        }
 
       }  
         
     }
-
+    call += returnString;
     line += call;
     line += "\n\n";
 
