@@ -13,11 +13,10 @@
 
 (Describe what your tool does and its main features.)
 
- To apply the knowledge acquired in the course unit Compilers by building a compiler for programs in the yal language. 
-The compiler shall generate valid JVM (Java Virtual Machine) instructions to jasmin, a tool to generate Java bytecodes given assembly programs with JVM instructions.
+Our application consists in the construction of a compiler for programs in the yal language .
+The compiler generate valid JVM (Java Virtual Machine) instructions to jasmin, a tool to generate Java bytecodes given assembly programs with JVM instructions.
 
 ## EXECUTE: 
-(indicate how to run your tool)
 
 Run in the command line:
 
@@ -35,6 +34,8 @@ Run in the command line:
 
 ## INTERMEDIATE REPRESENTATIONS (IRs): 
 (for example, when applicable, briefly describe the HLIR (high-level IR) and the LLIR (low-level IR) used, if your tool includes an LLIR with structure different from the HLIR)
+
+Penso que não temos que ter este campo, pq não temos nenhuma representação intermédia, que dizem??
 
 ## CODE GENERATION: 
 (when applicable, describe how the code generation of your tool works and identify the possible problems your tool has regarding code generation.)
