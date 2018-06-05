@@ -30,9 +30,11 @@ Our program identifies all the syntactic errors contained in the file, informing
 
 ## SEMANTIC ANALYSIS: 
 (Refer the semantic rules implemented by your tool.)
+
 As regras implementadas pelo nosso programa para verificar a análise semântica 
 
 ## CODE GENERATION: 
+(when applicable, describe how the code generation of your tool works and identify the possible problems your tool has regarding code generation.)
 
 Our solution starts by identifying in the tree obtained from the parser all data from the file and saves into a string. Then it replaces the string containing all the code and generate the file.
 No optimizations were made for code generation.
