@@ -5,7 +5,7 @@
 * Francisca Cerquinho: up201505791, GRADE1: 20, CONTRIBUTION1:  25%
 * Mariana Silva: up201506197, GRADE2: 20, CONTRIBUTION2: 25%
 * Veronica Fradique: up201506440, GRADE3:20, CONTRIBUTION3: 25%
-* Joao Santos: up201504013, GRADE4:, CONTRIBUTION4: 25%
+* Joao Santos: up201504013, GRADE4:20, CONTRIBUTION4: 25%
 
 ### GLOBAL Grade of the project: 18
 
