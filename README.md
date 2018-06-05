@@ -33,7 +33,7 @@ Our program identifies all the syntactic errors contained in the file, informing
 As regras implementadas pelo nosso programa para verificar a análise semântica 
 
 The goal of the semantic analysis in our tool is to verify if the programs are according to the definitions of the programming language, in our case yal.
-Our tool handles with errors like non initialization of variables, incompatible types of return, for example a function declarated like boolean which returns a integer, the return have to be initialized, operations of all types, like comparisons and sums have to be between two arguments with the same type, and also a call to a fucntion cannot be equal to a function it it does not have return or a return with the same type. 
+Our tool handles with errors like non initialization of variables, incompatible types of return, the return have to be initialized, operations of all types, like comparisons and sums have to be between two arguments with the same type, and also a call to a fucntion cannot be equal to a function it it does not have return or a return with the same type. 
 
 ## CODE GENERATION: 
 (when applicable, describe how the code generation of your tool works and identify the possible problems your tool has regarding code generation.)
