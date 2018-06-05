@@ -4,7 +4,7 @@
 
 * Francisca Cerquinho: up201505791, GRADE1: 20, CONTRIBUTION1:  25%
 * Mariana Silva: up201506197, GRADE2: 20, CONTRIBUTION2: 25%
-* Veronica Fradique: up201506440, GRADE3:, CONTRIBUTION3: 25%
+* Veronica Fradique: up201506440, GRADE3:20, CONTRIBUTION3: 25%
 * Joao Santos: up201504013, GRADE4:, CONTRIBUTION4: 25%
 
 ### GLOBAL Grade of the project: 18
@@ -30,8 +30,10 @@ Our program identifies all the syntactic errors contained in the file, informing
 
 ## SEMANTIC ANALYSIS: 
 (Refer the semantic rules implemented by your tool.)
-
 As regras implementadas pelo nosso programa para verificar a análise semântica 
+
+The goal of the semantic analysis in our tool is to verify if the programs are according to the definitions of the programming language, in our case yal.
+Our tool handles with errors like non initialization of variables, incompatible types of return and operations of all types.
 
 ## CODE GENERATION: 
 (when applicable, describe how the code generation of your tool works and identify the possible problems your tool has regarding code generation.)
