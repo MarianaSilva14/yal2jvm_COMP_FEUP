@@ -2,16 +2,14 @@
 
 ## GROUP44
 
-* Francisca Cerquinho: up201505791, AUTOAVALIAÇÃO: <0 to 20 value>, CONTRIBUTION: <0 to 100 %>
-* Mariana Silva: up201506197, AUTOAVALIAÇÃO: <0 to 20 value>, CONTRIBUTION: <0 to 100 %>
-* Veronica Fradique: up201506440, AUTOAVALIAÇÃO: <0 to 20 value>, CONTRIBUTION: <0 to 100 %>
-* Joao Santos: up201504013, AUTOAVALIAÇÃO: <0 to 20 value>, CONTRIBUTION: <0 to 100 %>
+* Francisca Cerquinho: up201505791, GRADE1: 20, CONTRIBUTION1:  25%
+* Mariana Silva: up201506197, GRADE2: 20, CONTRIBUTION2: 25%
+* Veronica Fradique: up201506440, GRADE3:, CONTRIBUTION3: 25%
+* Joao Santos: up201504013, GRADE4:, CONTRIBUTION4: 25%
 
-### GLOBAL Grade of the project: 18?????
+### GLOBAL Grade of the project: 18
 
 ## SUMMARY: 
-
-(Describe what your tool does and its main features.)
 
 Our application consists in the construction of a compiler for programs in the yal language .
 The compiler generate valid JVM (Java Virtual Machine) instructions to jasmin, a tool to generate Java bytecodes given assembly programs with JVM instructions.
@@ -27,31 +25,36 @@ Run in the command line:
 * java parserGrammar MyFirstYalExamples/< nameOfFile > or java parserGrammar MyFirstYalExamples_1/< nameOfFile >
 
 ## DEALING WITH SYNTACTIC ERRORS: 
-(Describe how the syntactic error recovery of your tool does work. Does it exit after the first error?)
+
+Our program identifies all the syntactic errors contained in the file, informing the user of the row and column where the error is. The program ends after all errors are reported.
 
 ## SEMANTIC ANALYSIS: 
 (Refer the semantic rules implemented by your tool.)
-
-## INTERMEDIATE REPRESENTATIONS (IRs): 
-(for example, when applicable, briefly describe the HLIR (high-level IR) and the LLIR (low-level IR) used, if your tool includes an LLIR with structure different from the HLIR)
-
-Penso que não temos que ter este campo, pq não temos nenhuma representação intermédia, que dizem??
+As regras implementadas pelo nosso programa para verificar a análise semântica 
 
 ## CODE GENERATION: 
-(when applicable, describe how the code generation of your tool works and identify the possible problems your tool has regarding code generation.)
+
+Our solution starts by identifying in the tree obtained from the parser all data from the file and saves into a string. Then it replaces the string containing all the code and generate the file.
+No optimizations were made for code generation.
 
 ## OVERVIEW: 
 (refer the approach used in your tool, the main algorithms, the third-party tools and/or packages, etc.)
+
+We defined the lexical grammar and the semantic rules, 
+Third-party tools and/or packages were not used for application development.
 
 ## TESTSUITE AND TEST INFRASTRUCTURE: 
 (Describe the content of your testsuite regarding the number of examples, the approach to automate the test, etc.)
 
 ## TASK DISTRIBUTION: 
-(Identify the set of tasks done by each member of the project.)
+
+All elements of the group worked evenly. Each of the elements participated in all phases of the project, in the syntactic analysis, semantics and code generation.
 
 ## PROS: 
-(Identify the most positive aspects of your tool)
 
+Our tool handles all sorts of syntactic errors, includes error treatment, recovery mechanisms and includes the required symbol table.
+Also, generate JVM code accepted by jasmin corresponding to the invocation of functions in yal, for arithmetic expressions, for conditional instructions (if and if-else), for loops and to deal with arrays.
 
 ## CONS: 
-(Identify the most negative aspects of your tool)
+
+No optimizations were made for code generation.
