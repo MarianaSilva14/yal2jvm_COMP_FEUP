@@ -23,7 +23,10 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
 
 	 /* Open File */
 	 InputStream stream=null;
-
+	 if(args.length < 1){
+		System.out.println("Number of arguments isn't valid! Please write a name of a file. ");
+		System.exit(0);
+	 }
 	 try{
 	   stream = new FileInputStream(args[0]);
 	 }
