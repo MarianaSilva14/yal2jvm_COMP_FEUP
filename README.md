@@ -48,6 +48,9 @@ Our tool handles with errors like non initialization of variables, incompatible 
 
 Our solution starts by identifying in the tree obtained from the parser all data from the file and saves into a string. Then it replaces the string containing all the code and generate the file.
 No optimizations were made for code generation.
+/////////////////////////////////////////////////////
+Our solution starts by identifying, in the tree obtained from de parser, all data from the file. During this proccess we prepare the instructions based on jasmin language to convert each statement of yal programs. This information goes to a string which will be used to generate the jasmin file.
+No optimizations were made for code generation.
 
 ## OVERVIEW: 
 (refer the approach used in your tool, the main algorithms, the third-party tools and/or packages, etc.)
