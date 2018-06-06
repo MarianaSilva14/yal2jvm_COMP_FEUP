@@ -16,10 +16,22 @@ The compiler generate valid JVM (Java Virtual Machine) instructions to jasmin, a
 
 ## EXECUTE: 
 
+#### For linux and macOS
+
 Run in the command line:
 
 * Located in the src folder of the project
 * make 
+* java parserGrammar testsuite/< nameOfFile > 
+
+#### For windows
+
+Run in the command line:
+
+* Located in the src folder of the project
+* jjtree parserGrammar.jjt
+* javacc parserGrammar.jj
+* javac *.java
 * java parserGrammar testsuite/< nameOfFile > 
 
 ## DEALING WITH SYNTACTIC ERRORS: 
