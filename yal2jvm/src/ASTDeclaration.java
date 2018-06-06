@@ -43,8 +43,6 @@ class ASTDeclaration extends SimpleNode {
   }
 
   public int analyse(SymbolsTable currentTable){
-    System.out.println("name" + name);
-    System.out.println("nameInteger" + nameInteger);
 
     return analyseContent(currentTable);
   }

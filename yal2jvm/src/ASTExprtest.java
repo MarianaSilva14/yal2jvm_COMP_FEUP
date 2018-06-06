@@ -30,8 +30,7 @@ class ASTExprtest extends SimpleNode {
 
   @Override
   public int analyse(SymbolsTable currentTable){
-    System.out.println("name" + name);
-    
+  
     return analyseContent(currentTable);
   }
 

@@ -61,15 +61,16 @@ class ASTTerm extends SimpleNode {
 	public int analyseRhs(SymbolsTable currentTable){
 		System.out.println("Analyse the right part of Term");
 
+    int b=0;
 		if(nameInteger == null){
 			for(int i=0; i < jjtGetNumChildren();i++){
-	      return jjtGetChild(i).analyseRhs(currentTable);
+	      b= jjtGetChild(i).analyseRhs(currentTable);
 	    }
 		}
 		else{
 			return 1;
 		}
-		return 0;
+		return b;
 
 	}
 

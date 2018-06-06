@@ -31,7 +31,7 @@ class ASTScalarElement extends SimpleNode {
   @Override
   public int analyse(SymbolsTable currentTable){
     System.out.println("Analyse ScalarElement");
-    System.out.println("name" + name);
+    
     currentTable.putOnHashMap(new Symbol("ScalarElement",name,true));
     return 0;
   }

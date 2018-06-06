@@ -34,7 +34,7 @@ public String toString() {
 
 @Override
 public int analyse(SymbolsTable currentTable){
-  System.out.println("name" + name);
+
   boolean isScalar = jjtGetChild(0).isScalar();
   if(currentTable.returnSymbol(name)!=null){
     System.out.println("Function already exists!");

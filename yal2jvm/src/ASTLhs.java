@@ -18,7 +18,7 @@ class ASTLhs extends SimpleNode {
 
     for(int i=0; i < jjtGetNumChildren();i++){
       if(jjtGetChild(i).analyse(symbolsTable)==-1)
-        return -1;
+        b= -1;
     }
 
     return b;

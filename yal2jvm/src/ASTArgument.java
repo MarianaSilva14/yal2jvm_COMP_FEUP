@@ -54,9 +54,6 @@ class ASTArgument extends SimpleNode {
 
 
   public int analyse(SymbolsTable currentTable){
-    System.out.println("name" + name);
-    System.out.println("string" + string);
-    System.out.println("integer" + integer);
 
     if(name != null && currentTable.returnSymbol(name) == null){
       System.out.println("Error, variable " + name + " does not exists!");

@@ -36,7 +36,7 @@ class ASTScalarAccess extends SimpleNode {
   }
 
   public int analyseRhs(SymbolsTable currentTable){
-    System.out.println("name" + name);
+    
     System.out.println("Analyse the right part of ScalarAccess");
 
     Symbol symbol = currentTable.returnSymbol(name);

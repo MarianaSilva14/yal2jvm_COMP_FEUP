@@ -45,9 +45,7 @@ class ASTCallStmt extends SimpleNode {
 
     @Override
     public int analyse(SymbolsTable currentTable){
-      System.out.println("Analyse CallStmt");
-      System.out.println("name" + name);
-      System.out.println("nameId2" + nameId2);
+      
       int b = analyseContent(currentTable);
       System.out.println("\n valor de retorno : \n"+b);
   		if(name != null && nameId2 != null)

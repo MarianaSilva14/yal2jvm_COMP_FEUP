@@ -33,12 +33,106 @@ Expected results:
 max:0
 min:0
 
-5.programa2.yal
+5.array3.yal
 
-Explanation:
+Explanation: 
+The main intention of choosing this file has to do with the fact that it deals with semantic errors.
 
 Expected results:
-first: 1
-last: 2
-first: 1
-last: 1
+
+//////////////////////////////
+/////// Semantic Tree ////////
+//////////////////////////////
+
+Analyse of Module
+Analyse children of Function
+Analyse the children of Varlist
+Analyse ScalarElement
+Analyse the right part of Stmtlst
+Analyse children of Stmt
+Analyse Rhs of Assign
+Analyse the right part of Rhs
+Analyse the right part of ArraySize
+Analyse Lhs of Assign
+Analyse the left part of Call
+Analyse the left part of ScalarAccess
+Analyse children of Stmt
+Analyse Rhs of Assign
+Analyse the right part of Rhs
+Analyse the right part of Term
+Analyse Lhs of Assign
+Analyse the left part of Call
+Analyse the left part of ScalarAccess
+Analyse children of Stmt
+Analyse the children of While
+Analyse children of Exprtest
+Analyse Rhs of Exprtest
+Analyse the right part of Rhs
+Analyse the right part of Term
+Analyse the right part of ScalarAccess
+Analyse Lhs of Exprtest
+Analyse the left part of Call
+Analyse the left part of ScalarAccess
+Analyse the right part of Stmtlst
+Analyse children of Stmt
+Analyse Rhs of Assign
+Analyse the right part of Rhs
+Analyse the right part of Term
+Analyse the right part of ScalarAccess
+Analyse Lhs of Assign
+Analyse the left part of Call
+Analyse children of Stmt
+Analyse Rhs of Assign
+Analyse the right part of Rhs
+Analyse the right part of Term
+Analyse the right part of ScalarAccess
+Analyse Lhs of Assign
+Analyse the left part of Call
+Analyse the left part of ScalarAccess
+Analyse children of Stmt
+Analyse Rhs of Assign
+Analyse the right part of Rhs
+Analyse the right part of Term
+Analyse Lhs of Assign
+Analyse the left part of Call
+Analyse the left part of ScalarAccess
+Analyse children of Stmt
+Analyse the children of While
+Analyse children of Exprtest
+Analyse Rhs of Exprtest
+Analyse the right part of Rhs
+Analyse the right part of Term
+Analyse the right part of ScalarAccess
+Analyse Lhs of Exprtest
+Analyse the left part of Call
+Analyse the left part of ScalarAccess
+Analyse the right part of Stmtlst
+Analyse children of Stmt
+Analyse Rhs of Assign
+Analyse the right part of Rhs
+Analyse the right part of Term
+Analyse the right part of ArrayAccess
+Analyse Index
+This value exists on Symbols Table
+This value's array doesn't exist on Symbols Table  <------
+Analyse Lhs of Assign
+Analyse the left part of Call
+Analyse the left part of ScalarAccess
+Analyse children of Stmt
+Analyse children of CallStmt
+Analyse children of ArgumentList
+Error, variable bi does not exists!  <---------
+Analyse children of Stmt
+Analyse Rhs of Assign
+Analyse the right part of Rhs
+Analyse the right part of Term
+Analyse the right part of ScalarAccess
+Analyse Lhs of Assign
+Analyse the left part of Call
+Analyse the left part of ScalarAccess
+Analyse children of Function
+Analyse the right part of Stmtlst
+Analyse children of Stmt
+Analyse children of CallStmt
+Analyse children of ArgumentList
+Errors on Semantic!  <----------

@@ -31,8 +31,7 @@ class ASTArrayElement extends SimpleNode {
 
     @Override
     public int analyse(SymbolsTable currentTable){
-      System.out.println("Analyse ArrayElement");
-      System.out.println("name" + name);
+  
       currentTable.putOnHashMap(new Symbol("ArrayElement",name,false));
       return 0;
     }

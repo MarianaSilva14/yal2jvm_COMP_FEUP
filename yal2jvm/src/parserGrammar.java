@@ -51,9 +51,9 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
         System.out.println("//////////////////////////////");
         System.out.println("");
     if(root.analyse(null)==-1) {
-                System.out.println("Errors on Semantic!\u005cn");
-                System.exit(0);
-        }
+                    System.out.println("Errors on Semantic!\u005cn");
+                    System.exit(0);
+           }
 
     System.out.println("");
         System.out.println("//////////////////////////////");

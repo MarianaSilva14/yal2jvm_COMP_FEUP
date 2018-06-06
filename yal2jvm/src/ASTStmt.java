@@ -10,6 +10,13 @@ class ASTStmt extends SimpleNode {
     super(p, id);
   }
 
+  
+
+  @Override
+  public int analyse(SymbolsTable currentTable){
+    return analyseContent(currentTable);
+  }
+  
   @Override
   public int analyseContent(SymbolsTable currentTable){
     System.out.println("Analyse children of Stmt");
