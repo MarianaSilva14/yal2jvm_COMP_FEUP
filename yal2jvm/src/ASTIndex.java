@@ -38,8 +38,12 @@ class ASTIndex extends SimpleNode {
 
       public int analyseContent(SymbolsTable currentTable){
         System.out.println("Analyse Index");
-
         if(currentTable.returnSymbol(name) != null){
+    			System.out.println("This value exists on Symbols Table");
+
+          return 1;
+    		}
+        else if(constant != null){
     			System.out.println("This value exists on Symbols Table");
 
           return 1;
