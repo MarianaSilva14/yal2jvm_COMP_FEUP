@@ -44,11 +44,7 @@ The goal of the semantic analysis in our tool is to verify if the programs are a
 Our tool handles with errors like non initialization of variables, incompatible types of return, the return have to be initialized, operations of all types, like comparisons and sums have to be between two arguments with the same type, and also a call to a fucntion cannot be equal to a function it it does not have return or a return with the same type. 
 
 ## CODE GENERATION: 
-(when applicable, describe how the code generation of your tool works and identify the possible problems your tool has regarding code generation.)
 
-Our solution starts by identifying in the tree obtained from the parser all data from the file and saves into a string. Then it replaces the string containing all the code and generate the file.
-No optimizations were made for code generation.
-/////////////////////////////////////////////////////
 Our solution starts by identifying, in the tree obtained from de parser, all data from the file. During this proccess we prepare the instructions based on jasmin language to convert each statement of yal programs. This information goes to a string which will be used to generate the jasmin file.
 No optimizations were made for code generation.
 
