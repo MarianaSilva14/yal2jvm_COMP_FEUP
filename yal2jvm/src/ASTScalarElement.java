@@ -30,6 +30,8 @@ class ASTScalarElement extends SimpleNode {
 
   @Override
   public int analyse(SymbolsTable currentTable){
+    System.out.println("Analyse ScalarElement");
+    System.out.println("name" + name);
     currentTable.putOnHashMap(new Symbol("ScalarElement",name,true));
     return 0;
   }
@@ -37,13 +39,13 @@ class ASTScalarElement extends SimpleNode {
   public String convertToByteCodes(MapVariables data){
     String line = "";
 
-    if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTVARLIST) 
+    if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTVARLIST)
       data.putOnHashMap(name);
     else if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTDECLARATION){
       line = ".field static " + name + " I\n";
       data.putOnGlobalVariables(new Symbol("GlobalScalar", name, true));
     }
-     
+
     return line;
   }
 }

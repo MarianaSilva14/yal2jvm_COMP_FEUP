@@ -43,6 +43,8 @@ class ASTCall extends SimpleNode {
 
   @Override
   public int analyse(SymbolsTable currentTable){
+    System.out.println("name" + name);
+    System.out.println("nameId2" + nameId2);
     if(name != null && nameId2 != null)
       return 0;
 
@@ -116,7 +118,7 @@ class ASTCall extends SimpleNode {
       call += ")";
 
     }
-    if(addedReturn) 
+    if(addedReturn)
       return line += call + "\n\n";
     Node node=this;
     boolean value= false;
@@ -146,8 +148,8 @@ class ASTCall extends SimpleNode {
 
         }
 
-      }  
-        
+      }
+
     }
     call += returnString;
     line += call;

@@ -47,7 +47,7 @@ public class parserGrammar
   	System.out.println("//////////////////////////////");
   	System.out.println("");
 	root.dump("");
-	
+
 	if(NumberErrors!=0){
 	 System.out.println("Errors on Grammar of file!\n");
 	 System.exit(0);
@@ -59,9 +59,9 @@ public class parserGrammar
   	System.out.println("//////////////////////////////");
   	System.out.println("");
     if(root.analyse(null)==-1) {
-		System.out.println("Errors on Semantic!\n");
-		System.exit(0);
-	}
+		    System.out.println("Errors on Semantic!\n");
+		    System.exit(0);
+	   }
 
     System.out.println("");
   	System.out.println("//////////////////////////////");

@@ -23,6 +23,10 @@ class ASTStmtlst extends SimpleNode {
     return b;
   }
 
+  public int analyse(SymbolsTable currentTable){
+    return analyseContent(currentTable);
+  }
+
   public String convertToByteCodes(MapVariables data){
     String line = "";
 

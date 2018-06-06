@@ -54,6 +54,10 @@ class ASTArgument extends SimpleNode {
 
 
   public int analyse(SymbolsTable currentTable){
+    System.out.println("name" + name);
+    System.out.println("string" + string);
+    System.out.println("integer" + integer);
+
     if(name != null && currentTable.returnSymbol(name) == null){
       System.out.println("Error, variable " + name + " does not exists!");
       return -1;
@@ -68,7 +72,6 @@ class ASTArgument extends SimpleNode {
 
     return 0;
   }
-
 
   public String convertToByteCodes(MapVariables mapVariables){
     String line = "";
@@ -99,7 +102,7 @@ class ASTArgument extends SimpleNode {
           node = node.jjtGetParent();
         }
         String module = ((ASTModule)node).getName();
-        if(mapVariables.getGlobalVariableIsScalar(name)) 
+        if(mapVariables.getGlobalVariableIsScalar(name))
           line += "getstatic " + module + "/" + name + " I\n";
         else {
           line += "getstatic " + module + "/" + name + " [I\n";
@@ -124,7 +127,6 @@ class ASTArgument extends SimpleNode {
   }
 
   public String checkArgumentsType(){
-
     if(name != null && isScalar) {
       return "I";
     }

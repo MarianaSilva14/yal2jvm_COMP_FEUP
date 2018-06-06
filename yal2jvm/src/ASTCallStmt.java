@@ -45,11 +45,16 @@ class ASTCallStmt extends SimpleNode {
 
     @Override
     public int analyse(SymbolsTable currentTable){
+      System.out.println("Analyse CallStmt");
+      System.out.println("name" + name);
+      System.out.println("nameId2" + nameId2);
+      int b = analyseContent(currentTable);
+      System.out.println("\n valor de retorno : \n"+b);
   		if(name != null && nameId2 != null)
   			return 0;
 
       if(currentTable.returnSymbol(name) != null){
-        int b = analyseContent(currentTable);
+        b = analyseContent(currentTable);
 
   			System.out.println("This function exists: CallStmt");
         return b;
@@ -97,7 +102,7 @@ class ASTCallStmt extends SimpleNode {
           call += jjtGetChild(i).checkArgumentsType();
         }
         call += ")";
-     
+
       }
       Node node=this;
       boolean value= false;
@@ -122,8 +127,8 @@ class ASTCallStmt extends SimpleNode {
           else
             call+="[I";
 
-        }  
-          
+        }
+
       }
       line += call;
       line += "\n\n";

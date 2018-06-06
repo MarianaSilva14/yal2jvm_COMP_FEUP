@@ -30,6 +30,14 @@ class ASTArrayAccess extends SimpleNode {
 
   @Override
   public int analyse(SymbolsTable currentTable){
+    System.out.println("Analyse ArrayAccess");
+    System.out.println("name" + name);
+    int b = 0;
+
+    for(int i = 0; i < jjtGetNumChildren(); i++){
+      if(jjtGetChild(i).analyseContent(currentTable)==-1)
+        b=-1;
+    }
 
     if(currentTable.returnSymbol(name) != null){
 			System.out.println("This value's array exists on Symbols Table");
@@ -38,8 +46,8 @@ class ASTArrayAccess extends SimpleNode {
 		}
 
     System.out.println("This value's array doesn't exist on Symbols Table");
-    return -1;
 
+    return b;
   }
 
 	public int analyseRhs(SymbolsTable currentTable){
@@ -76,7 +84,7 @@ class ASTArrayAccess extends SimpleNode {
 
 		if(this.jjtGetParent().getId() != parserGrammarTreeConstants.JJTLHS)
 			line += "iaload"  + "\n";
-		
+
 		return line;
   }
 

@@ -31,6 +31,8 @@ class ASTArrayElement extends SimpleNode {
 
     @Override
     public int analyse(SymbolsTable currentTable){
+      System.out.println("Analyse ArrayElement");
+      System.out.println("name" + name);
       currentTable.putOnHashMap(new Symbol("ArrayElement",name,false));
       return 0;
     }
@@ -41,9 +43,9 @@ class ASTArrayElement extends SimpleNode {
         data.putOnHashMap(name);
       else if(jjtGetParent().getId() == parserGrammarTreeConstants.JJTDECLARATION) {
         line = ".field static " + name + " [I\n";
-        data.putOnGlobalVariables(new Symbol("GlobalArray", name, false)); 
+        data.putOnGlobalVariables(new Symbol("GlobalArray", name, false));
       }
-       
+
       return line;
     }
 }

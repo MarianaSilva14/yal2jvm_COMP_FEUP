@@ -1,0 +1,44 @@
+Examples:
+
+1.array1.yal
+
+Explanation:
+The main intention of choosing this file has to do with the fact that it deals with invocation of functions, arithmetic expressions, arrays and loops.
+
+Expected results: 
+a: 0a: 1a: 2a: 3a: 4a: 5a: 6a: 7a: 8a: 9
+
+2.aval6.yal
+
+Explanation:
+The main intention of choosing this file has to do with the fact that it deals with loops, conditional instructions (if and if-else), or's, and's, left shift and right shift operators
+
+Expected results: 
+4
+
+3.aval8.yal
+
+Explanation: 
+The main intention of choosing this file has to do with the fact that it deals with negative numbers.
+
+Expected results:
+a1-8 (if inputs are: 1 2)
+
+4.programa1.yal
+
+Explanation:
+The main intention of choosing this file has to do with the fact that it deals with global variables.
+
+Expected results: 
+max:0
+min:0
+
+5.programa2.yal
+
+Explanation:
+
+Expected results:
+first: 1
+last: 2
+first: 1
+last: 1
