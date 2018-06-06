@@ -49,9 +49,7 @@ Our solution starts by identifying, in the tree obtained from de parser, all dat
 No optimizations were made for code generation.
 
 ## OVERVIEW: 
-(refer the approach used in your tool, the main algorithms, the third-party tools and/or packages, etc.)
 
-We defined the lexical grammar and the semantic rules, 
 Third-party tools and/or packages were not used for application development.
 
 ## TESTSUITE AND TEST INFRASTRUCTURE: 
