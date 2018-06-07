@@ -86,14 +86,22 @@ class ASTTerm extends SimpleNode {
       if(name != null && name.equals("-")){
         if(nameInteger.equals("1"))
           line +="iconst_m" + nameInteger + "\n";
-        else
+        else if(Integer.parseInt(nameInteger) < 128)
           line +="bipush " + name + nameInteger + "\n";
+        else if(Integer.parseInt(nameInteger) < 32768)
+          line +="sipush " + name + nameInteger + "\n";
+        else
+          line +="ldc " + name + nameInteger + "\n";
       }
       else{
         if(Integer.parseInt(nameInteger)<=5)
           line +="iconst_" + nameInteger + "\n";
-        else
+        else if(Integer.parseInt(nameInteger) < 128)
           line +="bipush " + nameInteger + "\n";
+        else if(Integer.parseInt(nameInteger) < 32768)
+          line +="sipush " + nameInteger + "\n";
+        else
+          line +="ldc " + nameInteger + "\n";
       }
     }
     else if (name != null) {

@@ -31,7 +31,7 @@ public class parserGrammar/*@bgen(jjtree)*/implements parserGrammarTreeConstants
 	   stream = new FileInputStream(args[0]);
 	 }
 	 catch(FileNotFoundException e){
-	   System.out.println("usage: java Yal2jvm"+ args[0]);
+	   System.out.println("usage: java parserGrammar"+ args[0]);
 	   System.exit(0);
 	 }
 
