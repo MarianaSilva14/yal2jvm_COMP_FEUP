@@ -54,15 +54,7 @@ Third-party tools and/or packages were not used for application development.
 
 The testsuite folder has 19 test files and to test them you should go to execute topic.
 
-## TASK DISTRIBUTION: 
-
-All elements of the group worked evenly. Each of the elements participated in all phases of the project, in the syntactic analysis, semantics and code generation.
-
 ## PROS: 
 
 Our tool handles all sorts of syntactic errors, includes error treatment, recovery mechanisms and includes the required symbol table.
 Also, generate JVM code accepted by jasmin corresponding to the invocation of functions in yal, for arithmetic expressions, for conditional instructions (if and if-else), for loops and to deal with arrays.
-
-## CONS: 
-
-No optimizations were made for code generation.
